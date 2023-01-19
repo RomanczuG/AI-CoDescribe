@@ -1,0 +1,40 @@
+import React from 'react'
+import styles from './style';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+// import { useEffect } from "react";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
+
+
+
+const App = () => {
+  return (
+    <div className='w-full overflow-hidden'>
+      <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+        <div className={`${styles.boxWidth}`}>
+          <Navbar/>
+        </div>
+      </div>
+
+      <div className={` ${styles.flexCenter}`}>
+        <div className={`${styles.boxWidth}`}>
+          <Hero/>
+        </div>
+      </div>
+      <div className={` ${styles.paddingX} ${styles.flexCenter}`}>
+        <div className={`${styles.boxWidth}`}>
+          {/* Stats
+          Bussines
+          etc. */}
+        </div>
+      </div>
+
+    </div>
+  )
+}
+
+export default App
