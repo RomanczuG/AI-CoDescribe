@@ -5,6 +5,7 @@ import Highlight from "react-highlight";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Typewriter from "typewriter-effect";
+import { Link } from 'react-router-dom';
 
 const content = `#Example Code
 def fit_and_predict(X, y):
@@ -58,9 +59,8 @@ const Hero = () => {
           <div className="font-medium text-7xl text-center leading-[50px] text-[#3E3E3E]">
             <Typewriter
               onInit={(typewriter) => {
-                
                 typewriter
-                  
+
                   .typeString("AI Docstrings")
                   .pauseFor(1500)
                   .deleteChars(10)
@@ -72,15 +72,17 @@ const Hero = () => {
               }}
             />
           </div>
-          <div className="font-poppins font-normal text-xl leading-[33px] mt-20 text-[#3E3E3E] text-center w-[723px] h-[99px] tracking-wider">
+          <div className="flex justify-center font-poppins font-normal text-xl leading-[33px] mt-20 text-[#3E3E3E] text-center h-[99px] tracking-wider">
+            <p className="w-3/4">
             Our AI coding tool generates docstrings/comments for various
             programming languages to help you document and organize your code.
             Simply paste the docstring/comment into your code.
+            </p>
           </div>
         </div>
 
         <div className="font-poppins text-white  py-6 px-20 z-10">
-          <a href="https://old.codescribe.app">
+          <Link to="/app">
             <button className="cursor-pointer font-semibold h-[70px] w-[229px] relative overflow-hidden rounded-lg bg-black  ring-red-500/50 ring-offset-black will-change-transform">
               <span class="absolute inset-0.5 z-10 grid place-items-center rounded-lg bg-black bg-gradient-to-t from-neutral-800 ">
                 Get Started
@@ -90,7 +92,7 @@ const Hero = () => {
                 class="absolute inset-0 z-5 scale-x-[2.0] blur before:absolute before:inset-0 before:top-1/2 before:aspect-square before:animate-disco before:bg-gradient-conic before:from-purple-700 before:via-red-500 before:to-amber-400"
               />
             </button>
-          </a>
+          </Link>
           <a href="#modal" target="_self">
             <button className="cursor-pointer font-semibold ml-10 h-[70px] w-[229px] relative overflow-hidden rounded-lg bg-black px-20 py-6 ring-red-500/50 ring-offset-black will-change-transform">
               <span class="absolute inset-0.5 z-10 grid place-items-center rounded-lg bg-black bg-gradient-to-t from-neutral-800 ">
@@ -123,16 +125,14 @@ const Hero = () => {
             <div className="px-1 py-1 text-[13px] bg-white w-[538px] h-[250px] rounded-[10px]">
               <Highlight language="python">{content}</Highlight>
             </div>
-            <a
-              href="#modal"
-              target="_self"
+            <Link to="/app"
               class="mt-5 inline-flex w-full justify-center rounded-md border border-transparent bg-purple-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2  sm:w-auto sm:text-sm"
             >
               <div className="flex flex-row items-center justify-between">
                 <img src={generate} className="mr-2 w-[15px] h-[15px]" />
                 <div className="font-[10px]">Generate your own for free</div>
               </div>
-            </a>
+              </Link>
           </div>
           <div className="m-2 font-poppins p-[22px] bg-black w-[582px] h-[468px] rounded-[18px]">
             <div className=" flex flex-row">
@@ -213,11 +213,12 @@ const Hero = () => {
             >
               <span class="sr-only">Close Modal</span>
             </a>
-
-            <div class="relative scale-90 transform overflow-hidden rounded-lg bg-white text-left opacity-0 shadow-xl transition-all duration-300 group-target:scale-100 group-target:opacity-100 my-8 w-full max-w-screen-md">
-              <div class="bg-white px-4 pt-5 p-6 pb-4">
+            
+            <div class="relative z-10 scale-90 transform overflow-hidden rounded-[18px] bg-white text-left opacity-0 shadow-xl transition-all duration-300 group-target:scale-100 group-target:opacity-100 my-8 w-full max-w-screen-md">
+            
+              <div class="bg-white px-4 p-6 pb-4">
                 <div class="flex items-start">
-                  <div class="mt-3 ml-4 text-left">
+                  <div class="m-5 text-left">
                     <div className=" flex flex-row">
                       <div className="mr-[8px] bg-red-600 w-[14px] h-[14px] rounded-full"></div>
                       <div className="mr-[8px] bg-yellow-500 w-[14px] h-[14px] rounded-full"></div>
@@ -236,19 +237,20 @@ const Hero = () => {
                         personal projects with AI-generated descriptions.
                       </p>
                     </div>
-                    <img src={example} className="mt-2 pr-4 max-fit " />
+                    
+                      <img src={example} className=" max-fit " />
+                  
+                    
                   </div>
                 </div>
               </div>
 
               <div class="font-poppins bg-gray-50 flex flex-row px-6 py-6">
-                <a
-                  href="https://old.codescribe.app"
-                  target="_self"
+              <Link to="/app"
                   class="inline-flex w-full justify-center rounded-md border border-transparent bg-purple-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                 >
                   Get Started for Free
-                </a>
+                </Link>
                 <a
                   href="#"
                   target="_self"
@@ -257,7 +259,13 @@ const Hero = () => {
                   Go Back
                 </a>
               </div>
+              
             </div>
+            {/* <span
+                aria-hidden
+                class="absolute inset-0 z-0 scale-x-[2.0] blur before:absolute before:inset-0 before:top-1/2 before:aspect-square before:animate-disco before:bg-gradient-conic before:from-purple-700 before:via-red-500 before:to-amber-400"
+              /> */}
+            
           </div>
         </div>
       </div>

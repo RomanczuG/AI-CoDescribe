@@ -4,7 +4,6 @@ import binance from "./binance.png";
 import card from "./card.png";
 import coinbase from "./coinbase.png";
 import dropbox from "./dropbox.png";
-import logo from "./logo.svg";
 import quotes from "./quotes.svg";
 import robot from "./robot.png";
 import send from "./Send.svg";
@@ -27,6 +26,8 @@ import generate from "./generate.png";
 import see_example from "./see_example.png";
 import right_arrow from "./right_arrow.png";
 import example from "./example.png";
+import logo from "./logo.png";
+import profile from "./profile.jpg";
 
 export {
   airbnb,
@@ -58,4 +59,5 @@ export {
   see_example,
   right_arrow,
   example,
+  profile,
 };
