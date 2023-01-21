@@ -7,9 +7,11 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { BrowserRouter } from 'react-router-dom';
 
 const LandingPage = () => {
     return (
+        <BrowserRouter>
         <div className='w-full overflow-hidden'>
           <div className={`${styles.paddingX} ${styles.flexCenter}`}>
             <div className={`${styles.boxWidth}`}>
@@ -31,6 +33,7 @@ const LandingPage = () => {
           </div>
     
         </div>
+        </BrowserRouter>
       )
 }
 
