@@ -13,6 +13,7 @@ import {
   PencilSquareIcon,
   ChatBubbleBottomCenterIcon,
   LanguageIcon,
+  ArrowTrendingUpIcon
 } from "@heroicons/react/24/outline";
 import { Menu, Transition, Popover } from "@headlessui/react";
 import { logo, profile } from "../assets";
@@ -60,6 +61,11 @@ const SideBar = () => {
         <CustomLink to="/app/translate">
             <LanguageIcon className="w-6 mr-3" />
             <p>Translate Code</p>
+        </CustomLink>
+
+        <CustomLink to="/app/optimize">
+            <ArrowTrendingUpIcon className="w-6 mr-3" />
+            <p>Optimize Code</p>
         </CustomLink>
       </div>
       <div className="mb-10">

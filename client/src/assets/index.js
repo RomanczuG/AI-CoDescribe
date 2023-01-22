@@ -28,6 +28,9 @@ import right_arrow from "./right_arrow.png";
 import example from "./example.png";
 import logo from "./logo.png";
 import profile from "./profile.jpg";
+import early_bird from "./early_bird.png";
+import night_owl from "./night_owl.png";
+import day_eagle from "./day_eagle.png";
 
 export {
   airbnb,
@@ -60,4 +63,7 @@ export {
   right_arrow,
   example,
   profile,
+  early_bird,
+  night_owl,
+  day_eagle,
 };
