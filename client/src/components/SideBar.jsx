@@ -39,8 +39,8 @@ const SideBar = () => {
         <div class="w-full my-4 px-3">
           <div class="h-px bg-gray-100"></div>
         </div>
-        <div className="mt-20 px-5">
-          <h2 className="font-medium text-2xl">AI Tools</h2>
+        <div className="mt-10 px-5">
+          <h2 className="font-medium text-xl">AI Tools</h2>
         </div>
         
         <CustomLink to="/app">
@@ -73,10 +73,10 @@ const SideBar = () => {
             <div class="h-px bg-gray-100"></div>
             </div>
         <div className="px-5 justify-end text-gray-200">
-            <div className="font-medium text-xl">Support</div>
-            <div className="font-medium text-md">Submit feature request</div>
-            <div className="font-medium text-md">Check twitter</div>
-            <div className="font-medium text-md">Support the author</div>
+            <div className="font-medium text-base">Support</div>
+            <div className="font-medium text-sm">Submit feature request</div>
+            <div className="font-medium text-sm">Check twitter</div>
+            <div className="font-medium text-sm">Support the author</div>
 
 
             </div>
@@ -92,7 +92,7 @@ function CustomLink({ to, children }) {
   const match = useMatch({ path: resolvedPath.pathname, end: true });
   return (
     
-    <div className={`text-lg mt-2 px-5 py-4 hover:bg-purple-900 rounded-md ${
+    <div className={`text-base mt-2 px-5 py-4 hover:bg-purple-900 rounded-md ${
         match ? "bg-purple-900" : ""
       }`}>
           <Link to={to} className="flex justify-start items-center">

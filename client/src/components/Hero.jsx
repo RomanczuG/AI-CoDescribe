@@ -6,6 +6,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Typewriter from "typewriter-effect";
 import { Link } from "react-router-dom";
+import {
+  PencilSquareIcon,
+  ChatBubbleBottomCenterIcon,
+  LanguageIcon,
+  ArrowTrendingUpIcon,
+  ChatBubbleLeftEllipsisIcon,
+  WrenchScrewdriverIcon,
+
+} from "@heroicons/react/24/outline";
 
 const content = `#Example Code
 def fit_and_predict(X, y):
@@ -42,16 +51,25 @@ const Hero = () => {
       <div
         className={`flex-1 ${styles.flexStart} flex-col x1:px-0 sm:px16 px-6 flex flex-row justify-between items-center z-10`}
       >
-        <div className="py-4 px-5 text-center items-center">
+        <div className="py-4 px-5 text-center items-center ">
           <div className="font-extrabold text-7xl leading-[97px] text-transparent bg-clip-text bg-gradient-to-r from-[#FF3BFF] via-[#DEACAC] to-[#5C24FF]">
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
-
-                  .typeString("Transform your code!")
-                  .pauseFor(4800)
+                  
+                  .typeString("Translate")
+                  .pauseFor(1000)
                   .deleteAll()
-                  .typeString("Code with passion")
+                  .typeString("Optimize")
+                  .pauseFor(1000)
+                  .deleteAll()
+                  .typeString("Document")
+                  .pauseFor(1000)
+                  .deleteAll()
+                  .typeString("Explain")
+                  .pauseFor(1000)
+                  .deleteAll()
+                  .typeString("Transform your code!")
                   .start();
               }}
             />
@@ -60,23 +78,20 @@ const Hero = () => {
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
-
-                  .typeString("AI Docstrings")
-                  .pauseFor(1500)
-                  .deleteChars(10)
-                  .typeString("Documentation")
-                  .pauseFor(1500)
-                  .deleteAll()
-                  .typeString("Document with purpose")
-                  .start();
+                .typeString("your code with AI")
+                .pauseFor(9500)
+                .deleteAll()
+                .typeString("With AI")
+                .start();
               }}
             />
           </div>
+
           <div className="flex justify-center font-poppins font-normal text-xl leading-[33px] mt-20 text-[#3E3E3E] text-center h-[99px] tracking-wider">
             <p className="w-3/4">
-              Our AI coding tool generates docstrings/comments for various
-              programming languages to help you document and organize your code.
-              Simply paste the docstring/comment into your code.
+              Our AI dev tools facilitates the process of writing code by providing to document, explain, optimize, and translate your code.
+              No matter if you are using Python, Java, or C++, we have you covered. Make your personal & team project more efficient with our AI dev tools.
+            
             </p>
           </div>
         </div>

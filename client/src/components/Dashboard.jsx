@@ -12,6 +12,7 @@ import {
 const Layout = () => {
   return (
     <>
+    <div className="max-w-screen-xl flex flex-col">
       <div className="drop-shadow-lg font-poppins p-8 m-10 rounded-xl items-center bg-gray-100 text-black">
         <div className="flex justify-between">
           <div>
@@ -24,15 +25,15 @@ const Layout = () => {
         </div>
       </div>
 
-      <div className="drop-shadow-lg font-poppins p-8 m-10 rounded-xl items-center bg-gray-100 text-black">
+      <div className="drop-shadow-lg font-poppins p-8 mx-10 rounded-xl items-center bg-gray-100 text-black">
         <Dots />
-        <div className="mt-4 font-semibold text-4xl">
+        <div className="mt-4 font-semibold text-3xl">
           Everything starts here.
         </div>
-        <div className="mt-3 mb-12 font-medium text-4xl">
+        <div className="mt-3 mb-6 font-medium text-xl">
           What do you want to do today? Here is the list of the tools you can use. Click on the tool to get started.
         </div>
-        <div className="grid grid-cols-3 gap-5 ">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ">
 
           <CardTool title={"Docstring"} description={"Generate AI docstrings for your code. Make it easier for you and others to understand your code."}>
           <PencilSquareIcon className="text-white m-5" />
@@ -62,6 +63,7 @@ const Layout = () => {
             
 
         </div>
+      </div>
       </div>
     </>
   );
@@ -93,7 +95,7 @@ function TimeWindow() {
         </div>
         <div className="text-xl font-bold text-gray-900 sm:text-3xl">
           {" "}
-          Member since 2022
+          Mateusz Romaniuk
         </div>
       </div>
     </div>
@@ -109,7 +111,7 @@ function CardTool({ title, description, children}) {
               </div>
             <div className="relative z-0 -translate-y-9 text-center rounded-[20px] bg-white p-6 drop-shadow-lg">
               <div className="font-medium mt-7 text-purple-900 text-2xl">{title} </div>
-              <div className="mt-3 font-medium text-xl">
+              <div className="mt-3 font-medium text-base">
                 {description}
               </div>
             </div>

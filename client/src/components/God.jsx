@@ -7,7 +7,9 @@ const God = () => {
         case '/':
             Component = LandingPage
             break;
+        // Case for /app and /app/*
         case '/app':
+        case '/app/docstring':
             Component = App
             break;
         default:
