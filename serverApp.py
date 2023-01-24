@@ -5,6 +5,7 @@ import openai
 import os
 import textwrap
 from server.utils import prompts
+from server.utils import explain
 from slack_sdk import WebClient
 from dotenv import load_dotenv, find_dotenv
 
@@ -26,41 +27,76 @@ def fetch_gen_docstring():
         "docstring": request.json['docstring']
     }
     print(response)
+    response["docstring"] = gen_docstring(response["language"], response["code"])
+    return jsonify(response)
+
+@app.route('/gen_explanation', methods=['POST'])
+def fetch_gen_explanation():
+    response = {
+        "code": request.json['code'],
+        "language": request.json['language'],
+        "explanation": request.json['explanation']
+    }
+    print(response)
+    response["explanation"] = gen_explanation(response["code"])
     return jsonify(response)
 
 
-if __name__ == "__main__":
-
-    app.run(debug=True)
-
-
-def gen_docstring():
+def gen_explanation(code):
     result = ""
-    function = ""
-    language = ""
     prompt = ""
     clipboard = ""
     if request.method == 'POST':
-        print("--------------------")
-        print('POST request received')
-        print(request.form)
-        print("--------------------")
-        print(request.form.get('option') )
+
+        openai.api_key = "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"
 
 
-        openai.api_key = OPENAI_API_KEY
-        function = request.form['function']
-        language = request.form.get('language')
+        prompt = explain.generate_prompt_explain(code)
 
+        response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
+        result = response.choices[0].text
+
+        # Remove Header: from the result
+        result = result.replace("Description:", "")
+        result = result.replace("Suggested Header:", "")
+
+        # if(language == "Python"):
+        #     result = result.splitlines()
+        # else:
+        result = result.split('\n')
+
+        while result[0] == "":
+            result.pop(0)
+
+        # # print("Result2:")
+        # result[0] = textwrap.fill(result[0], 80)
+        # print(result)
+        # if language == "Python":
+        #     clipboard = "\"\"\"\n" + '\n'.join(result) + "\n\"\"\""
+        # else:
+        clipboard = '\n'.join(result)
+
+        print("Clipboard:")
+        print(clipboard)
+
+    return clipboard
+
+def gen_docstring(language, code):
+    result = ""
+    prompt = ""
+    clipboard = ""
+    if request.method == 'POST':
+
+        openai.api_key = "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"
 
         if language == "Python":
-            prompt = prompts.generate_prompt_python(function)
-        elif language == "C":
-            prompt = prompts.generate_prompt_c(function)
-        elif language == "JS":
-            prompt = prompts.generate_prompt_js(function)
+            prompt = prompts.generate_prompt_python(code)
+        elif language == "C++/C":
+            prompt = prompts.generate_prompt_c(code)
+        elif language == "JavaScript":
+            prompt = prompts.generate_prompt_js(code)
         elif language == "Swift":
-            prompt = prompts.generate_prompt_swift(function)
+            prompt = prompts.generate_prompt_swift(code)
 
         response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
         result = response.choices[0].text
@@ -77,9 +113,9 @@ def gen_docstring():
         while result[0] == "":
             result.pop(0)
 
-        print("Result2:")
+        # print("Result2:")
         result[0] = textwrap.fill(result[0], 80)
-        print(result)
+        # print(result)
         if language == "Python":
             clipboard = "\"\"\"\n" + '\n'.join(result) + "\n\"\"\""
         else:
@@ -88,4 +124,38 @@ def gen_docstring():
         print("Clipboard:")
         print(clipboard)
 
-        send_message(channel_id, language, clipboard, function)
+    return clipboard
+
+
+if __name__ == "__main__":
+
+    app.run(debug=True)
+
+
+def fit_and_predict(X, y):
+    # Fit the model to the data
+    model = LinearRegression()
+    model.fit(X, y)
+
+    # Predict on a new dataset
+    X_new = np.array([[0.5], [1.0], [1.5], [2.0]])
+    y_pred = model.predict(X_new)
+
+    return y_pred
+
+    """
+Use ``fit_and_predict(X, y)`` to fit a linear regression model to the data and
+predict on a new dataset.
+
+Parameters
+----------
+X : array-like
+    The independent variable(s) used to fit the model.
+y : array-like
+    The dependent variable used to fit the model.
+
+Returns
+----------
+y_pred : array-like
+    The predicted values from the model.
+"""

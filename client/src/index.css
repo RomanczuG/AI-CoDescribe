@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.display-linebreak {
+  white-space: pre-line;
+}
+
 :root {
   --black-gradient: linear-gradient(
     144.39deg,

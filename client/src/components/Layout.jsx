@@ -4,6 +4,7 @@ import Dashboard from "./Dashboard";
 import Docstring from "./Docstring";
 import {Route, Routes } from 'react-router-dom';
 import NotFound from "./NotFound";
+import Explain from "./Explain";
 
 const Layout = () => {
 
@@ -16,7 +17,8 @@ const Layout = () => {
                 <Routes>
                     <Route path="/app" element={<Dashboard/>}/>
                     <Route path="/app/docstring" element={<Docstring/>}/>    
-                    
+                    <Route path="*" element={<NotFound/>}/>
+                    <Route path="/app/explain" element={<Explain/>}/>
                 </Routes>
 
             </main>
