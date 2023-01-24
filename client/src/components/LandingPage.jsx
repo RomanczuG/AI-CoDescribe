@@ -8,6 +8,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { BrowserRouter } from 'react-router-dom';
+import Tools from './Tools';
 
 const LandingPage = () => {
     return (
@@ -24,11 +25,14 @@ const LandingPage = () => {
               <Hero/>
             </div>
           </div>
-          <div className={` ${styles.paddingX} ${styles.flexCenter}`}>
+          <div className={`  ${styles.paddingX} ${styles.flexCenter}`}>
+          {/* <div className={` ${styles.flexCenter}`}> */}
             <div className={`${styles.boxWidth}`}>
               {/* Stats
               Bussines
               etc. */}
+              <Tools/>
+
             </div>
           </div>
     

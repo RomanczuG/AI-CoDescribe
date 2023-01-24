@@ -76,7 +76,7 @@ const Explain
                 onClick={generateExplanation}
                 className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white rounded-lg p-4"
               >
-                Generate Description
+                Generate Explanation
               </button>
               </div>  
             </div>
@@ -85,7 +85,7 @@ const Explain
           <div className="flex flex-col drop-shadow-lg font-poppins p-8 lg:mr-10 rounded-xl bg-gray-100 text-black">
             <div className="font-medium grow">
               <Dots />
-              <div className="mt-6 text-3xl">Generated Description</div>
+              <div className="mt-6 text-3xl">Generated Explanation</div>
               <div className="mt-2 text-sm">
                 Copy the generated description and understand the code better.
               </div>
@@ -129,7 +129,7 @@ const Explain
                     navigator.clipboard.writeText(explanation);
                   }}
                 >
-                  Copy Description
+                  Copy Explanation
                 </button>
                 {generated ? (
                   <div className="absolute top-0 right-0 z-10 mt-6 ">

@@ -2,10 +2,10 @@
 ####################### Makefile Template ##############################
 ########################################################################
 
-runServer: $(APPNAME)
+rS: $(APPNAME)
 	python3 serverApp.py
 
-runClient: $(APPNAME)
+rC: $(APPNAME)
 	cd client && npm run dev
 
 push:
