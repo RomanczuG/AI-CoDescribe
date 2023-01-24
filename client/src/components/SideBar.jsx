@@ -22,16 +22,20 @@ import { Link, useResolvedPath, useMatch } from "react-router-dom";
 const SideBar = () => {
   return (
     <div className="flex flex-col font-poppins w-64 h-screen bg-gray-900 rounded-md">
-      <div className="px-6 pt-8">
-        <div className=" flex items-center justify-start">
-          <img src={profile} alt="logo" className="w-12 rounded-full" />
-          <div className="m-3 text-gray-200 font-xs flex flex-col">
-            <div>Mateusz Romaniuk</div>
+      <div className="px-2 pt-8">
+        
+          {/* <img src={profile} alt="logo" className="w-12 rounded-full" /> */}
+          <div className="m-3 font-medium text-gray-200 text-2xl">
+            <span className="text-purple-400" >Code</span><span>scribe.App</span>
           </div>
-        </div>
+          
+        
       </div>
       <div className="grow px-2 text-white">
-        <div className="mt-6 px-5">
+      <div class="w-full my-4 px-3">
+          <div class="h-px bg-gray-100"></div>
+        </div>
+        <div className="mt-4 px-5">
           <h2 className="font-medium text-2xl">
             Perfect day to code a little.
           </h2>
@@ -65,7 +69,7 @@ const SideBar = () => {
 
         <CustomLink to="/app/optimize">
             <ArrowTrendingUpIcon className="w-6 mr-3" />
-            <p>Optimize Code</p>
+            <p>Optimize Code &#40;beta&#41;</p>
         </CustomLink>
       </div>
       <div className="mb-10">

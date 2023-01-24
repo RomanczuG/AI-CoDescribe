@@ -41,6 +41,46 @@ def fetch_gen_explanation():
     response["explanation"] = gen_explanation(response["code"])
     return jsonify(response)
 
+@app.route('/gen_optimization', methods=['POST'])
+def fetch_gen_optimization():
+    response = {
+        "code": request.json['code'],
+        "language": request.json['language'],
+        "optimization": request.json['optimization']
+    }
+    print(response)
+    response["optimization"] = gen_optimization(response["code"])
+    return jsonify(response)
+
+
+def gen_optimization(code):
+    result = ""
+    prompt = ""
+    clipboard = ""
+    if request.method == 'POST':
+
+        openai.api_key = "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"
+
+        prompt = explain.generate_prompt_explain(code)
+
+        response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
+        result = response.choices[0].text
+
+        # Remove Header: from the result
+        result = result.replace("Description:", "")
+        result = result.replace("Suggested Header:", "")
+
+        result = result.split('\n')
+
+        while result[0] == "":
+            result.pop(0)
+
+        clipboard = '\n'.join(result)
+
+        print("Clipboard:")
+        print(clipboard)
+
+    return clipboard
 
 def gen_explanation(code):
     result = ""
@@ -128,11 +168,12 @@ def gen_docstring(language, code):
 
 
 if __name__ == "__main__":
-
+    # app.run()
     app.run(debug=True)
 
 
 def fit_and_predict(X, y):
+    
     # Fit the model to the data
     model = LinearRegression()
     model.fit(X, y)
