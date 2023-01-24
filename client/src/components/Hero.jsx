@@ -6,15 +6,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Typewriter from "typewriter-effect";
 import { Link } from "react-router-dom";
-import {
-  PencilSquareIcon,
-  ChatBubbleBottomCenterIcon,
-  LanguageIcon,
-  ArrowTrendingUpIcon,
-  ChatBubbleLeftEllipsisIcon,
-  WrenchScrewdriverIcon,
-
-} from "@heroicons/react/24/outline";
 
 const content = `#Example Code
 def fit_and_predict(X, y):
@@ -29,19 +20,6 @@ def fit_and_predict(X, y):
   return y_pred`;
 
 const Hero = () => {
-  const [posts, setPosts] = useState([]);
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:5000/members")
-      .then((res) => {
-        // console.log(res)
-        setPosts(res.data);
-        console.log(posts);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
 
   return (
     <section
