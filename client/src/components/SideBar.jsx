@@ -64,7 +64,7 @@ const SideBar = () => {
 
         <CustomLink to="/app/translate">
             <LanguageIcon className="w-6 mr-3" />
-            <p>Translate Code</p>
+            <p>Translate Code &#40;beta&#41;</p>
         </CustomLink>
 
         <CustomLink to="/app/optimize">
