@@ -1,22 +1,11 @@
 import { Fragment } from "react";
 import {
-  Bars3BottomLeftIcon,
-  PencilIcon,
-  ChevronDownIcon,
-  CreditCardIcon,
-  Cog8ToothIcon,
-} from "@heroicons/react/24/solid";
-import {
-  BellIcon,
-  CheckIcon,
   HomeIcon,
   PencilSquareIcon,
   ChatBubbleBottomCenterIcon,
   LanguageIcon,
   ArrowTrendingUpIcon
 } from "@heroicons/react/24/outline";
-import { Menu, Transition, Popover } from "@headlessui/react";
-import { logo, profile } from "../assets";
 import { Link, useResolvedPath, useMatch } from "react-router-dom";
 
 const SideBar = () => {

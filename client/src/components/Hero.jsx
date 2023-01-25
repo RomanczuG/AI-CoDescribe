@@ -1,11 +1,8 @@
 import React from "react";
 import styles from "../style";
-import { example, see_example, generate, right_arrow } from "../assets";
-import Highlight from "react-highlight";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { example} from "../assets";
 import Typewriter from "typewriter-effect";
-import { Link } from "react-router-dom";
+
 
 
 const Hero = () => {

@@ -1,63 +1,15 @@
-import airbnb from "./airbnb.png";
-import bill from "./bill.png";
-import binance from "./binance.png";
-import card from "./card.png";
-import coinbase from "./coinbase.png";
-import dropbox from "./dropbox.png";
-import quotes from "./quotes.svg";
-import robot from "./robot.png";
-import send from "./Send.svg";
-import shield from "./Shield.svg";
-import star from "./Star.svg";
-import menu from "./menu.svg";
-import close from "./close.svg";
-import google from "./google.svg";
-import apple from "./apple.svg";
 import arrowUp from "./arrow-up.svg";
-import discount from "./Discount.svg";
-import facebook from "./facebook.svg";
-import instagram from "./instagram.svg";
-import linkedin from "./linkedin.svg";
-import twitter from "./twitter.svg";
-import people01 from "./people01.png";
-import people02 from "./people02.png";
-import people03 from "./people03.png";
 import generate from "./generate.png";
 import see_example from "./see_example.png";
 import right_arrow from "./right_arrow.png";
 import example from "./example.png";
-import logo from "./logo.png";
 import profile from "./profile.jpg";
 import early_bird from "./early_bird.png";
 import night_owl from "./night_owl.png";
 import day_eagle from "./day_eagle.png";
 
 export {
-  airbnb,
-  bill,
-  binance,
-  card,
-  coinbase,
-  dropbox,
-  logo,
-  quotes,
-  robot,
-  send,
-  shield,
-  star,
-  menu,
-  close,
-  google,
-  apple,
   arrowUp,
-  discount,
-  facebook,
-  instagram,
-  linkedin,
-  twitter,
-  people01,
-  people02,
-  people03,
   generate,
   see_example,
   right_arrow,

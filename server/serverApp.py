@@ -4,8 +4,8 @@ from flask_cors import CORS, cross_origin
 import openai
 import os
 import textwrap
-from server.utils import prompts
-from server.utils import explain
+from utils import prompts
+from utils import explain
 from slack_sdk import WebClient
 from dotenv import load_dotenv, find_dotenv
 
@@ -14,8 +14,8 @@ SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
 channel_id = os.getenv("SLACK_CHANNEL_ID")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__, static_folder='client/build', static_url_path='/')
+# CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 
@@ -168,8 +168,8 @@ def gen_docstring(language, code):
 
 
 if __name__ == "__main__":
-    # app.run()
-    app.run(debug=True)
+    app.run()
+    # app.run(debug=True)
 
 
 def fit_and_predict(X, y):

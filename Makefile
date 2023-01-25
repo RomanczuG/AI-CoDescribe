@@ -3,7 +3,7 @@
 ########################################################################
 
 rS: $(APPNAME)
-	python3 serverApp.py
+	cd server && python3 serverApp.py
 
 rC: $(APPNAME)
 	cd client && npm run dev
