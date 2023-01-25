@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "cd client && npm run dev",
     "build": "cd client && npm run build",
-    "preview": "gunicorn server.app:app"
+    "preview": "gunicorn app:app"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
