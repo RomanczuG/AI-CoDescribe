@@ -20,7 +20,7 @@ const Docstring = () => {
       .post("http://127.0.0.1:5000/gen_docstring", {
         code: code,
         language: selectedLanguage.name,
-        docstring: "This function adds two numbers",
+        docstring: "",
       })
       .then((res) => {
         setLoading(false);

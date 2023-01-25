@@ -43,7 +43,7 @@ const SideBar = () => {
         <div class="w-full my-4 px-3">
           <div class="h-px bg-gray-100"></div>
         </div>
-        <div className="mt-10 px-5">
+        <div className="mt-4 px-5">
           <h2 className="font-medium text-xl">AI Tools</h2>
         </div>
         
@@ -77,10 +77,10 @@ const SideBar = () => {
             <div class="h-px bg-gray-100"></div>
             </div>
         <div className="px-5 justify-end text-gray-200">
-            <div className="font-medium text-base">Support</div>
-            <div className="font-medium text-sm">Submit feature request</div>
-            <div className="font-medium text-sm">Check twitter</div>
-            <div className="font-medium text-sm">Support the author</div>
+            <div className="font-medium text-sm">Support</div>
+            <div className="font-medium text-xs">Submit feature request</div>
+            <div className="font-medium text-xs">Check twitter</div>
+            <div className="font-medium text-xs">Support the author</div>
 
 
             </div>

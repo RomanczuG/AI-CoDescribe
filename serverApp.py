@@ -183,20 +183,3 @@ def fit_and_predict(X, y):
     y_pred = model.predict(X_new)
 
     return y_pred
-
-    """
-Use ``fit_and_predict(X, y)`` to fit a linear regression model to the data and
-predict on a new dataset.
-
-Parameters
-----------
-X : array-like
-    The independent variable(s) used to fit the model.
-y : array-like
-    The dependent variable used to fit the model.
-
-Returns
-----------
-y_pred : array-like
-    The predicted values from the model.
-"""
