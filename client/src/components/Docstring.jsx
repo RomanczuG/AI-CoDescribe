@@ -5,7 +5,8 @@ import axios from "axios";
 import Highlight from "react-highlight";
 
 const client = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "https://codescribeapp.herokuapp.com",
+  // baseURL : "http://127.0.0.1:5000",
 });
 
 const Docstring = () => {
@@ -16,8 +17,9 @@ const Docstring = () => {
 
   const generateDocstring = () => {
     setLoading(true);
-    axios
-      .post("http://127.0.0.1:5000/gen_docstring", {
+    client.post("/gen_docstring", {
+    // axios
+    //   .post("http://127.0.0.1:5000/gen_docstring", {
         code: code,
         language: selectedLanguage.name,
         docstring: "",

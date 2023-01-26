@@ -82,7 +82,11 @@ function TimeWindow() {
         {dateState.getHours() < 9 ? (
           <img src={early_bird} className="mx-auto w-24 rounded-lg" />
         ) : (
+          dateState.getHours() < 18 ? (
           <img src={day_eagle} className="mx-auto w-24 rounded-lg" />
+          ): (
+          <img src={night_owl} className="mx-auto w-24 rounded-lg" /> )
+          
         )}
       </div>
 
@@ -90,12 +94,15 @@ function TimeWindow() {
         <div className="text-lg font-medium text-gray-600">
           {" "}
           {dateState.getHours() < 9
-            ? "It looks like you are an ealy bird!"
-            : "Are you more of an early bird or a night owl?"}
+            ? "It looks like you are an ealy bird!" 
+            : dateState.getHours() < 18
+            ? "Are you more of an early bird or a night owl?" 
+            : "Night owl"
+          }
         </div>
         <div className="text-xl font-bold text-gray-900 sm:text-3xl">
           {" "}
-          Mateusz Romaniuk
+          User thank you for using CoDescribe!
         </div>
       </div>
     </div>
