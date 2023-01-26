@@ -14,13 +14,20 @@ SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
 channel_id = os.getenv("SLACK_CHANNEL_ID")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-app = Flask(__name__, static_folder='client/dist', static_url_path='/')
-# CORS(app)
+app = Flask(__name__, static_folder='./client/dist', static_url_path='/')
+
+CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 @app.route('/gen_docstring', methods=['POST'])
 def fetch_gen_docstring():
+    # if os.path.isdir("./client/dist"):
+    #     print("Exists")
+    # print("lol")
     response = {
         "code": request.json['code'],
         "language": request.json['language'],
@@ -168,6 +175,7 @@ def gen_docstring(language, code):
 
 
 if __name__ == "__main__":
+    
     app.run()
     # app.run(debug=True)
 
