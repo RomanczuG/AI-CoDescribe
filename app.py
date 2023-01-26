@@ -16,7 +16,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__, static_folder='./client/dist', static_url_path='/')
 
-# CORS(app)
+CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
