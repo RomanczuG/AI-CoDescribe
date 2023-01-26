@@ -12,7 +12,7 @@ import Tools from './Tools';
 
 const LandingPage = () => {
     return (
-        <BrowserRouter>
+        // <BrowserRouter>
         <div className='w-full overflow-hidden'>
           <div className={`${styles.paddingX} ${styles.flexCenter}`}>
             <div className={`${styles.boxWidth}`}>
@@ -37,7 +37,7 @@ const LandingPage = () => {
           </div>
     
         </div>
-        </BrowserRouter>
+        // </BrowserRouter>
       )
 }
 

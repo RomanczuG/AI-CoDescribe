@@ -16,11 +16,15 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__, static_folder='./client/dist', static_url_path='/')
 
-CORS(app)
+# CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def index():
+    return app.send_static_file('index.html')
+
+@app.errorhandler(404)
+def not_found(e):
     return app.send_static_file('index.html')
 
 @app.route('/gen_docstring', methods=['POST'])

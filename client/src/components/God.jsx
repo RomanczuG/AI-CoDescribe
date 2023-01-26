@@ -1,6 +1,7 @@
 import App from "../App";
 import LandingPage from "./LandingPage";
 import NotFound from "./NotFound";
+import { BrowserRouter, Routes } from 'react-router-dom';
 const God = () => {
     let Component
     switch (window.location.pathname) {
@@ -9,7 +10,6 @@ const God = () => {
             break;
         // Case for /app and /app/*
         case '/app':
-        case '/app/docstring':
             Component = App
             break;
         default:
@@ -18,7 +18,6 @@ const God = () => {
     }
     return (
         <Component/>
-      
     );
   };
   

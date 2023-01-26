@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../style";
 import { example} from "../assets";
 import Typewriter from "typewriter-effect";
-
+import { Link } from "react-router-dom";
 
 
 const Hero = () => {
@@ -62,6 +62,17 @@ const Hero = () => {
         </div>
 
         <div className="font-poppins text-white  py-6 px-20 z-10">
+          {/* <Link to="/app">
+            <button className="cursor-pointer font-semibold h-[70px] w-[229px] relative overflow-hidden rounded-lg bg-black  ring-red-500/50 ring-offset-black will-change-transform">
+              <span class="absolute inset-0.5 z-10 grid place-items-center rounded-lg bg-black bg-gradient-to-t from-neutral-800 ">
+                Get Started
+              </span>
+              <span
+                aria-hidden
+                class="absolute inset-0 z-5 scale-x-[2.0] blur before:absolute before:inset-0 before:top-1/2 before:aspect-square before:animate-disco before:bg-gradient-conic before:from-purple-700 before:via-red-500 before:to-amber-400"
+              />
+            </button>
+          </Link> */}
           <a href="/app">
             <button className="cursor-pointer font-semibold h-[70px] w-[229px] relative overflow-hidden rounded-lg bg-black  ring-red-500/50 ring-offset-black will-change-transform">
               <span class="absolute inset-0.5 z-10 grid place-items-center rounded-lg bg-black bg-gradient-to-t from-neutral-800 ">
