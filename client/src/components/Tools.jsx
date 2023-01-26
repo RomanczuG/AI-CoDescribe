@@ -89,28 +89,28 @@ const Tools = () => {
   };
     return (
         <section id="tools" className="flex flex-col items-center justify-center w-full h-full">
-        <div className="grid grid-cols-2 gap-8 w-4/5" >
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-8 w-4/5" >
         {/* Docstring */}
       <div className="flex flex-col drop-shadow-lg font-poppins p-8  rounded-xl bg-gray-100 text-black">
         <div className="grow font-medium">
           <Dots />
-          <div className="font-semibold text-3xl mt-6">
+          <div className="font-semibold ss:text-3xl text-2xl mt-6">
             Generate AI Docstring
           </div>
-          <div className="mt-[15px] font-medium text-[15px]">
+          <div className="mt-[15px] font-medium ss:text-[15px] text-[13px]">
             It can be a function, class and much more...
           </div>
           
         </div>
         <div className=" ">
-          <div className="text-xs bg-white rounded-lg mt-6">
-            <div className="w-full h-60 border-2 border-gray-200 rounded-lg ">
+          <div className="ss:text-xs text-[10px] bg-white rounded-lg mt-6">
+            <div className="w-full ss:h-60 border-2 border-gray-200 rounded-lg ">
               <Highlight className="rounded-lg" language="python">
                 {docstring}
               </Highlight>
             </div>
           </div>
-          <div className="relative z-0 flex w-1/2">
+          <div className="relative z-0 flex ss:w-1/2">
             <button className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white text-xs  rounded-lg p-4"
             onClick={showDocstring}
             >
@@ -122,7 +122,7 @@ const Tools = () => {
       <div className="flex flex-col drop-shadow-lg font-poppins p-8 rounded-xl bg-gray-100 text-black">
         <div className="grow font-medium">
           <Dots />
-          <div className="font-medium text-base mt-6">
+          <div className="ss:font-medium font-normal ss:text-base text-sm ss:mt-6 mt-3">
             It is easy to generate AI docstrings for your code. Simply paste
             your code below, choose your language, and click on the button.
             Then paste the generated docstring into your code.
@@ -130,8 +130,8 @@ const Tools = () => {
         </div>
         {/* Left */}
         <div className=" ">
-          <div className="text-xs bg-white rounded-lg mt-6">
-            <div className="overflow-auto w-full h-60 border-2 border-gray-200 rounded-lg ">
+          <div className="ss:text-xs text-[10px] bg-white rounded-lg mt-6">
+            <div className="overflow-auto w-full ss:h-60 h-40 border-2 border-gray-200 rounded-lg ">
             {docstringLoading[0] ? (
                 // <div className="text-center mt-10">Loading...</div>
                 <div class="grid place-content-center h-full">
@@ -165,13 +165,13 @@ const Tools = () => {
                 </Highlight>
                   
                 ) : (
-                  <div className="text-base font-semibold grid place-content-center h-full">Click Generate Docstring button to see the result</div>
+                  <div className="text-base ss:font-semibold flex items-center px-2 h-full">Click Generate Docstring button to see the result</div>
               )
             )}
               
             </div>
           </div>
-          <div className="relative z-0 flex w-1/2">
+          <div className="relative z-0 flex ss:w-1/2">
             <button className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4">
               Generate your own for free!
             </button>
@@ -254,7 +254,7 @@ const Tools = () => {
                     <div className="px-4">4. Divide the variance by the number of elements.</div>
                     </>               
                 ) : (
-                  <div className="text-base font-semibold grid place-content-center h-full">Click Generate Explanation button to see the result</div>
+                  <div className="text-base font-semibold flex items-center px-2 h-full">Click Generate Explanation button to see the result</div>
               )
             )}
               
