@@ -46,7 +46,7 @@ const Docstring = () => {
   return (
     <>
       <div className="max-w-screen-xl flex flex-col">
-        <div className="drop-shadow-lg font-poppins p-8 m-10 rounded-xl items-center bg-gray-100 text-black">
+        <div className="drop-shadow-lg font-poppins p-8 ss:m-10 m-4 rounded-xl items-center bg-gray-100 text-black">
           <Dots />
           <div className="font-semibold text-4xl mt-6">
             Generate AI Docstring
@@ -59,7 +59,7 @@ const Docstring = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 grid-rows-2 gap-10">
-          <div className="flex flex-col drop-shadow-lg font-poppins p-8 lg:ml-10 rounded-xl bg-gray-100 text-black">
+          <div className="flex flex-col drop-shadow-lg font-poppins p-8 lg:ml-10 mx-4 rounded-xl bg-gray-100 text-black">
             <div className="grow font-medium">
               <Dots />
               <div className="mt-6 text-3xl">Choose your coding language</div>
@@ -157,7 +157,7 @@ const Docstring = () => {
             </div>
           </div>
 
-          <div className="flex flex-col drop-shadow-lg font-poppins p-8 lg:mr-10 rounded-xl bg-gray-100 text-black">
+          <div className="flex flex-col drop-shadow-lg font-poppins p-8 lg:mr-10 mx-4 rounded-xl bg-gray-100 text-black">
             <div className="font-medium grow">
               <Dots />
 

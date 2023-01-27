@@ -11,7 +11,7 @@ const Hero = () => {
       className={`flex md:flex-row flex-col ${styles.paddingY}`}
     >
       <div
-        className={`flex-1 ${styles.flexStart} flex flex-col px-6 justify-between items-center`}
+        className={`z-10 flex-1 ${styles.flexStart} flex flex-col px-6 justify-between items-center`}
       >
         <div className="md:py-4 px-5 text-center items-center ">
           <div className="font-extrabold md:pb-0 pb-5 md:text-7xl text-5xl md:leading-[97px] leading-[40px] text-transparent bg-clip-text bg-gradient-to-r from-[#FF3BFF] via-[#DEACAC] to-[#5C24FF]">
@@ -85,12 +85,12 @@ const Hero = () => {
         </div>
       </div>
   
-      <div className="absolute w-1/3 h-1/3 bg-[#8593E8] top-1/3 left-1/4 rounded-full opacity-20 blur-2xl z-0"></div>
-      <div className="absolute w-1/3 h-1/3 bg-[#5D6EF3] top-1/4 left-2/4 rounded-full opacity-20 blur-2xl z-0"></div>
-      <div className="absolute w-1/3 h-1/3 bg-[#FC4FF6] top-1/2 left-3/4 rounded-full opacity-20 blur-2xl z-0"></div>
-      <div className="absolute w-1/3 h-1/3 bg-[#8593E8] top-2/3 left-3/4 rounded-full opacity-20 blur-2xl z-0"></div>
-      <div className="absolute w-1/3 h-1/3 bg-[#5D6EF3] top-2/3 left-2/4 rounded-full opacity-20 blur-2xl z-0"></div>
-      <div className="absolute w-1/3 h-1/3 bg-[#FC4FF6] top-2/3 left-1/5 rounded-full opacity-20 blur-2xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#8593E8] top-1/3 left-1/4 rounded-full opacity-20 blur-2xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#5D6EF3] top-1/4 left-2/4 rounded-full opacity-20 blur-2xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#FC4FF6] top-1/2 left-3/4 rounded-full opacity-20 blur-2xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#8593E8] top-2/3 left-3/4 rounded-full opacity-20 blur-2xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#5D6EF3] top-2/3 left-2/4 rounded-full opacity-20 blur-2xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#FC4FF6] top-2/3 left-1/5 rounded-full opacity-20 blur-2xl z-0"></div>
     </section>
   );
 };

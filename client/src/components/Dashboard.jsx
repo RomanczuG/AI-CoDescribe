@@ -13,7 +13,7 @@ const Layout = () => {
   return (
     <>
     <div className="max-w-screen-xl flex flex-col">
-      <div className="drop-shadow-lg font-poppins p-8 m-10 rounded-xl items-center bg-gray-100 text-black">
+      <div className="drop-shadow-lg font-poppins p-8 ss:m-10 m-4 rounded-xl items-center bg-gray-100 text-black">
         <div className="flex justify-between">
           <div>
             <Dots />
@@ -25,7 +25,7 @@ const Layout = () => {
         </div>
       </div>
 
-      <div className="drop-shadow-lg font-poppins p-8 mx-10 rounded-xl items-center bg-gray-100 text-black">
+      <div className="drop-shadow-lg font-poppins p-8 ss:mx-10 mx-4 rounded-xl items-center bg-gray-100 text-black">
         <Dots />
         <div className="mt-4 font-semibold text-3xl">
           Everything starts here.
@@ -77,8 +77,8 @@ function TimeWindow() {
   }, []);
 
   return (
-    <div className="sm:flex sm:space-x-4 items-center mt-6">
-      <div className="flex-shrink-0">
+    <div className="sm:flex sm:space-x-4 items-center mt-6 ">
+      <div className="flex-shrink-0 content-start">
         {dateState.getHours() < 9 ? (
           <img src={early_bird} className="mx-auto w-24 rounded-lg" />
         ) : (
@@ -146,7 +146,7 @@ function ShowTime() {
   }, []);
 
   return (
-    <div className="text-6xl font-bold text-gray-900 sm:text-3xl">
+    <div className="ss:text-6xl text-3xl font-bold text-gray-900 sm:text-3xl">
       {dateState.toLocaleTimeString()}
     </div>
   );
