@@ -36,11 +36,11 @@ const Docstring = () => {
   };
 
   const language = [
-    { id: 1, name: "Python", unavailable: false },
+    { id: 1, name: "python", unavailable: false },
     // { id: 2, name: "Java", unavailable: false },
-    { id: 3, name: "C++/C", unavailable: false },
-    { id: 4, name: "JavaScript", unavailable: true },
-    { id: 5, name: "Swift", unavailable: false },
+    { id: 3, name: "c", unavailable: false },
+    { id: 4, name: "javascript", unavailable: true },
+    { id: 5, name: "swift", unavailable: false },
   ];
   const [selectedLanguage, setSelectedLanguage] = useState(language[0]);
   return (

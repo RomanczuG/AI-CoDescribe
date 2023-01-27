@@ -140,13 +140,13 @@ def gen_docstring(language, code):
 
         openai.api_key = "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"
 
-        if language == "Python":
+        if language == "python":
             prompt = prompts.generate_prompt_python(code)
-        elif language == "C++/C":
+        elif language == "c":
             prompt = prompts.generate_prompt_c(code)
-        elif language == "JavaScript":
+        elif language == "javascript":
             prompt = prompts.generate_prompt_js(code)
-        elif language == "Swift":
+        elif language == "swift":
             prompt = prompts.generate_prompt_swift(code)
 
         response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
