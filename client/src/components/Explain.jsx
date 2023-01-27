@@ -56,7 +56,7 @@ const Explain
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 grid-rows-2 gap-10">
+        <div className="grid lg:grid-cols-2 grid-rows-2 gap-4">
           <div className="flex flex-col drop-shadow-lg font-poppins p-8 lg:ml-10 mx-4 rounded-xl bg-gray-100 text-black">
             <div className="grow font-medium">
               <Dots />

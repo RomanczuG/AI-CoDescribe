@@ -21,7 +21,7 @@ const Docstring = () => {
     // axios
     //   .post("http://127.0.0.1:5000/gen_docstring", {
         code: code,
-        language: selectedLanguage.name,
+        language: selectedLanguage.value,
         docstring: "",
       })
       .then((res) => {
@@ -36,11 +36,11 @@ const Docstring = () => {
   };
 
   const language = [
-    { id: 1, name: "python", unavailable: false },
+    { id: 1, name: "Python", value: "python", unavailable: false },
     // { id: 2, name: "Java", unavailable: false },
-    { id: 3, name: "c", unavailable: false },
-    { id: 4, name: "javascript", unavailable: true },
-    { id: 5, name: "swift", unavailable: false },
+    { id: 3, name: "C", value: "c", unavailable: false },
+    { id: 4, name: "JavaScript", value: "javascript", unavailable: true },
+    { id: 5, name: "Swift", value: "swift", unavailable: false },
   ];
   const [selectedLanguage, setSelectedLanguage] = useState(language[0]);
   return (
@@ -58,7 +58,7 @@ const Docstring = () => {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 grid-rows-2 gap-10">
+        <div className="grid lg:grid-cols-2 grid-rows-2 gap-4">
           <div className="flex flex-col drop-shadow-lg font-poppins p-8 lg:ml-10 mx-4 rounded-xl bg-gray-100 text-black">
             <div className="grow font-medium">
               <Dots />
@@ -194,8 +194,9 @@ const Docstring = () => {
                 ) : (
                   <Highlight
                     className="rounded-lg "
-                    language={selectedLanguage.name}
+                    language={selectedLanguage.value}
                   >
+                    
                     {docstring}
                   </Highlight>
                 )}
