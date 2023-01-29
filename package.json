@@ -9,6 +9,7 @@
     "preview": "gunicorn app:app"
   },
   "dependencies": {
+    "@analytics/simple-analytics": "^0.3.4",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fontsource/roboto": "^4.5.8",
@@ -16,6 +17,7 @@
     "@heroicons/react": "^2.0.13",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.4",
+    "analytics": "^0.8.1",
     "axios": "^1.2.2",
     "cors": "^2.8.5",
     "localforage": "^1.10.0",
