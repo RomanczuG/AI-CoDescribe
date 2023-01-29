@@ -20,6 +20,7 @@
     "analytics": "^0.8.1",
     "axios": "^1.2.2",
     "cors": "^2.8.5",
+    "esbuild": "^0.17.5",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
