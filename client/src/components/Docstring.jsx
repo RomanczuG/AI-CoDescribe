@@ -18,13 +18,12 @@ const Docstring = () => {
   const generateDocstring = () => {
     setLoading(true);
     client.post("/gen_docstring", {
-    // axios
-    //   .post("http://127.0.0.1:5000/gen_docstring", {
         code: code,
         language: selectedLanguage.value,
         docstring: "",
       })
       .then((res) => {
+        sa_event("Docstring " + selectedLanguage.value);
         setLoading(false);
         setDocstring(res.data.docstring);
         console.log(docstring);
