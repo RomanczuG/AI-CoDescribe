@@ -1,5 +1,5 @@
 # from server import create_app
-from flask import jsonify, request, Flask, make_response
+from flask import jsonify, request, Flask, make_response, g
 from flask_cors import CORS, cross_origin
 import openai
 import os
@@ -8,38 +8,73 @@ from server.utils import prompts
 from server.utils import explain
 from slack_sdk import WebClient
 from dotenv import load_dotenv, find_dotenv
+import pymongo
+# from flask_pymongo import PyMongo
 
 load_dotenv(find_dotenv())
-SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
-channel_id = os.getenv("SLACK_CHANNEL_ID")
+# SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
+# channel_id = os.getenv("SLACK_CHANNEL_ID")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+MONGODB_URI = os.getenv("MONGODB_URI")
+
+
 
 app = Flask(__name__, static_folder='./client/dist', static_url_path='/')
 
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+client = pymongo.MongoClient(MONGODB_URI)
+
+def add_comment(request, language, code, output):
+    """
+    Use ``add_comment(request, language, code, output)`` to add a comment to the
+    database.
+
+    Parameters
+    ----------
+    request : str
+        The request to be added
+    language : str
+        The language of the code
+    code : str
+        The code to be added
+    output : str
+        The output of the code
+
+    Returns
+    ----------
+    save_doc : dict
+        The document containing the code, language, and output
+    """
+    save_doc = {'docstring': output, 'code': code, 'language': language}
+    db = client.get_database("requests")
+    return db.python.insert_one(save_doc)
+
+
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
+
 
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
 
+
 @app.route('/gen_docstring', methods=['POST'])
 def fetch_gen_docstring():
-    # if os.path.isdir("./client/dist"):
-    #     print("Exists")
-    # print("lol")
     response = {
         "code": request.json['code'],
         "language": request.json['language'],
         "docstring": request.json['docstring']
     }
     print(response)
-    response["docstring"] = gen_docstring(response["language"], response["code"])
+    response["docstring"] = gen_docstring(
+        response["language"], response["code"])
+    new_comment = add_comment("docstring", response["language"], response["code"], response["docstring"])
     return jsonify(response)
+
 
 @app.route('/gen_explanation', methods=['POST'])
 def fetch_gen_explanation():
@@ -51,6 +86,7 @@ def fetch_gen_explanation():
     print(response)
     response["explanation"] = gen_explanation(response["code"])
     return jsonify(response)
+
 
 @app.route('/gen_optimization', methods=['POST'])
 def fetch_gen_optimization():
@@ -70,11 +106,12 @@ def gen_optimization(code):
     clipboard = ""
     if request.method == 'POST':
 
-        openai.api_key = "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"
+        openai.api_key = OPENAI_API_KEY
 
         prompt = explain.generate_prompt_explain(code)
 
-        response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
+        response = openai.Completion.create(
+            model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
         result = response.choices[0].text
 
         # Remove Header: from the result
@@ -93,18 +130,19 @@ def gen_optimization(code):
 
     return clipboard
 
+
 def gen_explanation(code):
     result = ""
     prompt = ""
     clipboard = ""
     if request.method == 'POST':
 
-        openai.api_key = "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"
-
+        openai.api_key = OPENAI_API_KEY
 
         prompt = explain.generate_prompt_explain(code)
 
-        response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
+        response = openai.Completion.create(
+            model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
         result = response.choices[0].text
 
         # Remove Header: from the result
@@ -126,13 +164,14 @@ def gen_explanation(code):
 
     return clipboard
 
+
 def gen_docstring(language, code):
     result = ""
     prompt = ""
     clipboard = ""
     if request.method == 'POST':
 
-        openai.api_key = "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"
+        openai.api_key = OPENAI_API_KEY
 
         if language == "python":
             prompt = prompts.generate_prompt_python(code)
@@ -143,7 +182,8 @@ def gen_docstring(language, code):
         elif language == "swift":
             prompt = prompts.generate_prompt_swift(code)
 
-        response = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
+        response = openai.Completion.create(
+            model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
         result = response.choices[0].text
 
         # Remove Header: from the result
@@ -173,19 +213,6 @@ def gen_docstring(language, code):
 
 
 if __name__ == "__main__":
-    
+
     app.run()
     # app.run(debug=True)
-
-
-def fit_and_predict(X, y):
-    
-    # Fit the model to the data
-    model = LinearRegression()
-    model.fit(X, y)
-
-    # Predict on a new dataset
-    X_new = np.array([[0.5], [1.0], [1.5], [2.0]])
-    y_pred = model.predict(X_new)
-
-    return y_pred
