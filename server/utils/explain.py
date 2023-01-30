@@ -1,5 +1,5 @@
 def generate_prompt_explain(function):
-    prompt = """Describe the code.
+    prompt = """Describe the code with bullet points.
 Example:
 Code: def test_function(p1, p2, p3):
 Description:
@@ -27,21 +27,17 @@ Code: def main():
         help="the path to the text file to be searched through"
     )
 Description:
-- The main() function is defined and argparse.ArgumentParser() is used to create an ArgumentParser object which will hold all the information necessary to parse the command-line arguments.
-- parser.add_argument("word", help="the word to be searched for in the text file.") is used to add an argument for the word that will be searched for in the text file. The help parameter is used to specify a short description of the argument that will be displayed when the user runs the script with the -h or --help option.
-- parser.add_argument("filename", help="the path to the text file to be searched through") is used to add an argument for the path to the text file that will be searched through. The help parameter is used to specify a short description of the argument that will be displayed when the user runs the script with the -h or --help option.
-
-This script will be able to accept two arguments when it's ran:
-1. The word that will be searched for
-2. The path to the text file that will be searched through
+1. The main() function is defined and argparse.ArgumentParser() is used to create an ArgumentParser object which will hold all the information necessary to parse the command-line arguments.
+2. parser.add_argument("word", help="the word to be searched for in the text file.") is used to add an argument for the word that will be searched for in the text file. The help parameter is used to specify a short description of the argument that will be displayed when the user runs the script with the -h or --help option.
+3. parser.add_argument("filename", help="the path to the text file to be searched through") is used to add an argument for the path to the text file that will be searched through. The help parameter is used to specify a short description of the argument that will be displayed when the user runs the script with the -h or --help option.
 
 Example:
 Code:
 async function fetchUserData(userId, accessToken, includeProfilePicture = true) {
   try {
-    const response = await fetch(`https://example.com/users/${userId}`, {
+    const response = await fetch(`https://example.com/users/$userId`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`
+        Authorization: `Bearer $accessToken`
       }
     });
     const data = await response.json();
@@ -158,7 +154,7 @@ Description:
 3. The values of the "args" and "kwargs" parameters are also stored as attributes of the object using the self keyword.
 
 Generated prompt:
-Description:: 
+Description:
 {}
 Code: """ + function +"""
 """.format(function.capitalize())

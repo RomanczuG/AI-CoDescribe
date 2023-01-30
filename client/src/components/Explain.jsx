@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Listbox } from "@headlessui/react";
 import axios from "axios";
+import Highlight from "react-highlight";
 
 const client = axios.create({
   baseURL: "https://codescribeapp.herokuapp.com",
@@ -117,8 +118,8 @@ const Explain
                     </div>
                   </div>
                 ) : (
-                  
-                    <div className="p-4" >{explanation}</div>
+                    <Highlight>{explanation} </Highlight>
+                    // <div className="p-4" >{explanation}</div>
                   
                 )}
               </div>

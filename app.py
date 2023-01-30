@@ -119,12 +119,6 @@ def gen_explanation(code):
         while result[0] == "":
             result.pop(0)
 
-        # # print("Result2:")
-        # result[0] = textwrap.fill(result[0], 80)
-        # print(result)
-        # if language == "Python":
-        #     clipboard = "\"\"\"\n" + '\n'.join(result) + "\n\"\"\""
-        # else:
         clipboard = '\n'.join(result)
 
         print("Clipboard:")
@@ -156,7 +150,7 @@ def gen_docstring(language, code):
         result = result.replace("Description:", "")
         result = result.replace("Suggested Header:", "")
 
-        if(language == "Python"):
+        if(language == "python"):
             result = result.splitlines()
         else:
             result = result.split('\n')
@@ -167,7 +161,7 @@ def gen_docstring(language, code):
         # print("Result2:")
         result[0] = textwrap.fill(result[0], 80)
         # print(result)
-        if language == "Python":
+        if language == "python":
             clipboard = "\"\"\"\n" + '\n'.join(result) + "\n\"\"\""
         else:
             clipboard = '\n'.join(result)
