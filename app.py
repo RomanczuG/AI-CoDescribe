@@ -72,7 +72,7 @@ def fetch_gen_docstring():
     print(response)
     response["docstring"] = gen_docstring(
         response["language"], response["code"])
-    new_comment = add_comment("docstring", response["language"], response["code"], response["docstring"])
+    # new_comment = add_comment("docstring", response["language"], response["code"], response["docstring"])
     return jsonify(response)
 
 
