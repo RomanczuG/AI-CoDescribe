@@ -118,8 +118,8 @@ const Explain
                     </div>
                   </div>
                 ) : (
-                    <Highlight>{explanation} </Highlight>
-                    // <div className="p-4" >{explanation}</div>
+                    
+                    <div className="p-4" >{explanation}</div>
                   
                 )}
               </div>

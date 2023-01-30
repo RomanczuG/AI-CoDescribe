@@ -23,7 +23,7 @@ const Docstring = () => {
         docstring: "",
       })
       .then((res) => {
-        sa_event("Docstring " + selectedLanguage.value);
+        
         setLoading(false);
         setDocstring(res.data.docstring);
         console.log(docstring);
@@ -192,8 +192,8 @@ const Docstring = () => {
                   </div>
                 ) : (
                   <Highlight
-                    className="rounded-lg "
-                    language={selectedLanguage.value}
+                    className={`rounded-lg ${selectedLanguage.value}`}
+                    // language={selectedLanguage.value}
                   >
                     
                     {docstring}
