@@ -9,8 +9,7 @@ const client = axios.create({
   // baseURL : "http://127.0.0.1:5000",
 });
 
-const Explain
- = () => {
+const Explain = () => {
   const [explanation, setExplanation] = useState("");
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,9 +17,10 @@ const Explain
 
   const generateExplanation = () => {
     setLoading(true);
-    client.post("/gen_explanation", {
-    // axios
-    //   .post("http://127.0.0.1:5000/gen_explanation", {
+    client
+      .post("/gen_explanation", {
+        // axios
+        //   .post("http://127.0.0.1:5000/gen_explanation", {
         code: code,
         language: selectedLanguage.name,
         explanation: "",
@@ -50,10 +50,11 @@ const Explain
         <div className="drop-shadow-lg font-poppins p-8 ss:m-10 m-4 rounded-xl items-center bg-gray-100 text-black">
           <Dots />
           <div className="font-semibold text-4xl mt-6">
-            Generate AI explanation for your code. 
+            Generate AI explanation for your code.
           </div>
           <div className="font-medium text-base mt-6">
-          Make it easy for others to understand your work and collaborate with you. It is also a great way to learn from others.
+            Make it easy for others to understand your work and collaborate with
+            you. It is also a great way to learn from others.
           </div>
         </div>
 
@@ -73,14 +74,14 @@ const Explain
                   onChange={(e) => setCode(e.target.value)}
                 />
               </div>
-              <div className="relative z-0 flex w-1/2">                  
-              <button
-                onClick={generateExplanation}
-                className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white rounded-lg p-4"
-              >
-                Generate Explanation
-              </button>
-              </div>  
+              <div className="relative z-0 flex w-1/2">
+                <button
+                  onClick={generateExplanation}
+                  className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white rounded-lg p-4"
+                >
+                  Generate Explanation
+                </button>
+              </div>
             </div>
           </div>
 
@@ -118,13 +119,10 @@ const Explain
                     </div>
                   </div>
                 ) : (
-                    
-                    <div className="p-4" >{explanation}</div>
-                  
+                  <div className="p-4">{explanation}</div>
                 )}
               </div>
               <div className="relative z-0 flex w-1/2">
-                
                 <button
                   className="grid inline-flex mt-6 w-full bg-purple-700 hover:bg-purple-900 text-white rounded-lg p-4"
                   onClick={() => {

@@ -6,10 +6,12 @@
 
 .disabled-link {
   pointer-events: none;
+  
 }
 
 .display-linebreak {
   white-space: pre-line;
+  line-height: 20px;
 }
 
 :root {

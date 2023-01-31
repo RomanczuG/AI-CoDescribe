@@ -64,7 +64,7 @@ const SideBar = () => {
           <div class="h-px bg-gray-100"></div>
         </div>
         <div className="px-5 justify-end text-gray-200">
-            <div className="font-medium text-sm">Support</div>
+          <div className="font-medium text-sm">Support</div>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSfCeAJA5G5EdPAtIzzPej8rpTWgku3sqtRg8fi8U9Z0Fb9nuA/viewform">
             <div className="font-medium text-xs">Submit feature request</div>
           </a>
@@ -89,8 +89,12 @@ function CustomLink({ to, children, isActive }) {
         match ? "bg-purple-900" : ""
       }`}
     >
-      <Link 
-      to={to} className={`${isActive ? '' : 'disabled-link'} flex justify-start items-center`}>
+      <Link
+        to={to}
+        className={`${
+          isActive ? "" : "disabled-link"
+        } flex justify-start items-center`}
+      >
         {children}
       </Link>
     </div>

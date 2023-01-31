@@ -18,13 +18,13 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 MONGODB_URI = os.getenv("MONGODB_URI")
 
 
-
 app = Flask(__name__, static_folder='./client/dist', static_url_path='/')
 
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 client = pymongo.MongoClient(MONGODB_URI)
+
 
 def add_comment(request, language, code, output):
     """
@@ -72,7 +72,8 @@ def fetch_gen_docstring():
     print(response)
     response["docstring"] = gen_docstring(
         response["language"], response["code"])
-    new_comment = add_comment("docstring", response["language"], response["code"], response["docstring"])
+    new_comment = add_comment(
+        "docstring", response["language"], response["code"], response["docstring"])
     return jsonify(response)
 
 

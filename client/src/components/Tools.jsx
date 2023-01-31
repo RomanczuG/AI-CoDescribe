@@ -2,14 +2,15 @@ import { useState, useEffect } from "react";
 import Highlight from "react-highlight";
 import React from "react";
 import axios from "axios";
+import { Listbox } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 
 const client = axios.create({
   baseURL: "https://codescribeapp.herokuapp.com",
   // baseURL : "http://127.0.0.1:5000",
 });
 
-
-const docstring = `#Example Code
+const docstringCode = `#Example Code
 def fit_and_predict(X, y):
   # Fit the model to the data
   model = LinearRegression()
@@ -21,7 +22,7 @@ def fit_and_predict(X, y):
 
   return y_pred`;
 
-const explanation = `#Example Code
+const explanationCode = `#Example Code
 void calc_mean_variance(double* data, int n, double* mean, double* variance) {
     *mean = 0;
     *variance = 0;
@@ -35,80 +36,77 @@ void calc_mean_variance(double* data, int n, double* mean, double* variance) {
     *variance /= n;
     }`;
 
-const explanationFin = `
-Use calc_mean_variance(double* data, int n, double* mean, double* variance) to calculate the mean and variance of an array of data.\n
-1. Initialize the mean and variance to 0.\n
-2. Calculate the mean by summing the data and dividing by the number of elements.\n
-3. Calculate the variance by subtracting the mean from each element and squaring the result.\n
-4. Divide the variance by the number of elements.`;
-
-const docstringFin = `#Example Code
-def fit_and_predict(X, y):
-  """
-  Use fit_and_predict(X, y) to fit a linear regression model to the data and
-  predict on a new dataset.
-
-  Parameters
-  ----------
-  X : array-like
-      The independent variable(s) used to fit the model.
-  y : array-like
-      The dependent variable used to fit the model.
-
-  Returns
-  ----------
-  y_pred : array-like
-      The predicted values from the model.
-  """
-  # Fit the model to the data
-  model = LinearRegression()
-  model.fit(X, y)
-
-  # Predict on a new dataset
-  X_new = np.array([[0.5], [1.0], [1.5], [2.0]])
-  y_pred = model.predict(X_new)
-
-  return y_pred`;
-
 const Tools = () => {
+  // Let type code for docstring
+  const [disp, setDisp] = useState(true);
+  const letTypeDisp = (disp) => setDisp(!disp);
+
+  // Let create docstring
+  const [codeDoc, setCodeDoc] = useState(docstringCode);
+  const [docstringLoading, setDocstringLoading] = useState([false, false]);
+  const [docstring, setDocstring] = useState("");
   const generateDocstring = () => {
-    setLoading(true);
-    client.post("/gen_docstring", {
-        code: code,
+    setDocstringLoading([true, false]);
+    if(first){
+      openModal();
+    }
+    else {
+    // setLoading(true);
+    client
+      .post("/gen_docstring", {
+        code: codeDoc,
         language: selectedLanguage.value,
         docstring: "",
       })
       .then((res) => {
-        
-        setLoading(false);
+        setFirst(true)
+        setDocstringLoading([false, true]);
+        // setLoading(false);
         setDocstring(res.data.docstring);
-        console.log(docstring);
-        setGenerated(true);
+        // setGenerated(true);
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-  // First loading, second showing
-  const [docstringLoading, setDocstringLoading] = useState([false, false]);
-
-  const showDocstring = () => {
-    setDocstringLoading([true, false]);
-    // wait 1 second
-    setTimeout(() => {
-      setDocstringLoading([false, true]);
-    }, 1000);
+    }
   };
 
+  // Let type code for explanation
+  const [dispExp, setDispExp] = useState(true);
+  const letTypeExp = (dispExp) => setDispExp(!dispExp);
+
+  // Let create explanation
+  const [codeExp, setCodeExp] = useState(explanationCode);
+  const [explanation, setExplanation] = useState("");
   const [explanationLoading, setExplanationLoading] = useState([false, false]);
 
-  const showExplanation = () => {
+  const generateExplanation = () => {
     setExplanationLoading([true, false]);
-    // wait 1 second
-    setTimeout(() => {
-      setExplanationLoading([false, true]);
-    }, 1000);
+    if(first){
+      openModal();
+    }
+    else {
+    // setLoading(true);
+    client
+      .post("/gen_explanation", {
+        code: codeExp,
+        language: selectedLanguage.value,
+        explanation: "",
+      })
+      .then((res) => {
+        setFirst(true);
+        setExplanationLoading([false, true]);
+        // setLoading(false);
+        setExplanation(res.data.explanation);
+        // setGenerated(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
   };
+
+  // Set language for docstring
   const language = [
     { id: 1, name: "Python", value: "python", unavailable: false },
     // { id: 2, name: "Java", unavailable: false },
@@ -117,11 +115,70 @@ const Tools = () => {
     { id: 5, name: "Swift", value: "swift", unavailable: false },
   ];
   const [selectedLanguage, setSelectedLanguage] = useState(language[0]);
+
+  // Display modal
+  let [isOpen, setIsOpen] = useState(false);
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true)
+    
+  }
+
+  // First was generated
+  const [first, setFirst] = useState(false);
+
   return (
     <section
       id="tools"
       className="flex flex-col items-center justify-center w-full h-full"
     >
+      <Dialog
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        className="relative z-50"
+      >
+        <div className="fixed inset-0 bg-black/30 " aria-hidden="true" />
+
+        <Dialog.Panel className="fixed inset-0 left-1/3 top-1/3 h-min max-w-md overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl">
+          <Dots />
+          <Dialog.Title
+            as="h3"
+            className="mt-2 text-lg font-medium leading-6 text-gray-900"
+          >
+            Do you want to generate more?
+          </Dialog.Title>
+
+          <p className="mt-2 text-sm text-gray-500">
+            Generate as many explanations and docstrings as you want for free.
+            Click button below to get started.
+          </p>
+          <div className="flex ">
+            <div className="mt-4 mr-4">
+              <a href="/app">
+              <button
+                className="inline-flex justify-center rounded-md border border-transparent bg-purple-100 px-4 py-2 text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              
+              >
+                Get Started
+              </button>
+              </a>
+            </div>
+            <div className="mt-4">
+              <button
+                className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                onClick={() => setIsOpen(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </Dialog.Panel>
+      </Dialog>
+      
+
       <div className="grid md:grid-cols-2 grid-cols-1 gap-8 ss:w-4/5">
         <div className="flex flex-col drop-shadow-lg font-poppins p-8  rounded-xl bg-gray-100 text-black">
           <div className="grow font-medium">
@@ -129,99 +186,109 @@ const Tools = () => {
             <div className="font-semibold ss:text-3xl text-2xl mt-6">
               Generate AI Docstring
             </div>
-            <div className="mt-[15px] font-medium ss:text-[15px] text-[13px]">
+            <div className="mt-[5px] font-medium ss:text-[15px] text-[13px]">
               It can be a function, class and much more...
             </div>
-            <div className="mt-6 ss:text-[15px] text-[13px]">Choose your coding language</div>
-              <Listbox value={selectedLanguage} onChange={setSelectedLanguage}>
-                <div className="mt-2 w-1/2 relative">
-                  <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <span className="block truncate">
-                      {selectedLanguage.name}
-                    </span>
-                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                      <svg
-                        className="w-5 h-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </Listbox.Button>
-                  <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {language.map((language) => (
-                      <Listbox.Option
-                        key={language.id}
-                        className={({ active }) =>
-                          `${
-                            active
-                              ? "text-white bg-indigo-600"
-                              : "text-gray-900"
-                          }
-                          cursor-default select-none relative py-2 pl-10 pr-4`
+            <div className="mt-3 ss:text-[10px] text-[8px]">
+              Choose your coding language
+            </div>
+            <Listbox value={selectedLanguage} onChange={setSelectedLanguage}>
+              <div className="mt-2 w-1/2 relative">
+                <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <span className="block truncate">
+                    {selectedLanguage.name}
+                  </span>
+                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <svg
+                      className="w-5 h-5 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </Listbox.Button>
+                <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  {language.map((language) => (
+                    <Listbox.Option
+                      key={language.id}
+                      className={({ active }) =>
+                        `${
+                          active ? "text-white bg-indigo-600" : "text-gray-900"
                         }
-                        value={language}
-                      >
-                        {({ selected, active }) => (
-                          <>
+                          cursor-default select-none relative py-2 pl-10 pr-4`
+                      }
+                      value={language}
+                    >
+                      {({ selected, active }) => (
+                        <>
+                          <span
+                            className={`${
+                              selected ? "font-medium" : "font-normal"
+                            } block truncate`}
+                          >
+                            {language.name}
+                          </span>
+                          {selected ? (
                             <span
                               className={`${
-                                selected ? "font-medium" : "font-normal"
-                              } block truncate`}
-                            >
-                              {language.name}
-                            </span>
-                            {selected ? (
-                              <span
-                                className={`${
-                                  active ? "text-white" : "text-indigo-600"
-                                }
+                                active ? "text-white" : "text-indigo-600"
+                              }
                                 absolute inset-y-0 left-0 flex items-center pl-3`}
+                            >
+                              <svg
+                                className="w-5 h-5"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
                               >
-                                <svg
-                                  className="w-5 h-5"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
-                                  aria-hidden="true"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            ) : null}
-                          </>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </div>
-              </Listbox>
+                                <path
+                                  fillRule="evenodd"
+                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          ) : null}
+                        </>
+                      )}
+                    </Listbox.Option>
+                  ))}
+                </Listbox.Options>
+              </div>
+            </Listbox>
           </div>
           <div className=" ">
             <div className="ss:text-xs text-[10px] bg-white rounded-lg mt-6">
               <div className="w-full ss:h-60 border-2 border-gray-200 rounded-lg ">
-                <Highlight className="rounded-lg" language="python">
-                  {docstring}
-                </Highlight>
+                {disp ? (
+                  <div onClick={letTypeDisp}>
+                    <Highlight className="rounded-lg" language="python">
+                      {codeDoc}
+                    </Highlight>
+                  </div>
+                ) : (
+                  <textarea
+                    className="w-full h-60 border-2 border-gray-300 rounded-lg p-4"
+                    onChange={(e) => setCodeDoc(e.target.value)}
+                  ></textarea>
+                )}
               </div>
             </div>
             <div className="relative z-0 flex ss:w-1/2">
               <button
-                className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white text-xs  rounded-lg p-4"
-                onClick={showDocstring}
+                // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white text-xs  rounded-lg p-4"
+                className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                onClick={generateDocstring}
               >
-                Generate Example Docstring
+                Generate Docstring
               </button>
             </div>
           </div>
@@ -263,8 +330,8 @@ const Tools = () => {
                     </div>
                   </div>
                 ) : docstringLoading[1] ? (
-                  <Highlight className="rounded-lg " language="python">
-                    {docstringFin}
+                  <Highlight className={`rounded-lg ${selectedLanguage.value}`}>
+                    {docstring}
                   </Highlight>
                 ) : (
                   <div className="text-base ss:font-semibold flex items-center px-2 h-full">
@@ -274,9 +341,14 @@ const Tools = () => {
               </div>
             </div>
             <div className="relative z-0 flex ss:w-1/2">
-              <button className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4">
-                Generate your own for free!
+            <a href="/app">
+              <button 
+              className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4"
+              >
+                Get started for free!
               </button>
+              </a>
             </div>
           </div>
         </div>
@@ -295,17 +367,27 @@ const Tools = () => {
           <div className=" ">
             <div className="ss:text-xs text-[10px] bg-white rounded-lg mt-6">
               <div className="w-full ss:h-60 border-2 border-gray-200 rounded-lg">
-                <Highlight className="rounded-lg" language="c">
-                  {explanation}
-                </Highlight>
+                {dispExp ? (
+                  <div onClick={letTypeExp}>
+                    <Highlight className="rounded-lg" language="python">
+                      {explanationCode}
+                    </Highlight>
+                  </div>
+                ) : (
+                  <textarea
+                    className="w-full h-60 border-2 border-gray-300 rounded-lg p-4"
+                    onChange={(e) => setCodeExp(e.target.value)}
+                  ></textarea>
+                )}
               </div>
             </div>
             <div className="relative z-0 flex ss:w-1/2">
               <button
-                className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white text-xs rounded-lg p-4"
-                onClick={showExplanation}
+                className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white text-xs rounded-lg p-4"
+                onClick={generateExplanation}
               >
-                Generate Example Explanation
+                Explain the code
               </button>
             </div>
           </div>
@@ -348,25 +430,7 @@ const Tools = () => {
                   </div>
                 ) : explanationLoading[1] ? (
                   <>
-                    <div className="px-4 pt-4">
-                      Use calc_mean_variance(double* data, int n, double* mean,
-                      double* variance) to calculate the mean and variance of an
-                      array of data.
-                    </div>
-                    <div className="px-4">
-                      1. Initialize the mean and variance to 0.
-                    </div>
-                    <div className="px-4">
-                      2. Calculate the mean by summing the data and dividing by
-                      the number of elements.
-                    </div>
-                    <div className="px-4">
-                      3. Calculate the variance by subtracting the mean from
-                      each element and squaring the result.
-                    </div>
-                    <div className="px-4">
-                      4. Divide the variance by the number of elements.
-                    </div>
+                    <div className="p-4 display-linebreak">{explanation}</div>
                   </>
                 ) : (
                   <div className="text-base ss:font-semibold flex items-center px-2 h-full">
@@ -376,9 +440,14 @@ const Tools = () => {
               </div>
             </div>
             <div className="relative z-0 flex ss:w-1/2">
-              <button className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4">
-                Generate your own for free!
+              <a href="/app">
+              <button
+              className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4"
+              >
+                Get started for free!
               </button>
+              </a>
             </div>
           </div>
         </div>
