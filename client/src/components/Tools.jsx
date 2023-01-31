@@ -109,6 +109,14 @@ const Tools = () => {
       setExplanationLoading([false, true]);
     }, 1000);
   };
+  const language = [
+    { id: 1, name: "Python", value: "python", unavailable: false },
+    // { id: 2, name: "Java", unavailable: false },
+    { id: 3, name: "C", value: "c", unavailable: false },
+    { id: 4, name: "JavaScript", value: "javascript", unavailable: true },
+    { id: 5, name: "Swift", value: "swift", unavailable: false },
+  ];
+  const [selectedLanguage, setSelectedLanguage] = useState(language[0]);
   return (
     <section
       id="tools"
@@ -124,6 +132,81 @@ const Tools = () => {
             <div className="mt-[15px] font-medium ss:text-[15px] text-[13px]">
               It can be a function, class and much more...
             </div>
+            <div className="mt-6 ss:text-[15px] text-[13px]">Choose your coding language</div>
+              <Listbox value={selectedLanguage} onChange={setSelectedLanguage}>
+                <div className="mt-2 w-1/2 relative">
+                  <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <span className="block truncate">
+                      {selectedLanguage.name}
+                    </span>
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                      <svg
+                        className="w-5 h-5 text-gray-400"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </Listbox.Button>
+                  <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    {language.map((language) => (
+                      <Listbox.Option
+                        key={language.id}
+                        className={({ active }) =>
+                          `${
+                            active
+                              ? "text-white bg-indigo-600"
+                              : "text-gray-900"
+                          }
+                          cursor-default select-none relative py-2 pl-10 pr-4`
+                        }
+                        value={language}
+                      >
+                        {({ selected, active }) => (
+                          <>
+                            <span
+                              className={`${
+                                selected ? "font-medium" : "font-normal"
+                              } block truncate`}
+                            >
+                              {language.name}
+                            </span>
+                            {selected ? (
+                              <span
+                                className={`${
+                                  active ? "text-white" : "text-indigo-600"
+                                }
+                                absolute inset-y-0 left-0 flex items-center pl-3`}
+                              >
+                                <svg
+                                  className="w-5 h-5"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </div>
+              </Listbox>
           </div>
           <div className=" ">
             <div className="ss:text-xs text-[10px] bg-white rounded-lg mt-6">
