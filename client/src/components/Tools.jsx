@@ -36,10 +36,14 @@ void calc_mean_variance(double* data, int n, double* mean, double* variance) {
     *variance /= n;
     }`;
 
+
+
 const Tools = () => {
   // Let type code for docstring
   const [disp, setDisp] = useState(true);
-  const letTypeDisp = (disp) => setDisp(!disp);
+  const letTypeDisp = (disp) => {
+    setCodeDoc("");
+    setDisp(!disp);}
 
   // Let create docstring
   const [codeDoc, setCodeDoc] = useState(docstringCode);
@@ -73,7 +77,10 @@ const Tools = () => {
 
   // Let type code for explanation
   const [dispExp, setDispExp] = useState(true);
-  const letTypeExp = (dispExp) => setDispExp(!dispExp);
+  const letTypeExp = (dispExp) => {
+    setDispExp(!dispExp);
+    setCodeExp("");
+  }
 
   // Let create explanation
   const [codeExp, setCodeExp] = useState(explanationCode);
@@ -129,7 +136,6 @@ const Tools = () => {
 
   // First was generated
   const [first, setFirst] = useState(false);
-
   return (
     <section
       id="tools"
@@ -276,8 +282,22 @@ const Tools = () => {
                   </div>
                 ) : (
                   <textarea
+               
                     className="w-full h-60 border-2 border-gray-300 rounded-lg p-4"
+                    value={codeDoc}
                     onChange={(e) => setCodeDoc(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key == 'Tab') {
+                        e.preventDefault();
+                        let start = e.target.selectionStart;
+                        let end = e.target.selectionEnd;
+                        let newCode = e.target.value;
+                        
+                        newCode =newCode.substring(0, start) + '\t' + newCode.substring(end)
+                        setCodeDoc(newCode);
+                        e.target.selectionStart = start + 1;
+                      }
+                    }}
                   ></textarea>
                 )}
               </div>
@@ -376,7 +396,21 @@ const Tools = () => {
                 ) : (
                   <textarea
                     className="w-full h-60 border-2 border-gray-300 rounded-lg p-4"
+                    
+                    value={codeExp}
                     onChange={(e) => setCodeExp(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key == 'Tab') {
+                        e.preventDefault();
+                        let start = e.target.selectionStart;
+                        let end = e.target.selectionEnd;
+                        let newCode = e.target.value;
+                        
+                        newCode =newCode.substring(0, start) + '\t' + newCode.substring(end)
+                        setCodeExp(newCode)
+                        e.target.selectionStart = start + 1;
+                      }
+                    }}
                   ></textarea>
                 )}
               </div>
