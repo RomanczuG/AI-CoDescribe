@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import Highlight from "react-highlight";
 import React from "react";
+import axios from "axios";
+
+const client = axios.create({
+  baseURL: "https://codescribeapp.herokuapp.com",
+  // baseURL : "http://127.0.0.1:5000",
+});
+
 
 const docstring = `#Example Code
 def fit_and_predict(X, y):
@@ -64,6 +71,24 @@ def fit_and_predict(X, y):
   return y_pred`;
 
 const Tools = () => {
+  const generateDocstring = () => {
+    setLoading(true);
+    client.post("/gen_docstring", {
+        code: code,
+        language: selectedLanguage.value,
+        docstring: "",
+      })
+      .then((res) => {
+        
+        setLoading(false);
+        setDocstring(res.data.docstring);
+        console.log(docstring);
+        setGenerated(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   // First loading, second showing
   const [docstringLoading, setDocstringLoading] = useState([false, false]);
 

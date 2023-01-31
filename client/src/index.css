@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.disabled-link {
+  pointer-events: none;
+}
+
 .display-linebreak {
   white-space: pre-line;
 }

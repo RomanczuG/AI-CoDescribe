@@ -34,27 +34,27 @@ const SideBar = () => {
           <h2 className="font-medium text-xl">AI Tools</h2>
         </div>
 
-        <CustomLink to="/app">
+        <CustomLink to="/app" isActive={true}>
           <HomeIcon className="w-6 mr-3" />
           <p>Dashboard</p>
         </CustomLink>
 
-        <CustomLink to="/app/docstring">
+        <CustomLink to="/app/docstring" isActive={true}>
           <PencilSquareIcon className="w-6 mr-3" />
           <p>Docstring</p>
         </CustomLink>
 
-        <CustomLink to="/app/explain">
+        <CustomLink to="/app/explain" isActive={true}>
           <ChatBubbleBottomCenterIcon className="w-6 mr-3" />
           <p>Explain Code</p>
         </CustomLink>
 
-        <CustomLink to="/app/lol" >
+        <CustomLink to="/app/lol" isActive={false}>
           <LanguageIcon className="w-6 mr-3 " />
           <p>Translate Code &#40;not available&#41;</p>
         </CustomLink>
 
-        <CustomLink to="/app/lol1">
+        <CustomLink to="/app/lol1" isActive={false}>
           <ArrowTrendingUpIcon className="w-6 mr-3" />
           <p>Optimize Code &#40;not available&#41;</p>
         </CustomLink>
@@ -80,7 +80,7 @@ const SideBar = () => {
   );
 };
 
-function CustomLink({ to, children }) {
+function CustomLink({ to, children, isActive }) {
   const resolvedPath = useResolvedPath(to);
   const match = useMatch({ path: resolvedPath.pathname, end: true });
   return (
@@ -89,7 +89,8 @@ function CustomLink({ to, children }) {
         match ? "bg-purple-900" : ""
       }`}
     >
-      <Link to={to} className="flex justify-start items-center">
+      <Link 
+      to={to} className={`${isActive ? '' : 'disabled-link'} flex justify-start items-center`}>
         {children}
       </Link>
     </div>
