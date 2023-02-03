@@ -27,7 +27,8 @@
     "react-snap": "^1.23.0",
     "sort-by": "^0.0.2",
     "tailwind-highlightjs": "^2.0.1",
-    "typewriter-effect": "^2.19.0"
+    "typewriter-effect": "^2.19.0",
+    "vite-plugin-compression": "^0.5.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
