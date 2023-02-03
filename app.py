@@ -52,6 +52,8 @@ def add_comment(request, language, code, output):
     db = client.get_database("requests")
     return db.python.insert_one(save_doc)
 
+# command to freeze requirements.txt
+# pip freeze > requirements.txt
 
 @app.route('/')
 
