@@ -9,7 +9,7 @@ from server.utils import explain
 from slack_sdk import WebClient
 from dotenv import load_dotenv, find_dotenv
 import pymongo
-# from flask_pymongo import PyMongo
+import gzip
 
 load_dotenv(find_dotenv())
 # SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
@@ -22,6 +22,7 @@ app = Flask(__name__, static_folder='./client/dist', static_url_path='/')
 
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 client = pymongo.MongoClient(MONGODB_URI)
 
@@ -53,9 +54,26 @@ def add_comment(request, language, code, output):
 
 
 @app.route('/')
-def index():
-    return app.send_static_file('index.html')
 
+def index():
+    print(request.headers)
+    # return app.send_static_file('index.html')
+    # check if accept-encoding header is gzip
+    if (request.headers['Accept-Encoding'] == 'gzip'):
+        # get index.html.gz file from static folder
+        with gzip.open('client/dist/index.html.gz', 'rb') as f:
+            index_html = f.read()
+
+        # create response object
+        response = make_response(index_html)
+
+        # set headers
+        response.headers['Content-Type'] = 'text/html'
+        response.headers['Content-Encoding'] = 'gzip'
+
+        return response
+    else:
+        return app.send_static_file('index.html')
 
 @app.errorhandler(404)
 def not_found(e):
