@@ -2,7 +2,11 @@ import App from "../App";
 import LandingPage from "./LandingPage";
 import NotFound from "./NotFound";
 import { BrowserRouter, Routes } from 'react-router-dom';
+import hljs from "highlight.js";
+import "highlight.js/styles/xcode.css";
 const God = () => {
+    hljs.initHighlightingOnLoad();
+
     let Component
     switch (window.location.pathname) {
         case '/':

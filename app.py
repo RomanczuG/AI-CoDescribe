@@ -11,6 +11,9 @@ from dotenv import load_dotenv, find_dotenv
 import pymongo
 import gzip
 from flask_compress import Compress
+# heroku logs --tail
+# command to freeze requirements.txt
+# pip freeze > requirements.txt
 
 load_dotenv(find_dotenv())
 # SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
@@ -76,7 +79,10 @@ def index():
 def assets(file_name):
     accept_encoding = request.headers.get("Accept-Encoding", "")
     file_name_without_extension, file_extension = file_name.rsplit('.', 1)
-    if "gzip" in accept_encoding:
+    # check only for js and css files
+
+    if file_extension in ["js", "css"] and "gzip" in accept_encoding:
+    # if "gzip" in accept_encoding:
         print("gzip other found")
         file_path = os.path.join(app.static_folder, f"assets/{file_name_without_extension}.{file_extension}.gz")
         response = make_response(open(file_path, "rb").read())
@@ -88,7 +94,7 @@ def assets(file_name):
         response.headers.pop("Content-Disposition", None)
         return response
     else:
-        return app.send_static_file(f"{file_name_without_extension}.{file_extension}")
+        return app.send_static_file(f"assets/{file_name_without_extension}.{file_extension}")
 
 
 @app.errorhandler(404)
