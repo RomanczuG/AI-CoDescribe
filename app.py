@@ -10,6 +10,7 @@ from slack_sdk import WebClient
 from dotenv import load_dotenv, find_dotenv
 import pymongo
 import gzip
+from flask_compress import Compress
 
 load_dotenv(find_dotenv())
 # SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
@@ -22,7 +23,9 @@ app = Flask(__name__, static_folder='./client/dist', static_url_path='/')
 
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-
+app.config["COMPRESS_REGISTER"] = False  # disable default compression of all eligible requests
+compress = Compress()
+compress.init_app(app)
 
 client = pymongo.MongoClient(MONGODB_URI)
 
@@ -56,31 +59,45 @@ def add_comment(request, language, code, output):
 # pip freeze > requirements.txt
 
 @app.route('/')
-
 def index():
-    print(request.headers)
-    # return app.send_static_file('index.html')
-    # check if accept-encoding header is gzip
-    if (request.headers['Accept-Encoding'] == 'gzip'):
-        # get index.html.gz file from static folder
-        with gzip.open('client/dist/index.html.gz', 'rb') as f:
-            index_html = f.read()
-
-        # create response object
-        response = make_response(index_html)
-
-        # set headers
-        response.headers['Content-Type'] = 'text/html'
+    accept_encoding = request.headers.get("Accept-Encoding", "")
+    if "gzip" in accept_encoding:
+        print("gzip html found")
+        file_path = os.path.join(app.static_folder, 'index.html.gz')
+        response = make_response(open(file_path, "rb").read())
         response.headers['Content-Encoding'] = 'gzip'
-
+        response.headers['Content-Type'] = 'text/html'
+        response.headers.pop("Content-Disposition", None)
         return response
     else:
         return app.send_static_file('index.html')
 
+@app.route('/assets/<file_name>')
+def assets(file_name):
+    accept_encoding = request.headers.get("Accept-Encoding", "")
+    file_name_without_extension, file_extension = file_name.rsplit('.', 1)
+    if "gzip" in accept_encoding:
+        print("gzip other found")
+        file_path = os.path.join(app.static_folder, f"assets/{file_name_without_extension}.{file_extension}.gz")
+        response = make_response(open(file_path, "rb").read())
+        response.headers['Content-Encoding'] = 'gzip'
+        if file_extension == "js":
+            response.headers['Content-Type'] = 'application/javascript'
+        elif file_extension == "css":
+            response.headers['Content-Type'] = 'text/css'
+        response.headers.pop("Content-Disposition", None)
+        return response
+    else:
+        return app.send_static_file(f"{file_name_without_extension}.{file_extension}")
+
+
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
-
+        # response.headers['Content-Disposition'] = 'attachment; filename="index.html.gz"'
+        # with open("index-7c730f09.js.gz", "rb") as f:
+        #     index_js_gz = f.read()
+        #     response.data += index_js_gz
 
 @app.route('/gen_docstring', methods=['POST'])
 def fetch_gen_docstring():

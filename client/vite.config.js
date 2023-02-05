@@ -5,10 +5,10 @@ import viteCompression from 'vite-plugin-compression';
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
-  plugins: [react(), viteCompression({ algorithm: 'gzip', deleteOriginFile: true })],
+  plugins: [react(),viteCompression({ algorithm: 'gzip', deleteOriginFile: false })],
   server: {
     // port: 8000,
   },
 
-
+  
 })
