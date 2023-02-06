@@ -71,6 +71,7 @@ def index():
         response.headers['Content-Encoding'] = 'gzip'
         response.headers['Content-Type'] = 'text/html'
         response.headers.pop("Content-Disposition", None)
+        response.headers["Cache-Control"] = "public, max-age=31536000"
         return response
     else:
         return app.send_static_file('index.html')
@@ -95,6 +96,7 @@ def assets(file_name):
         elif file_extension == "css":
             response.headers['Content-Type'] = 'text/css'
         response.headers.pop("Content-Disposition", None)
+        response.headers["Cache-Control"] = "public, max-age=31536000"
         return response
     else:
         return app.send_static_file(f"assets/{file_name_without_extension}.{file_extension}")

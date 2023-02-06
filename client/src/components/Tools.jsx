@@ -1,9 +1,10 @@
-import { useState, useEffect, Children } from "react";
+import { useState} from "react";
 import Highlight from "react-highlight";
 import React from "react";
 import axios from "axios";
 import { Listbox } from "@headlessui/react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog } from "@headlessui/react";
+
 
 const client = axios.create({
   baseURL: "https://codescribeapp.herokuapp.com",
@@ -141,6 +142,7 @@ const Tools = () => {
 
   // First was generated
   const [first, setFirst] = useState(false);
+
   return (
     <section
       id="tools"
