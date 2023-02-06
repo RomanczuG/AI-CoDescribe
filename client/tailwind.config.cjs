@@ -39,5 +39,4 @@ module.exports = {
       xl: "1700px",
     },
   },
-  plugins: [require('tailwind-highlightjs')],
 };

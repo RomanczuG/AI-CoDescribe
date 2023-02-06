@@ -9,12 +9,9 @@ export default defineConfig({
   server: {
     // port: 8000,
   },
-  // add async to <link> tag
-  // https://vitejs.dev/config/#indexhtmltransforms
-  indexHtmlTransforms: [
-    (html) => {
-      return html.replace('<link', '<link async')
-    }
-  ],
+  build: {
+    sourcemap: true,
+    emptyOutDir: true,
+  }
 
 })

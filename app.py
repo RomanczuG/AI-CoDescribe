@@ -79,7 +79,10 @@ def index():
 def assets(file_name):
     accept_encoding = request.headers.get("Accept-Encoding", "")
     file_name_without_extension, file_extension = file_name.rsplit('.', 1)
-    # check only for js and css files
+    # dont check for png files
+
+    if file_extension in ["png", "jpg", "jpeg", "gif", "svg", "ico"]:
+        return app.send_static_file(f"assets/{file_name_without_extension}.{file_extension}")
 
     if file_extension in ["js", "css"] and "gzip" in accept_encoding:
     # if "gzip" in accept_encoding:
