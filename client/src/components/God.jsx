@@ -4,7 +4,7 @@ import NotFound from "./NotFound";
 import hljs from "highlight.js";
 import "highlight.js/styles/xcode.css";
 const God = () => {
-    hljs.initHighlightingOnLoad();
+    // hljs.initHighlightingOnLoad();
 
     // const Component = lazy(() => import('./Content'));
     let Component
