@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../style";
 import { Link } from "react-router-dom";
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 const Content = lazy(() => import("./Title_animated"));
 
 const Hero = () => {
