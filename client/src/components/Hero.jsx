@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "../style";
-import { example } from "../assets";
-import Typewriter from "typewriter-effect";
-import { Link } from "react-router-dom";
+
+import { lazy } from "react";
+import Title_animated from "./Title_animated";
+import ("./Title_animated")
+// const Content = lazy(() => import("./Title_animated"));
 
 const Hero = () => {
   return (
@@ -14,7 +16,9 @@ const Hero = () => {
         className={`z-10 flex-1 ${styles.flexStart} flex flex-col px-6 justify-between items-center`}
       >
         <div className="md:py-4 px-5 text-center items-center ">
-          <div className="font-extrabold md:pb-0 pb-5 md:text-7xl text-5xl md:leading-[97px] leading-[40px] text-transparent bg-clip-text bg-gradient-to-r from-[#FF3BFF] via-[#DEACAC] to-[#5C24FF]">
+          <Title_animated/>
+          {/* <Content /> */}
+          {/* <div className="font-extrabold md:pb-0 pb-5 md:text-7xl text-5xl md:leading-[97px] leading-[40px] text-transparent bg-clip-text bg-gradient-to-r from-[#FF3BFF] via-[#DEACAC] to-[#5C24FF]">
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
@@ -35,8 +39,8 @@ const Hero = () => {
                   .start();
               }}
             />
-          </div>
-          <div className="font-medium md:text-7xl text-5xl md:leading-[50px] leading-[40px] text-center text-[#3E3E3E]">
+          </div> */}
+          {/* <div className="font-medium md:text-7xl text-5xl md:leading-[50px] leading-[40px] text-center text-[#3E3E3E]">
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
@@ -47,7 +51,7 @@ const Hero = () => {
                   .start();
               }}
             />
-          </div>
+          </div> */}
 
           <div className="flex justify-center font-poppins font-normal md:text-xl text-base md:leading-[33px] leading-[23px] md:mt-20 mt-10 text-[#3E3E3E] text-center tracking-wider">
             <p className="md:w-3/4 w-full">
@@ -85,14 +89,15 @@ const Hero = () => {
         </div>
       </div>
   
-      <div className="absolute z-0 w-1/3 h-1/3 bg-[#8593E8] top-1/3 left-1/4 rounded-full opacity-20 blur-2xl z-0"></div>
-      <div className="absolute z-0 w-1/3 h-1/3 bg-[#5D6EF3] top-1/4 left-2/4 rounded-full opacity-20 blur-2xl z-0"></div>
-      <div className="absolute z-0 w-1/3 h-1/3 bg-[#FC4FF6] top-1/2 left-3/4 rounded-full opacity-20 blur-2xl z-0"></div>
-      <div className="absolute z-0 w-1/3 h-1/3 bg-[#8593E8] top-2/3 left-3/4 rounded-full opacity-20 blur-2xl z-0"></div>
-      <div className="absolute z-0 w-1/3 h-1/3 bg-[#5D6EF3] top-2/3 left-2/4 rounded-full opacity-20 blur-2xl z-0"></div>
-      <div className="absolute z-0 w-1/3 h-1/3 bg-[#FC4FF6] top-2/3 left-1/5 rounded-full opacity-20 blur-2xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#8593E8] top-1/3 left-1/4 rounded-full opacity-20 blur-3xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#5D6EF3] top-1/4 left-2/4 rounded-full opacity-20 blur-3xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#FC4FF6] top-1/2 left-3/4 rounded-full opacity-20 blur-3xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#8593E8] top-2/3 left-3/4 rounded-full opacity-20 blur-3xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#5D6EF3] top-2/3 left-2/4 rounded-full opacity-20 blur-3xl z-0"></div>
+      <div className="absolute z-0 w-1/3 h-1/3 bg-[#FC4FF6] top-2/3 left-1/5 rounded-full opacity-20 blur-3xl z-0"></div>
     </section>
   );
 };
+
 
 export default Hero;
