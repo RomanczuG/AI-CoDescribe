@@ -2,13 +2,9 @@ import React from 'react'
 import styles from '../style';
 import Navbar from './Navbar';
 import Hero from './Hero';
-// import { useEffect } from "react";
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
 import { BrowserRouter } from 'react-router-dom';
 import Tools from './Tools';
+// const Content = lazy(() => import('./Tools'));
 
 const LandingPage = () => {
     return (
@@ -32,6 +28,7 @@ const LandingPage = () => {
               Bussines
               etc. */}
               <Tools/>
+              {/* <Content/> */}
 
             </div>
           </div>
