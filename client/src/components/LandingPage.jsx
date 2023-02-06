@@ -27,7 +27,7 @@ const LandingPage = () => {
               {/* Stats
               Bussines
               etc. */}
-              <Tools/>
+              {/* <Tools/> */}
               {/* <Content/> */}
 
             </div>
