@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import SideBar from "./SideBar";
 import Dashboard from "./Dashboard";
 import Docstring from "./Docstring";
@@ -52,11 +52,11 @@ const Layout = () => {
           </button>
           <div className={` ${isSidebarNotOpen ? "" : (isMobile? "hidden" : "")}`}>
             <Routes>
-              <Route path="/app" element={<Dashboard />} />
-              <Route path="/app/docstring" element={<Docstring />} />
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/docstring" element={<Docstring />} />
               <Route path="*" element={<NotFound />} />
-              <Route path="/app/explain" element={<Explain />} />
-              <Route path="/app/optimize" element={<Optimize />} />
+              <Route path="/explain" element={<Explain />} />
+              <Route path="/optimize" element={<Optimize />} />
             </Routes>
           </div>
         </main>

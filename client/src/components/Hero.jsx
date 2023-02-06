@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "../style";
-
-import { lazy } from "react";
+import { Link } from "react-router-dom";
 import Title_animated from "./Title_animated";
 import ("./Title_animated")
 // const Content = lazy(() => import("./Title_animated"));
@@ -17,41 +16,6 @@ const Hero = () => {
       >
         <div className="md:py-4 px-5 text-center items-center ">
           <Title_animated/>
-          {/* <Content /> */}
-          {/* <div className="font-extrabold md:pb-0 pb-5 md:text-7xl text-5xl md:leading-[97px] leading-[40px] text-transparent bg-clip-text bg-gradient-to-r from-[#FF3BFF] via-[#DEACAC] to-[#5C24FF]">
-            <Typewriter
-              onInit={(typewriter) => {
-                typewriter
-
-                  .typeString("Translate")
-                  .pauseFor(1000)
-                  .deleteAll()
-                  .typeString("Optimize")
-                  .pauseFor(1000)
-                  .deleteAll()
-                  .typeString("Document")
-                  .pauseFor(1000)
-                  .deleteAll()
-                  .typeString("Explain")
-                  .pauseFor(1000)
-                  .deleteAll()
-                  .typeString("Transform your code!")
-                  .start();
-              }}
-            />
-          </div> */}
-          {/* <div className="font-medium md:text-7xl text-5xl md:leading-[50px] leading-[40px] text-center text-[#3E3E3E]">
-            <Typewriter
-              onInit={(typewriter) => {
-                typewriter
-                  .typeString("your code with AI")
-                  .pauseFor(9500)
-                  .deleteAll()
-                  .typeString("With AI")
-                  .start();
-              }}
-            />
-          </div> */}
 
           <div className="flex justify-center font-poppins font-normal md:text-xl text-base md:leading-[33px] leading-[23px] md:mt-20 mt-10 text-[#3E3E3E] text-center tracking-wider">
             <p className="md:w-3/4 w-full">
@@ -64,7 +28,8 @@ const Hero = () => {
           </div>
         </div>
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4 font-poppins text-white mt-5">
-          <a href="/app">
+          <Link to="/app"> 
+          {/* <a href="/app"> */}
             <button className="cursor-pointer font-semibold h-[70px] w-[229px] relative overflow-hidden rounded-lg bg-black  ring-red-500/50 ring-offset-black will-change-transform">
               <span class="absolute inset-0.5 z-10 grid place-items-center rounded-lg bg-black bg-gradient-to-t from-neutral-800 ">
                 Get Started
@@ -74,7 +39,8 @@ const Hero = () => {
                 class="absolute inset-0 z-5 scale-x-[2.0] blur before:absolute before:inset-0 before:top-1/2 before:aspect-square before:animate-disco before:bg-gradient-conic before:from-purple-700 before:via-red-500 before:to-amber-400"
               />
             </button>
-          </a>
+            </Link>
+          {/* </a> */}
           <a href="#tools">
             <button className="cursor-pointer font-semibold h-[70px] w-[229px] relative overflow-hidden rounded-lg bg-black py-6 ring-red-500/50 ring-offset-black will-change-transform">
               <span class="absolute inset-0.5 z-10 grid place-items-center rounded-lg bg-black bg-gradient-to-t from-neutral-800 ">
@@ -86,6 +52,7 @@ const Hero = () => {
               />
             </button>
           </a>
+          
         </div>
       </div>
   
