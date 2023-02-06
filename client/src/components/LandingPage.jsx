@@ -3,7 +3,8 @@ import styles from '../style';
 import Navbar from './Navbar';
 import Hero from './Hero';
 import { BrowserRouter } from 'react-router-dom';
-import Tools from './Tools';
+// import Tools from './Tools';
+import { lazy } from 'react';
 const Content = lazy(() => import('./Tools'));
 
 const LandingPage = () => {
