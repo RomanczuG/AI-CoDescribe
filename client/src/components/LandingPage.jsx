@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import Hero from './Hero';
 import { BrowserRouter } from 'react-router-dom';
 import Tools from './Tools';
-// const Content = lazy(() => import('./Tools'));
+const Content = lazy(() => import('./Tools'));
 
 const LandingPage = () => {
     return (
@@ -27,8 +27,9 @@ const LandingPage = () => {
               {/* Stats
               Bussines
               etc. */}
+
               {/* <Tools/> */}
-              {/* <Content/> */}
+              <Content/>
 
             </div>
           </div>
