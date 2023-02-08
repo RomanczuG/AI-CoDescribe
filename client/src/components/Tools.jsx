@@ -1,5 +1,5 @@
 import { useState} from "react";
-import Highlight from "react-highlight";
+// import Highlight from "react-highlight";
 import React from "react";
 import axios from "axios";
 import { Listbox } from "@headlessui/react";
@@ -199,9 +199,10 @@ const Tools = () => {
               <div className="w-full ss:h-60 border-2 border-gray-200 rounded-lg ">
                 {disp ? (
                   <div onClick={letTypeDisp}>
-                    <Highlight className="rounded-lg" language="python">
-                      {codeDoc}
-                    </Highlight>
+                    {/* <Highlight className="rounded-lg" language="python"> */}
+                    <pre><code>{codeDoc}</code></pre>
+                      
+                    {/* </Highlight> */}
                   </div>
                 ) : (
                   <textarea
@@ -274,9 +275,10 @@ const Tools = () => {
                     </div>
                   </div>
                 ) : docstringLoading[1] ? (
-                  <Highlight className={`rounded-lg ${selectedLanguage.value}`}>
-                    {docstring}
-                  </Highlight>
+                  // <Highlight className={`rounded-lg ${selectedLanguage.value}`}>
+                  <pre><code>{docstring}</code></pre>
+                    
+                  // </Highlight>
                 ) : (
                   <div className="text-base ss:font-semibold flex items-center px-2 h-full">
                     Click Generate Docstring button to see the result
@@ -307,9 +309,10 @@ const Tools = () => {
               <div className="w-full ss:h-60 border-2 border-gray-200 rounded-lg">
                 {dispExp ? (
                   <div onClick={letTypeExp}>
-                    <Highlight className="rounded-lg" language="python">
-                      {explanationCode}
-                    </Highlight>
+                    {/* <Highlight className="rounded-lg" language="python"> */}
+                      
+                    {/* </Highlight> */}
+                    <pre><code>{explanationCode}</code></pre>
                   </div>
                 ) : (
                   <textarea

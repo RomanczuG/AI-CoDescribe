@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Listbox } from "@headlessui/react";
 import axios from "axios";
-import Highlight from "react-highlight";
+// import Highlight from "react-highlight";
 
 const client = axios.create({
   baseURL: "https://codescribeapp.herokuapp.com",
@@ -17,13 +17,13 @@ const Docstring = () => {
 
   const generateDocstring = () => {
     setLoading(true);
-    client.post("/gen_docstring", {
+    client
+      .post("/gen_docstring", {
         code: code,
         language: selectedLanguage.value,
         docstring: "",
       })
       .then((res) => {
-        
         setLoading(false);
         setDocstring(res.data.docstring);
         console.log(docstring);
@@ -145,14 +145,14 @@ const Docstring = () => {
                   onChange={(e) => setCode(e.target.value)}
                 />
               </div>
-              <div className="relative z-0 flex w-1/2">                  
-              <button
-                onClick={generateDocstring}
-                className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white rounded-lg p-4"
-              >
-                Generate Docstring
-              </button>
-              </div>  
+              <div className="relative z-0 flex w-1/2">
+                <button
+                  onClick={generateDocstring}
+                  className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white rounded-lg p-4"
+                >
+                  Generate Docstring
+                </button>
+              </div>
             </div>
           </div>
 
@@ -195,7 +195,6 @@ const Docstring = () => {
                     className={`rounded-lg ${selectedLanguage.value}`}
                     // language={selectedLanguage.value}
                   >
-                    
                     {docstring}
                   </Highlight>
                 )}

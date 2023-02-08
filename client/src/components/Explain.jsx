@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Listbox } from "@headlessui/react";
 import axios from "axios";
-import Highlight from "react-highlight";
+// import Highlight from "react-highlight";
 
 const client = axios.create({
   baseURL: "https://codescribeapp.herokuapp.com",
