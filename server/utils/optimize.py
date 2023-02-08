@@ -1,5 +1,5 @@
-def generate_prompt_explain(function):
-    prompt = """Describe the code.
+def generate_prompt_optimize(function):
+    prompt = """Optimize the code by providing changes and example.
 Example: 
 Code: def main():
     parser = argparse.ArgumentParser()
@@ -13,9 +13,31 @@ Code: def main():
     )
 Optimization:
 Optimize the code by using the following functions:
-
-2. torch.topk()
-3. torch.min()
+1. Avoid using unnecessary variables: In this case, the "parser" variable can be removed and the arguments can be added directly to the ArgumentParser() method.
+2. Use the nargs parameter to allow for multiple words to be searched for at once.
+3. Use the type parameter to specify the type of the argument, which can improve performance.
+4. Use the metavar parameter to provide a more descriptive name for the argument in the usage message.
+5. Use the action parameter to specify a custom action for the argument, which can be used for advanced processing.
+Implementation:
+def main():
+    arg_parser = argparse.ArgumentParser(description="Search a word in a text file")
+    arg_parser.add_argument(
+        "word",
+        nargs='+',
+        type=str,
+        help="the word(s) to be searched for in the text file.",
+        metavar='WORD',
+        action='store'
+    )
+    arg_parser.add_argument(
+        "filename",
+        type=str,
+        help="the path to the text file to be searched through",
+        metavar='FILE',
+        action='store'
+    )
+    args = arg_parser.parse_args()
+    # rest of the code
 
 Example:
 Code: def dynamic_k_matching(self, cost, pair_wise_ious, gt_classes, num_gt, fg_mask):
@@ -53,27 +75,43 @@ Code: def dynamic_k_matching(self, cost, pair_wise_ious, gt_classes, num_gt, fg_
         fg_mask_inboxes
     ]
     return num_fg, gt_matched_classes, pred_ious_this_matching, 
-Description:
-Use dynamic_k_matching(self, cost, pair_wise_ious, gt_classes, num_gt, fg_mask) to perform dynamic K matching.
-1. Create a matching matrix.
-2. Get the top K IoUs.
-3. Perform dynamic K matching.
+Optimization:
+Optimize the code by using the following functions:
+1. Avoid using the del keyword to delete intermediate variables: In this case, topk_ious, dynamic_ks, and pos_idx can be removed directly after they are used.
+2. Use in-place operations: In this case, operations like matching_matrix[gt_idx][pos_idx] = 1 and fg_mask[fg_mask.clone()] = fg_mask_inboxes can be replaced with their in-place version, matching_matrix[gt_idx][pos_idx].fill_(1) and fg_mask.copy_(fg_mask_inboxes) respectively.
+3. Use broadcasting to optimize matrix operations: In this case, operations like matching_matrix * pair_wise_ious can be optimized by broadcasting the matching_matrix to match the shape of pair_wise_ious.
+Implementation:
+def dynamic_k_matching(self, cost, pair_wise_ious, gt_classes, num_gt, fg_mask):
+    matching_matrix = torch.zeros_like(cost, dtype=torch.uint8)
 
-Example:
-Code language: Python
-Code: 
-class Vehicle(object):
+    ious_in_boxes_matrix = pair_wise_ious
+    n_candidate_k = min(10, ious_in_boxes_matrix.size(1))
+    topk_ious, _ = torch.topk(ious_in_boxes_matrix, n_candidate_k, dim=1)
+    dynamic_ks = torch.clamp(topk_ious.sum(1).int(), min=1)
+    for gt_idx in range(num_gt):
+        _, pos_idx = torch.topk(
+            cost[gt_idx], k=dynamic_ks[gt_idx], largest=False
+        )
+        matching_matrix[gt_idx][pos_idx.clone()].fill_(1)
 
-    def __init__(self, arg, *args, **kwargs):
-        self.arg = arg
-Description:
-The Vehicle object contains lots of vehicles
-1. Create a Vehicle object.
-2. Add the arg argument.
-3. Add the args and kwargs arguments.
+    anchor_matching_gt = matching_matrix.sum(0)
+    if (anchor_matching_gt > 1).sum() > 0:
+        _, cost_argmin = torch.min(cost[:, anchor_matching_gt > 1], dim=0)
+        matching_matrix[:, anchor_matching_gt > 1].fill_(0)
+        matching_matrix[cost_argmin, anchor_matching_gt > 1].fill_(1)
+    fg_mask_inboxes = matching_matrix.sum(0) > 0
+    num_fg = fg_mask_inboxes.sum().item()
+
+    fg_mask.copy_(fg_mask_inboxes)
+
+    matched_gt_inds = matching_matrix[:, fg_mask_inboxes].argmax(0)
+    gt_matched_classes = gt_classes[matched_gt_inds]
+
+    pred_ious_this_matching = (matching_matrix[:, fg_mask_inboxes] * pair_wise_ious[:, fg_mask_inboxes]).sum(0)
+    return num_fg, gt_matched_classes, pred_ious_this_matching,
 
 Generated prompt:
-Description:: 
+Optimization:
 {}
 Code: """ + function +"""
 """.format(function.capitalize())

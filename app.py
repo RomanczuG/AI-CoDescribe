@@ -1,15 +1,14 @@
 # from server import create_app
-from flask import jsonify, request, Flask, make_response, g
-from flask_cors import CORS, cross_origin
+from flask import jsonify, request, Flask, make_response
+from flask_cors import CORS
 import openai
 import os
 import textwrap
 from server.utils import prompts
 from server.utils import explain
-from slack_sdk import WebClient
+from server.utils import optimize
 from dotenv import load_dotenv, find_dotenv
 import pymongo
-import gzip
 from flask_compress import Compress
 # heroku logs --tail
 # command to freeze requirements.txt
@@ -166,7 +165,7 @@ def gen_optimization(code):
 
         openai.api_key = OPENAI_API_KEY
 
-        prompt = explain.generate_prompt_explain(code)
+        prompt = optimize.generate_prompt_optimize(code)
 
         response = openai.Completion.create(
             model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
