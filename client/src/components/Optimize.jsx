@@ -5,7 +5,8 @@ import axios from "axios";
 
 
 const client = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "https://codescribeapp.herokuapp.com",
+  // baseURL : "http://127.0.0.1:5000",
 });
 
 const Optimize
@@ -17,8 +18,7 @@ const Optimize
 
   const generateOptimization = () => {
     setLoading(true);
-    axios
-      .post("http://127.0.0.1:5000/gen_optimization", {
+    client.post("/gen_docstring", {
         code: code,
         language: selectedLanguage.name,
         optimization: "",
