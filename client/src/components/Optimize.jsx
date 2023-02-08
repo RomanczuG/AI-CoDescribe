@@ -18,7 +18,7 @@ const Optimize
 
   const generateOptimization = () => {
     setLoading(true);
-    client.post("/gen_docstring", {
+    client.post("/gen_optimization", {
         code: code,
         language: selectedLanguage.name,
         optimization: "",
