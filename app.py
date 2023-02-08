@@ -16,8 +16,6 @@ from flask_compress import Compress
 # pip freeze > requirements.txt
 
 load_dotenv(find_dotenv())
-# SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
-# channel_id = os.getenv("SLACK_CHANNEL_ID")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 MONGODB_URI = os.getenv("MONGODB_URI")
 
@@ -58,11 +56,22 @@ def add_comment(request, language, code, output):
     db = client.get_database("requests")
     return db.python.insert_one(save_doc)
 
-# command to freeze requirements.txt
-# pip freeze > requirements.txt
-
 @app.route('/')
 def index():
+    """
+    Use ``index()`` to check if the Accept-Encoding header contains gzip and if so,
+    return a gzipped version of the index.html file.
+
+    Parameters
+    ----------
+    accept_encoding : str
+        The Accept-Encoding header from the request
+
+    Returns
+    ----------
+    response : Response
+        The response object containing the gzipped index.html file
+    """
     accept_encoding = request.headers.get("Accept-Encoding", "")
     if "gzip" in accept_encoding:
         print("gzip html found")

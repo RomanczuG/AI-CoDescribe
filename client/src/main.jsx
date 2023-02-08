@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Route, Routes}  from 'react-router-dom'
 import NotFound from './components/NotFound'
-import Layout from './components/Layout'
 import LandingPage from './components/LandingPage'
 
 let Content = React.lazy(() => import('./components/Layout'))
