@@ -53,9 +53,9 @@ const SideBar = () => {
           <p>Translate Code &#40;not available&#41;</p>
         </CustomLink>
 
-        <CustomLink to="/app/lol1" isActive={false}>
+        <CustomLink to="/app/optimize" isActive={true}>
           <ArrowTrendingUpIcon className="w-6 mr-3" />
-          <p>Optimize Code &#40;not available&#41;</p>
+          <p>Optimize Code</p>
         </CustomLink>
       </div>
       <div className="mb-10">
