@@ -5,7 +5,7 @@ import React from "react";
 import axios from "axios";
 import { Listbox } from "@headlessui/react";
 import { Dialog } from "@headlessui/react";
-import Code from "./Code";
+// import Code from "./Code";
 
 
 const client = axios.create({
