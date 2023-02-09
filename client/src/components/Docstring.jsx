@@ -191,12 +191,16 @@ const Docstring = () => {
                     </div>
                   </div>
                 ) : (
-                  <Highlight
-                    className={`rounded-lg ${selectedLanguage.value}`}
-                    // language={selectedLanguage.value}
-                  >
+                  // <Highlight
+                  //   className={`rounded-lg ${selectedLanguage.value}`}
+                  //   // language={selectedLanguage.value}
+                  // >
+                  <pre>
+                    <code>
                     {docstring}
-                  </Highlight>
+                    </code>
+                    </pre>
+                  // </Highlight>
                 )}
               </div>
               <div className="relative z-0 flex w-1/2">

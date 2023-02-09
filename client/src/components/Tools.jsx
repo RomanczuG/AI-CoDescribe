@@ -1,9 +1,11 @@
 import { useState} from "react";
-// import Highlight from "react-highlight";
+import {refractor} from "refractor";
+import {toHtml} from 'hast-util-to-html'
 import React from "react";
 import axios from "axios";
 import { Listbox } from "@headlessui/react";
 import { Dialog } from "@headlessui/react";
+import Code from "./Code";
 
 
 const client = axios.create({
@@ -143,11 +145,21 @@ const Tools = () => {
   // First was generated
   const [first, setFirst] = useState(false);
 
+  const tree = refractor.highlight(explanationCode, 'js')
+  const html = toHtml(tree)
+  console.log(html)
+
   return (
     <section
       id="tools"
       className="flex flex-col items-center justify-center w-full h-full"
     >
+      {/* <div dangerouslySetInnerHTML={{__html: html}}></div> */}
+      {/* {parse(html)} */}
+      {/* {html} */}
+      {/* <pre dangerouslySetInnerHTML={{ __html: html }}></pre> */}
+      <Code/>
+      
       <Dialog
         open={isOpen}
         onClose={() => setIsOpen(false)}
