@@ -1,6 +1,6 @@
 import { useState} from "react";
-import {refractor} from "refractor";
-import {toHtml} from 'hast-util-to-html'
+// import {refractor} from "refractor";
+// import {toHtml} from 'hast-util-to-html'
 import React from "react";
 import axios from "axios";
 import { Listbox } from "@headlessui/react";
@@ -145,9 +145,9 @@ const Tools = () => {
   // First was generated
   const [first, setFirst] = useState(false);
 
-  const tree = refractor.highlight(explanationCode, 'js')
-  const html = toHtml(tree)
-  console.log(html)
+  // const tree = refractor.highlight(explanationCode, 'js')
+  // const html = toHtml(tree)
+  // console.log(html)
 
   return (
     <section

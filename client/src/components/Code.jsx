@@ -17,10 +17,10 @@ void calc_mean_variance(double* data, int n, double* mean, double* variance) {
     }`;
 
 const tree = refractor.highlight(explanationCode, 'js')
-const html = toHtml(tree).replace(/<([a-z]+)/, '<$1 class="my-class"');
-const Code = () => {
+// const html = toHtml(tree).replace(/<([a-z]+)/, '<$1 class="my-class"');
+// const Code = () => {
     
-    return React.createElement("pre", { dangerouslySetInnerHTML: { __html: html } });
-}
+//     return React.createElement("pre", { dangerouslySetInnerHTML: { __html: html } });
+// }
 
-export default Code;
+// export default Code;
