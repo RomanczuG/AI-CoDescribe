@@ -158,7 +158,7 @@ const Tools = () => {
       {/* {parse(html)} */}
       {/* {html} */}
       {/* <pre dangerouslySetInnerHTML={{ __html: html }}></pre> */}
-      <Code/>
+      {/* <Code/> */}
       
       <Dialog
         open={isOpen}
