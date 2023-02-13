@@ -54,6 +54,15 @@ const explanationCode = `void calc_mean_variance(double* data, int n, double* me
     *variance /= n;
     }`;
 
+const explanationCode2 = `1. The calc_mean_variance function is defined and takes in four parameters: data, n, mean, and variance.
+2. The mean and variance variables are initialized to 0.
+3. A for loop is used to iterate over the range of n.
+4. The mean is calculated by summing the values in data and dividing by n.
+5. Another for loop is used to iterate over the range of n.
+6. The variance is calculated by summing the squared differences between each value in data and the mean, and dividing by n.
+7. The mean and variance variables are returned.
+`
+
 const Tools = () => {
   // Let type code for docstring
   const [disp, setDisp] = useState(true);
@@ -111,7 +120,7 @@ const Tools = () => {
 
   // Let create explanation
   const [codeExp, setCodeExp] = useState([explanationCode,""]);
-  const [explanation, setExplanation] = useState("");
+  const [explanation, setExplanation] = useState(explanationCode2);
   const [explanationLoading, setExplanationLoading] = useState([false, false]);
   const handleCallbackExplanation = (childData) => {
     setCodeExp(childData);
@@ -250,7 +259,7 @@ const Tools = () => {
                   </div>
                 ) : (
                   <>
-                  <Editor placeholder={explanation} button={false} listbox={false} />
+                  <Editor placeholder={docstring} button={false} listbox={false} />
                   <a href="/app">
                     <button
                       className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
