@@ -3,7 +3,7 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 import { Listbox } from "@headlessui/react";
 import { Dialog } from "@headlessui/react";
 
-function App({ generateResponse, listbox, placeholder}) {
+function App({buttonName, generateResponse, listbox, placeholder, button = true}) {
   const [code, setCode] = React.useState(
     placeholder
   );
@@ -99,15 +99,17 @@ function App({ generateResponse, listbox, placeholder}) {
           <></>
         )}
 
-    <div className="mt-5 w-full h-full">
+    <div className="mt-5 w-full ">
+      <div className="overflow-auto">
       <CodeEditor
-        className="border-2 border-gray-300 rounded-lg p-4"
+        className=" h-30 border-2 border-gray-300 rounded-lg p-4"
         value={code}
         language={selectedLanguage.value}
         placeholder="Type your code here..."
         onChange={(evn) => setCode(evn.target.value)}
         padding={15}
         data-color-mode="dark"
+        minHeight={250}
         style={{
           fontSize: 12,
           backgroundColor: "#0A0A0A",
@@ -115,14 +117,20 @@ function App({ generateResponse, listbox, placeholder}) {
             "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
         }}
       />
+      </div>
       <div className="relative z-0 flex ss:w-1/2">
-        <button
+        {button ? ( <button
           // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white text-xs  rounded-lg p-4"
           className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           onClick={() => generateResponse([code,selectedLanguage.value])}
         >
-          Generate Docstring
+          {buttonName}
         </button>
+        
+        ) : (
+          <></>
+        )}
+        
       </div>
       </div>
     </>

@@ -3,8 +3,11 @@ import React from "react";
 import axios from "axios";
 import { Listbox } from "@headlessui/react";
 import { Dialog } from "@headlessui/react";
-import Editor from "./Editor";
+// import Editor from "./Editor";
 import Window from "./Window";
+
+// lazy load the component Editor
+const Editor = React.lazy(() => import("./Editor"));
 
 const client = axios.create({
   baseURL: "https://codescribeapp.herokuapp.com",
@@ -21,6 +24,22 @@ const docstringCode = `def fit_and_predict(X, y):
   y_pred = model.predict(X_new)
 
   return y_pred`;
+const docstringCode2 = `\"\"\"
+Use \`\`fit_and_predict(X, y)\`\` to fit a linear regression model to the data and
+predict on a new dataset.
+
+Parameters
+----------
+X : array-like
+    The independent variable(s) used to fit the model.
+y : array-like
+    The dependent variable used to fit the model.
+
+Returns
+----------
+y_pred : array-like
+    The predicted values for the new dataset.
+\"\"\"`
 
 const explanationCode = `void calc_mean_variance(double* data, int n, double* mean, double* variance) {
     *mean = 0;
@@ -46,12 +65,15 @@ const Tools = () => {
   // Let create docstring
   const [codeDoc, setCodeDoc] = useState([docstringCode,""]);
   const [docstringLoading, setDocstringLoading] = useState([false, false]);
-  const [docstring, setDocstring] = useState("");
+  const [docstring, setDocstring] = useState(docstringCode2);
   const handleCallbackDocstring = (childData) => {
     setCodeDoc(childData);
   };
   useEffect(() => {
-    generateDocstring();
+    if (codeDoc[1]!="")
+    {
+      generateDocstring();
+    }
   }, [codeDoc]);
 
   const generateDocstring = () => {
@@ -95,7 +117,9 @@ const Tools = () => {
     setCodeExp(childData);
   };
   useEffect(() => {
-    generateExplanation();
+    if (codeExp[1]!=""){
+      generateExplanation();
+    }
   }, [codeExp]);
 
   const generateExplanation = () => {
@@ -189,7 +213,7 @@ const Tools = () => {
       
         >
           <div className=" ">
-            <Editor placeholder={docstringCode} listbox={true} generateResponse = {handleCallbackDocstring} />
+            <Editor buttonName = {'Generate Docstring'} placeholder={docstringCode} listbox={true} generateResponse = {handleCallbackDocstring} />
           </div>
         </Window>
 
@@ -200,10 +224,10 @@ const Tools = () => {
               Then paste the generated docstring into your code."
         >
           {" "}
-          <div className="">
-                {docstringLoading[0] ? (
+          <div className="h-full grid place-content-center ">
+                {docstringLoading[0]? (
                   // <div className="text-center mt-10">Loading...</div>
-                  <div class="grid place-content-center h-full">
+                  <div class="">
                     <div role="status">
                       <svg
                         aria-hidden="true"
@@ -221,26 +245,23 @@ const Tools = () => {
                           fill="currentFill"
                         />
                       </svg>
-                      <span class="sr-only">Loading...</span>
+                      <span className="sr-only">Loading...</span>
                     </div>
                   </div>
-                ) : docstringLoading[1] ? (
-                  <Editor placeholder={docstring}  listbox={false} code={docstring} setCode={setDocstring} />
                 ) : (
-                  <div className="text-base ss:font-semibold flex items-center px-2 h-full">
-                    Click Generate Docstring button to see the result
-                  </div>
+                  <>
+                  <Editor placeholder={explanation} button={false} listbox={false} />
+                  <a href="/app">
+                    <button
+                      className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4"
+                    >
+                      Get started for free!
+                    </button>
+                  </a>
+                  </>
                 )}
-            <div className="relative z-0 flex ss:w-1/2">
-              <a href="/app">
-                <button
-                  className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                  // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4"
-                >
-                  Get started for free!
-                </button>
-              </a>
-            </div>
+            
           </div>{" "}
         </Window>
         {/* Explain */}
@@ -250,50 +271,8 @@ const Tools = () => {
           listbox={false}
         >
           <div className=" ">
-            <div className="ss:text-xs text-[10px] bg-white rounded-lg mt-6">
-              <div className="w-full ss:h-60 border-2 border-gray-200 rounded-lg">
-                {dispExp ? (
-                  <div onClick={letTypeExp}>
-                    {/* <Highlight className="rounded-lg" language="python"> */}
-
-                    {/* </Highlight> */}
-                    <pre>
-                      <code>{explanationCode}</code>
-                    </pre>
-                  </div>
-                ) : (
-                  <textarea
-                    className="w-full h-60 border-2 border-gray-300 rounded-lg p-4"
-                    value={codeExp}
-                    onChange={(e) => setCodeExp(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key == "Tab") {
-                        e.preventDefault();
-                        let start = e.target.selectionStart;
-                        let end = e.target.selectionEnd;
-                        let newCode = e.target.value;
-
-                        newCode =
-                          newCode.substring(0, start) +
-                          "\t" +
-                          newCode.substring(end);
-                        setCodeExp(newCode);
-                        e.target.selectionStart = start + 1;
-                      }
-                    }}
-                  ></textarea>
-                )}
-              </div>
-            </div>
-            <div className="relative z-0 flex ss:w-1/2">
-              <button
-                className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white text-xs rounded-lg p-4"
-                onClick={generateExplanation}
-              >
-                Explain the code
-              </button>
-            </div>
+            <Editor buttonName={"Explain the code"} placeholder={explanationCode} listbox={false} generateResponse = {handleCallbackExplanation} />
+            
           </div>
         </Window>
 
@@ -304,12 +283,11 @@ const Tools = () => {
               your and others code better."
           listbox={false}
         >
-          <div className=" ">
-            <div className="ss:text-xs text-[10px] bg-white rounded-lg mt-6">
-              <div className="overflow-auto w-full ss:h-60 h-40 border-2 border-gray-200 rounded-lg">
+          <div className="h-full grid place-content-center ">
+ 
                 {explanationLoading[0] ? (
                   // <div className="text-center mt-10">Loading...</div>
-                  <div class="grid place-content-center h-full">
+                  <div class="">
                     <div role="status">
                       <svg
                         aria-hidden="true"
@@ -327,21 +305,13 @@ const Tools = () => {
                           fill="currentFill"
                         />
                       </svg>
-                      <span class="sr-only">Loading...</span>
+                      <span className="sr-only">Loading...</span>
                     </div>
                   </div>
-                ) : explanationLoading[1] ? (
-                  <>
-                    <div className="p-4 display-linebreak">{explanation}</div>
-                  </>
                 ) : (
-                  <div className="text-base ss:font-semibold flex items-center px-2 h-full">
-                    Click Generate Explanation button to see the result
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="relative z-0 flex ss:w-1/2">
+                  <>
+                  <Editor placeholder={explanation} button={false} listbox={false} />
+                  <div className="relative z-0 flex ss:w-1/2">
               <a href="/app">
                 <button
                   className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -351,6 +321,10 @@ const Tools = () => {
                 </button>
               </a>
             </div>
+                  </>
+                )}
+
+           
           </div>
         </Window>
       </div>

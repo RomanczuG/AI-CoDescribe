@@ -4,7 +4,7 @@ function Window({ title, description, children }) {
 
     return (
       <div className="flex flex-col drop-shadow-lg font-poppins p-8  rounded-xl bg-gray-100 text-black">
-        <div className="grow font-medium">
+        <div className="font-medium">
           <Dots />
           <div className="font-semibold ss:text-3xl text-2xl mt-6">{title}</div>
           <div className="mt-[5px] font-medium ss:text-[15px] text-[13px]">
