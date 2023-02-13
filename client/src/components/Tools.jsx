@@ -1,20 +1,17 @@
-import { useState} from "react";
-// import {refractor} from "refractor";
-// import {toHtml} from 'hast-util-to-html'
+import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
 import { Listbox } from "@headlessui/react";
 import { Dialog } from "@headlessui/react";
-// import Code from "./Code";
-
+import Editor from "./Editor";
+import Window from "./Window";
 
 const client = axios.create({
   baseURL: "https://codescribeapp.herokuapp.com",
   // baseURL : "http://127.0.0.1:5000",
 });
 
-const docstringCode = `#Example Code
-def fit_and_predict(X, y):
+const docstringCode = `def fit_and_predict(X, y):
   # Fit the model to the data
   model = LinearRegression()
   model.fit(X, y)
@@ -25,8 +22,7 @@ def fit_and_predict(X, y):
 
   return y_pred`;
 
-const explanationCode = `#Example Code
-void calc_mean_variance(double* data, int n, double* mean, double* variance) {
+const explanationCode = `void calc_mean_variance(double* data, int n, double* mean, double* variance) {
     *mean = 0;
     *variance = 0;
     for (int i = 0; i < n; i++) {
@@ -39,15 +35,6 @@ void calc_mean_variance(double* data, int n, double* mean, double* variance) {
     *variance /= n;
     }`;
 
-// Set language for docstring
-const language = [
-  { id: 1, name: "Python", value: "python", unavailable: false },
-  // { id: 2, name: "Java", unavailable: false },
-  { id: 3, name: "C", value: "c", unavailable: false },
-  { id: 4, name: "JavaScript", value: "javascript", unavailable: true },
-  { id: 5, name: "Swift", value: "swift", unavailable: false },
-];
-
 const Tools = () => {
   // Let type code for docstring
   const [disp, setDisp] = useState(true);
@@ -57,19 +44,27 @@ const Tools = () => {
   };
 
   // Let create docstring
-  const [codeDoc, setCodeDoc] = useState(docstringCode);
+  const [codeDoc, setCodeDoc] = useState([docstringCode,""]);
   const [docstringLoading, setDocstringLoading] = useState([false, false]);
   const [docstring, setDocstring] = useState("");
+  const handleCallbackDocstring = (childData) => {
+    setCodeDoc(childData);
+  };
+  useEffect(() => {
+    generateDocstring();
+  }, [codeDoc]);
+
   const generateDocstring = () => {
     setDocstringLoading([true, false]);
     if (first) {
       openModal();
     } else {
       // setLoading(true);
+      
       client
         .post("/gen_docstring", {
-          code: codeDoc,
-          language: selectedLanguage.value,
+          code: codeDoc[0],
+          language: codeDoc[1],
           docstring: "",
         })
         .then((res) => {
@@ -93,9 +88,15 @@ const Tools = () => {
   };
 
   // Let create explanation
-  const [codeExp, setCodeExp] = useState(explanationCode);
+  const [codeExp, setCodeExp] = useState([explanationCode,""]);
   const [explanation, setExplanation] = useState("");
   const [explanationLoading, setExplanationLoading] = useState([false, false]);
+  const handleCallbackExplanation = (childData) => {
+    setCodeExp(childData);
+  };
+  useEffect(() => {
+    generateExplanation();
+  }, [codeExp]);
 
   const generateExplanation = () => {
     setExplanationLoading([true, false]);
@@ -105,8 +106,8 @@ const Tools = () => {
       // setLoading(true);
       client
         .post("/gen_explanation", {
-          code: codeExp,
-          language: selectedLanguage.value,
+          code: codeExp[0],
+          language: codeExp[1],
           explanation: "",
         })
         .then((res) => {
@@ -122,16 +123,6 @@ const Tools = () => {
     }
   };
 
-  // Set language for docstring
-  const language = [
-    { id: 1, name: "Python", value: "python", unavailable: false },
-    // { id: 2, name: "Java", unavailable: false },
-    { id: 3, name: "C", value: "c", unavailable: false },
-    { id: 4, name: "JavaScript", value: "javascript", unavailable: true },
-    { id: 5, name: "Swift", value: "swift", unavailable: false },
-  ];
-  const [selectedLanguage, setSelectedLanguage] = useState(language[0]);
-
   // Display modal
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
@@ -145,21 +136,12 @@ const Tools = () => {
   // First was generated
   const [first, setFirst] = useState(false);
 
-  // const tree = refractor.highlight(explanationCode, 'js')
-  // const html = toHtml(tree)
-  // console.log(html)
-
   return (
     <section
       id="tools"
       className="flex flex-col items-center justify-center w-full h-full"
     >
-      {/* <div dangerouslySetInnerHTML={{__html: html}}></div> */}
-      {/* {parse(html)} */}
-      {/* {html} */}
-      {/* <pre dangerouslySetInnerHTML={{ __html: html }}></pre> */}
-      {/* <Code/> */}
-      
+
       <Dialog
         open={isOpen}
         onClose={() => setIsOpen(false)}
@@ -168,7 +150,7 @@ const Tools = () => {
         <div className="fixed inset-0 bg-black/30 " aria-hidden="true" />
 
         <Dialog.Panel className="fixed inset-0 left-1/3 top-1/3 h-min max-w-md overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl">
-          <Dots />
+          {/* <Dots /> */}
           <Dialog.Title
             as="h3"
             className="mt-2 text-lg font-medium leading-6 text-gray-900"
@@ -204,51 +186,10 @@ const Tools = () => {
         <Window
           title="Generate AI Docstring"
           description="It can be a function, class and much more..."
-          listbox={true}
+      
         >
           <div className=" ">
-            <div className="ss:text-xs text-[10px] bg-white rounded-lg mt-6">
-              <div className="w-full ss:h-60 border-2 border-gray-200 rounded-lg ">
-                {disp ? (
-                  <div onClick={letTypeDisp}>
-                    {/* <Highlight className="rounded-lg" language="python"> */}
-                    <pre><code>{codeDoc}</code></pre>
-                      
-                    {/* </Highlight> */}
-                  </div>
-                ) : (
-                  <textarea
-                    className="w-full h-60 border-2 border-gray-300 rounded-lg p-4"
-                    value={codeDoc}
-                    onChange={(e) => setCodeDoc(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key == "Tab") {
-                        e.preventDefault();
-                        let start = e.target.selectionStart;
-                        let end = e.target.selectionEnd;
-                        let newCode = e.target.value;
-
-                        newCode =
-                          newCode.substring(0, start) +
-                          "\t" +
-                          newCode.substring(end);
-                        setCodeDoc(newCode);
-                        e.target.selectionStart = start + 1;
-                      }
-                    }}
-                  ></textarea>
-                )}
-              </div>
-            </div>
-            <div className="relative z-0 flex ss:w-1/2">
-              <button
-                // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white text-xs  rounded-lg p-4"
-                className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                onClick={generateDocstring}
-              >
-                Generate Docstring
-              </button>
-            </div>
+            <Editor placeholder={docstringCode} listbox={true} generateResponse = {handleCallbackDocstring} />
           </div>
         </Window>
 
@@ -257,19 +198,16 @@ const Tools = () => {
           description="It is easy to generate AI docstrings for your code. Simply paste
               your code below, choose your language, and click on the button.
               Then paste the generated docstring into your code."
-          listbox={false}
         >
           {" "}
-          <div className=" ">
-            <div className="ss:text-xs text-[10px] bg-white rounded-lg mt-6">
-              <div className="overflow-auto w-full ss:h-60 h-40 border-2 border-gray-200 rounded-lg ">
+          <div className="">
                 {docstringLoading[0] ? (
                   // <div className="text-center mt-10">Loading...</div>
                   <div class="grid place-content-center h-full">
                     <div role="status">
                       <svg
                         aria-hidden="true"
-                        class="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-700"
+                        className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-700"
                         viewBox="0 0 100 101"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -287,17 +225,12 @@ const Tools = () => {
                     </div>
                   </div>
                 ) : docstringLoading[1] ? (
-                  // <Highlight className={`rounded-lg ${selectedLanguage.value}`}>
-                  <pre><code>{docstring}</code></pre>
-                    
-                  // </Highlight>
+                  <Editor placeholder={docstring}  listbox={false} code={docstring} setCode={setDocstring} />
                 ) : (
                   <div className="text-base ss:font-semibold flex items-center px-2 h-full">
                     Click Generate Docstring button to see the result
                   </div>
                 )}
-              </div>
-            </div>
             <div className="relative z-0 flex ss:w-1/2">
               <a href="/app">
                 <button
@@ -322,9 +255,11 @@ const Tools = () => {
                 {dispExp ? (
                   <div onClick={letTypeExp}>
                     {/* <Highlight className="rounded-lg" language="python"> */}
-                      
+
                     {/* </Highlight> */}
-                    <pre><code>{explanationCode}</code></pre>
+                    <pre>
+                      <code>{explanationCode}</code>
+                    </pre>
                   </div>
                 ) : (
                   <textarea
@@ -423,112 +358,8 @@ const Tools = () => {
   );
 };
 
-function Dots() {
-  return (
-    <div className="flex flex-row">
-      <div className="mr-[8px] bg-red-600 w-[14px] h-[14px] rounded-full"></div>
-      <div className="mr-[8px] bg-yellow-500 w-[14px] h-[14px] rounded-full"></div>
-      <div className="bg-green-600 w-[14px] h-[14px] rounded-full"></div>
-    </div>
-  );
-}
 
-// Window for the explanation and docstring
-function Window({ title, description, listbox, children }) {
-  const [selectedLanguage, setSelectedLanguage] = useState(language[0]);
-  return (
-    <div className="flex flex-col drop-shadow-lg font-poppins p-8  rounded-xl bg-gray-100 text-black">
-      <div className="grow font-medium">
-        <Dots />
-        <div className="font-semibold ss:text-3xl text-2xl mt-6">{title}</div>
-        <div className="mt-[5px] font-medium ss:text-[15px] text-[13px]">
-          {description}
-        </div>
-        {listbox ? (
-          <>
-            <div className="mt-3 ss:text-[10px] text-[8px]">
-              Choose your coding language
-            </div>
-            <Listbox value={selectedLanguage} onChange={setSelectedLanguage}>
-              <div className="mt-2 w-1/2 relative">
-                <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  <span className="block truncate">
-                    {selectedLanguage.name}
-                  </span>
-                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                    <svg
-                      className="w-5 h-5 text-gray-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </Listbox.Button>
-                <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {language.map((language) => (
-                    <Listbox.Option
-                      key={language.id}
-                      className={({ active }) =>
-                        `${
-                          active ? "text-white bg-indigo-600" : "text-gray-900"
-                        }
-                          cursor-default select-none relative py-2 pl-10 pr-4`
-                      }
-                      value={language}
-                    >
-                      {({ selected, active }) => (
-                        <>
-                          <span
-                            className={`${
-                              selected ? "font-medium" : "font-normal"
-                            } block truncate`}
-                          >
-                            {language.name}
-                          </span>
-                          {selected ? (
-                            <span
-                              className={`${
-                                active ? "text-white" : "text-indigo-600"
-                              }
-                                absolute inset-y-0 left-0 flex items-center pl-3`}
-                            >
-                              <svg
-                                className="w-5 h-5"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          ) : null}
-                        </>
-                      )}
-                    </Listbox.Option>
-                  ))}
-                </Listbox.Options>
-              </div>
-            </Listbox>
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
-      {children}
-    </div>
-  );
-}
+
+
 
 export default Tools;

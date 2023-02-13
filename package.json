@@ -17,6 +17,7 @@
     "@heroicons/react": "^2.0.13",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.4",
+    "@types/prismjs": "^1.26.0",
     "axios": "^1.2.2",
     "cors": "^2.8.5",
     "hast-util-to-html": "^8.0.4",
