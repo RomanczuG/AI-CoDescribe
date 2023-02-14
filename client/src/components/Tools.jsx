@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
-import { Listbox } from "@headlessui/react";
 import { Dialog } from "@headlessui/react";
-// import Editor from "./Editor";
 import Window from "./Window";
 
 // lazy load the component Editor
@@ -39,7 +37,7 @@ Returns
 ----------
 y_pred : array-like
     The predicted values for the new dataset.
-\"\"\"`
+\"\"\"`;
 
 const explanationCode = `void calc_mean_variance(double* data, int n, double* mean, double* variance) {
     *mean = 0;
@@ -61,26 +59,18 @@ const explanationCode2 = `1. The calc_mean_variance function is defined and take
 5. Another for loop is used to iterate over the range of n.
 6. The variance is calculated by summing the squared differences between each value in data and the mean, and dividing by n.
 7. The mean and variance variables are returned.
-`
+`;
 
 const Tools = () => {
-  // Let type code for docstring
-  const [disp, setDisp] = useState(true);
-  const letTypeDisp = (disp) => {
-    setCodeDoc("");
-    setDisp(!disp);
-  };
-
   // Let create docstring
-  const [codeDoc, setCodeDoc] = useState([docstringCode,""]);
+  const [codeDoc, setCodeDoc] = useState([docstringCode, ""]);
   const [docstringLoading, setDocstringLoading] = useState([false, false]);
   const [docstring, setDocstring] = useState(docstringCode2);
   const handleCallbackDocstring = (childData) => {
     setCodeDoc(childData);
   };
   useEffect(() => {
-    if (codeDoc[1]!="")
-    {
+    if (codeDoc[1] != "") {
       generateDocstring();
     }
   }, [codeDoc]);
@@ -91,7 +81,7 @@ const Tools = () => {
       openModal();
     } else {
       // setLoading(true);
-      
+
       client
         .post("/gen_docstring", {
           code: codeDoc[0],
@@ -111,22 +101,15 @@ const Tools = () => {
     }
   };
 
-  // Let type code for explanation
-  const [dispExp, setDispExp] = useState(true);
-  const letTypeExp = (dispExp) => {
-    setDispExp(!dispExp);
-    setCodeExp("");
-  };
-
   // Let create explanation
-  const [codeExp, setCodeExp] = useState([explanationCode,""]);
+  const [codeExp, setCodeExp] = useState([explanationCode, ""]);
   const [explanation, setExplanation] = useState(explanationCode2);
   const [explanationLoading, setExplanationLoading] = useState([false, false]);
   const handleCallbackExplanation = (childData) => {
     setCodeExp(childData);
   };
   useEffect(() => {
-    if (codeExp[1]!=""){
+    if (codeExp[1] != "") {
       generateExplanation();
     }
   }, [codeExp]);
@@ -174,7 +157,6 @@ const Tools = () => {
       id="tools"
       className="flex flex-col items-center justify-center w-full h-full"
     >
-
       <Dialog
         open={isOpen}
         onClose={() => setIsOpen(false)}
@@ -219,10 +201,14 @@ const Tools = () => {
         <Window
           title="Generate AI Docstring"
           description="It can be a function, class and much more..."
-      
         >
           <div className=" ">
-            <Editor buttonName = {'Generate Docstring'} placeholder={docstringCode} listbox={true} generateResponse = {handleCallbackDocstring} />
+            <Editor
+              buttonName={"Generate Docstring"}
+              placeholder={docstringCode}
+              listbox={true}
+              generateResponse={handleCallbackDocstring}
+            />
           </div>
         </Window>
 
@@ -233,45 +219,44 @@ const Tools = () => {
               Then paste the generated docstring into your code."
         >
           {" "}
-          <div className="h-full grid place-content-center ">
-                {docstringLoading[0]? (
-                  // <div className="text-center mt-10">Loading...</div>
-                  <div class="">
-                    <div role="status">
-                      <svg
-                        aria-hidden="true"
-                        className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-700"
-                        viewBox="0 0 100 101"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                          fill="currentFill"
-                        />
-                      </svg>
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                  <Editor placeholder={docstring} button={false} listbox={false} />
-                  <a href="/app">
-                    <button
-                      className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4"
-                    >
-                      Get started for free!
-                    </button>
-                  </a>
-                  </>
-                )}
-            
-          </div>{" "}
+          {/* <div className="h-full "> */}
+          {docstringLoading[0] ? (
+            // <div className="text-center mt-10">Loading...</div>
+            <div class="h-full grid place-content-center ">
+              <div role="status">
+                <svg
+                  aria-hidden="true"
+                  className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-700"
+                  viewBox="0 0 100 101"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill"
+                  />
+                </svg>
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+          ) : (
+            <>
+              <Editor placeholder={docstring} button={false} listbox={false} />
+              <a href="/app">
+                <button
+                  className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4"
+                >
+                  Get started for free!
+                </button>
+              </a>
+            </>
+          )}
+          {/* </div>{" "} */}
         </Window>
         {/* Explain */}
         <Window
@@ -280,8 +265,12 @@ const Tools = () => {
           listbox={false}
         >
           <div className=" ">
-            <Editor buttonName={"Explain the code"} placeholder={explanationCode} listbox={false} generateResponse = {handleCallbackExplanation} />
-            
+            <Editor
+              buttonName={"Explain the code"}
+              placeholder={explanationCode}
+              listbox={false}
+              generateResponse={handleCallbackExplanation}
+            />
           </div>
         </Window>
 
@@ -292,57 +281,54 @@ const Tools = () => {
               your and others code better."
           listbox={false}
         >
-          <div className="h-full grid place-content-center ">
- 
-                {explanationLoading[0] ? (
-                  // <div className="text-center mt-10">Loading...</div>
-                  <div class="">
-                    <div role="status">
-                      <svg
-                        aria-hidden="true"
-                        class="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-700"
-                        viewBox="0 0 100 101"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                          fill="currentFill"
-                        />
-                      </svg>
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                  <Editor placeholder={explanation} button={false} listbox={false} />
-                  <div className="relative z-0 flex ss:w-1/2">
-              <a href="/app">
-                <button
-                  className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                  // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4"
+          {explanationLoading[0] ? (
+            // <div className="text-center mt-10">Loading...</div>
+            <div class="h-full grid place-content-center">
+              <div role="status">
+                <svg
+                  aria-hidden="true"
+                  class="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-700"
+                  viewBox="0 0 100 101"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  Get started for free!
-                </button>
-              </a>
+                  <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill"
+                  />
+                </svg>
+                <span className="sr-only">Loading...</span>
+              </div>
             </div>
-                  </>
-                )}
+          ) : (
+            <>
+              <Editor
+                placeholder={explanation}
+                button={false}
+                listbox={false}
+              />
+              <div className="relative z-0 flex ss:w-1/2">
+                <a href="/app">
+                  <button
+                    className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4"
+                  >
+                    Get started for free!
+                  </button>
+                </a>
+              </div>
+            </>
+          )}
 
-           
-          </div>
+          {/* </div> */}
         </Window>
       </div>
     </section>
   );
 };
-
-
-
-
 
 export default Tools;

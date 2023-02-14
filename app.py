@@ -23,7 +23,8 @@ app = Flask(__name__, static_folder='./client/dist', static_url_path='/')
 
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-app.config["COMPRESS_REGISTER"] = False  # disable default compression of all eligible requests
+# disable default compression of all eligible requests
+app.config["COMPRESS_REGISTER"] = False
 compress = Compress()
 compress.init_app(app)
 
@@ -55,6 +56,7 @@ def add_comment(request, language, code, output):
     db = client.get_database("requests")
     return db.python.insert_one(save_doc)
 
+
 @app.route('/')
 def index():
     """
@@ -84,6 +86,7 @@ def index():
     else:
         return app.send_static_file('index.html')
 
+
 @app.route('/assets/<file_name>')
 def assets(file_name):
     accept_encoding = request.headers.get("Accept-Encoding", "")
@@ -93,9 +96,10 @@ def assets(file_name):
         return app.send_static_file(f"assets/{file_name_without_extension}.{file_extension}")
 
     if file_extension in ["js", "css"] and "gzip" in accept_encoding:
-    # if "gzip" in accept_encoding:
+        # if "gzip" in accept_encoding:
         print("gzip other found")
-        file_path = os.path.join(app.static_folder, f"assets/{file_name_without_extension}.{file_extension}.gz")
+        file_path = os.path.join(
+            app.static_folder, f"assets/{file_name_without_extension}.{file_extension}.gz")
         response = make_response(open(file_path, "rb").read())
         response.headers['Content-Encoding'] = 'gzip'
         if file_extension == "js":
@@ -112,10 +116,11 @@ def assets(file_name):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
-        # response.headers['Content-Disposition'] = 'attachment; filename="index.html.gz"'
-        # with open("index-7c730f09.js.gz", "rb") as f:
-        #     index_js_gz = f.read()
-        #     response.data += index_js_gz
+    # response.headers['Content-Disposition'] = 'attachment; filename="index.html.gz"'
+    # with open("index-7c730f09.js.gz", "rb") as f:
+    #     index_js_gz = f.read()
+    #     response.data += index_js_gz
+
 
 @app.route('/gen_docstring', methods=['POST'])
 def fetch_gen_docstring():
