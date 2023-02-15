@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Listbox } from "@headlessui/react";
 import axios from "axios";
 import Editor from "./Editor";
 import Window from "./Window";
@@ -14,7 +13,7 @@ const Docstring = () => {
   const [docstring, setDocstring] = useState("");
   const [code, setCode] = useState("", "");
   const [loading, setLoading] = useState(false);
-  const [generated, setGenerated] = useState(false);
+  // const [generated, setGenerated] = useState(false);
   const [chosen, setChosen] = useState(false);
   const handleCallbackDocstring = (childData) => {
     setCode(childData);

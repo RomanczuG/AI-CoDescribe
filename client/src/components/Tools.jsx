@@ -6,7 +6,7 @@ import Window from "./Window";
 
 // lazy load the component Editor
 const Editor = React.lazy(() => import("./Editor"));
-
+const DialogModal = React.lazy(() => import("./DialogModal"));
 const client = axios.create({
   baseURL: "https://codescribeapp.herokuapp.com",
   // baseURL : "http://127.0.0.1:5000",
@@ -202,14 +202,12 @@ const Tools = () => {
           title="Generate AI Docstring"
           description="It can be a function, class and much more..."
         >
-          <div className=" ">
             <Editor
               buttonName={"Generate Docstring"}
               placeholder={docstringCode}
               listbox={true}
               generateResponse={handleCallbackDocstring}
             />
-          </div>
         </Window>
 
         <Window
@@ -249,7 +247,6 @@ const Tools = () => {
               <a href="/app">
                 <button
                   className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                  // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-xs  text-white rounded-lg p-4"
                 >
                   Get started for free!
                 </button>
