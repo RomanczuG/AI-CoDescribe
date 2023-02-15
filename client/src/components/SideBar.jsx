@@ -20,16 +20,16 @@ const SideBar = () => {
         </a>
       </div>
       <div className="grow px-2 text-white">
-        <div class="w-full my-4 px-3">
-          <div class="h-px bg-gray-100"></div>
+        <div className="w-full my-4 px-3">
+          <div className="h-px bg-gray-100"></div>
         </div>
         <div className="mt-4 px-5">
           <h2 className="font-medium text-2xl">
             Perfect day to code a little.
           </h2>
         </div>
-        <div class="w-full my-4 px-3">
-          <div class="h-px bg-gray-100"></div>
+        <div className="w-full my-4 px-3">
+          <div className="h-px bg-gray-100"></div>
         </div>
         <div className="mt-4 px-5">
           <h2 className="font-medium text-xl">AI Tools</h2>
@@ -61,8 +61,8 @@ const SideBar = () => {
         </CustomLink>
       </div>
       <div className="mb-10">
-        <div class="w-full my-4 px-3">
-          <div class="h-px bg-gray-100"></div>
+        <div className="w-full my-4 px-3">
+          <div className="h-px bg-gray-100"></div>
         </div>
         <div className="px-5 justify-end text-gray-200">
           <div className="font-medium text-sm">Support</div>
