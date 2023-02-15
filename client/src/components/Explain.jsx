@@ -48,7 +48,7 @@ const Explain = () => {
   return (
     <>
       <div className="max-w-screen-xl flex flex-col ">
-        <div className="drop-shadow-lg font-poppins p-8 ss:m-10 m-4 rounded-xl items-center bg-gray-100 text-black">
+        <div className="drop-shadow-lg font-poppins p-8 m-6 rounded-xl items-center bg-gray-100 text-black">
           <Dots />
           <div className="font-semibold text-4xl mt-6">
             Generate AI explanation for your code.
@@ -59,7 +59,7 @@ const Explain = () => {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 grid-rows-2 gap-4 ss:mx-10 mx-4">
+        <div className="grid lg:grid-cols-2 grid-rows-2 gap-4 mx-6">
           <Window
             title="Paste your code here"
             description="Paste your code here and let AI explain it for you."
@@ -107,8 +107,6 @@ const Explain = () => {
                   buttonName="Copy Explanation"
                   listbox={false}
                 />
-
-                // <div className="p-4">{explanation}</div>
               )}
             </div>
           </Window>

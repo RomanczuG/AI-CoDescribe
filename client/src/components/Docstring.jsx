@@ -49,7 +49,7 @@ const Docstring = () => {
   return (
     <>
       <div className="max-w-screen-xl flex flex-col">
-        <div className="drop-shadow-lg font-poppins p-8 rounded-xl items-center bg-gray-100 text-black">
+        <div className="drop-shadow-lg font-poppins p-8 m-6 rounded-xl items-center bg-gray-100 text-black">
           <Dots />
           <div className="font-semibold text-4xl mt-6">
             Generate AI Docstring
@@ -61,7 +61,7 @@ const Docstring = () => {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 grid-rows-2 gap-4 mx-10">
+        <div className="grid lg:grid-cols-2 grid-rows-2 gap-4 mx-6">
           <Window
             title="Simply use your code!"
             description="Put function, class, struct, and etc."
