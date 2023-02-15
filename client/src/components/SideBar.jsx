@@ -12,10 +12,12 @@ const SideBar = () => {
     <div className="flex flex-col font-poppins w-64 h-screen bg-gray-900 rounded-md">
       <div className="px-2 pt-8">
         {/* <img src={profile} alt="logo" className="w-12 rounded-full" /> */}
+        <a href="https://codescribe.app">
         <div className="m-3 font-medium text-gray-200 text-2xl">
           <span className="text-purple-400">Code</span>
           <span>scribe.App</span>
         </div>
+        </a>
       </div>
       <div className="grow px-2 text-white">
         <div class="w-full my-4 px-3">

@@ -47,7 +47,7 @@ const Explain = () => {
   };
   return (
     <>
-      <div className="max-w-screen-xl flex flex-col">
+      <div className="max-w-screen-xl flex flex-col ">
         <div className="drop-shadow-lg font-poppins p-8 ss:m-10 m-4 rounded-xl items-center bg-gray-100 text-black">
           <Dots />
           <div className="font-semibold text-4xl mt-6">
@@ -59,7 +59,7 @@ const Explain = () => {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 grid-rows-2 gap-4">
+        <div className="grid lg:grid-cols-2 grid-rows-2 gap-4 ss:mx-10 mx-4">
           <Window
             title="Paste your code here"
             description="Paste your code here and let AI explain it for you."
@@ -79,12 +79,11 @@ const Explain = () => {
           >
             <div className="h-full">
               {loading ? (
-                // <div className="text-center mt-10">Loading...</div>
                 <div class="grid place-content-center h-full">
                   <div role="status">
                     <svg
                       aria-hidden="true"
-                      class="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-700"
+                      clasName="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-700"
                       viewBox="0 0 100 101"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"

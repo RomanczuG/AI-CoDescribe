@@ -1,8 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Listbox } from "@headlessui/react";
 import axios from "axios";
-
+import Editor from "./Editor";
+import Window from "./Window";
+import { Edit } from "@mui/icons-material";
 
 const client = axios.create({
   baseURL: "https://codescribeapp.herokuapp.com",
@@ -12,15 +13,25 @@ const client = axios.create({
 const Optimize
  = () => {
   const [optimization, setOptimization] = useState("");
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState("", "");
   const [loading, setLoading] = useState(false);
-  const [generated, setGenerated] = useState(false);
-
+  // const [generated, setGenerated] = useState(false);
+  const [chosen, setChosen] = useState(false);
+  const handleCallbackOptimize = (childData) => {
+    setCode(childData);
+  };
+  useEffect(() => {
+    if (chosen == true) {
+      generateOptimization();
+    } else {
+      setChosen(true);
+    }
+  }, [code]);
   const generateOptimization = () => {
     setLoading(true);
     client.post("/gen_optimization", {
-        code: code,
-        language: selectedLanguage.name,
+        code: code[0],
+        language: code[1],
         optimization: "",
       })
       .then((res) => {
@@ -34,14 +45,6 @@ const Optimize
       });
   };
 
-  const language = [
-    { id: 1, name: "Python", unavailable: false },
-    // { id: 2, name: "Java", unavailable: false },
-    { id: 3, name: "C++/C", unavailable: false },
-    { id: 4, name: "JavaScript", unavailable: true },
-    { id: 5, name: "Swift", unavailable: false },
-  ];
-  const [selectedLanguage, setSelectedLanguage] = useState(language[0]);
   return (
     <>
       <div className="max-w-screen-xl flex flex-col">
@@ -55,50 +58,32 @@ const Optimize
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 grid-rows-2 gap-10">
-          <div className="flex flex-col drop-shadow-lg font-poppins p-8 lg:ml-10 rounded-xl bg-gray-100 text-black">
-            <div className="grow font-medium">
-              <Dots />
-              <div className="mt-6 text-3xl">
-                Paste your code here and let AI optimize it.
-              </div>
-            </div>
-            <div className=" ">
-              <div className="text-sm mt-6">
-                <textarea
-                  className="w-full h-80 border-2 border-gray-300 rounded-lg p-4"
-                  placeholder="Paste your code here"
-                  onChange={(e) => setCode(e.target.value)}
-                />
-              </div>
-              <div className="relative z-0 flex w-1/2">                  
-              <button
-                onClick={generateOptimization}
-                className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white rounded-lg p-4"
-              >
-                Optimize
-              </button>
-              </div>  
-            </div>
-          </div>
+        <div className="grid lg:grid-cols-2 grid-rows-2 gap-10 mx-10">
+          <Window
+            title="Paste your code here"
+            description="Paste your code here and let AI optimize it."
+          >
+            <Editor
+              className = "h-full"
+              setCode = {handleCallbackOptimize}
+              buttonName = "Optimize"
+              listbox={true}
+              generateResponse={generateOptimization}
+            />
+          </Window>
+          <Window
+            title="Generated Optimization"
+            description="Copy the generated optimization and make your code better."
+          >
 
-          <div className="flex flex-col drop-shadow-lg font-poppins p-8 lg:mr-10 rounded-xl bg-gray-100 text-black">
-            <div className="font-medium grow">
-              <Dots />
-              <div className="mt-6 text-3xl">Generated Optimization</div>
-              <div className="mt-2 text-sm">
-                Copy the generated optimization and make your code better.
-              </div>
-            </div>
-            <div className="">
-              <div className="overflow-auto text-sm bg-white mt-6 w-full h-80 border-2 border-gray-300 rounded-lg display-linebreak">
+              <div className="h-full">
                 {loading ? (
                   // <div className="text-center mt-10">Loading...</div>
                   <div class="grid place-content-center h-full">
                     <div role="status">
                       <svg
                         aria-hidden="true"
-                        class="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-700"
+                        className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-700"
                         viewBox="0 0 100 101"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -117,33 +102,19 @@ const Optimize
                   </div>
                 ) : (
                   
-                    <div className="p-4" >{optimization}</div>
+                    <Editor
+                      className = "h-full"
+                      placeholder={optimization}
+                      buttonName = "Copy"
+                      listbox={false}
+                      />
                   
                 )}
               </div>
-              <div className="relative z-0 flex w-1/2">
-                
-                <button
-                  className="grid inline-flex mt-6 w-full bg-purple-700 hover:bg-purple-900 text-white rounded-lg p-4"
-                  onClick={() => {
-                    navigator.clipboard.writeText(optimization);
-                  }}
-                >
-                  Copy Optimization
-                </button>
-                {generated ? (
-                  <div className="absolute top-0 right-0 z-10 mt-6 ">
-                    <span className="flex z-10 relative h-3 w-3 top-0 right-0 -mt-1 -mr-1">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-                    </span>
-                  </div>
-                ) : null}
-              </div>
-            </div>
+          </Window>
+
           </div>
         </div>
-      </div>
     </>
   );
 };
