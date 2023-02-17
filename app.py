@@ -176,7 +176,7 @@ def gen_optimization(code):
         result = response.choices[0].text
 
         # Remove Header: from the result
-        result = result.replace("Description:", "")
+        result = result.replace("Optimization:", "")
         result = result.replace("Suggested Header:", "")
 
         result = result.split('\n')

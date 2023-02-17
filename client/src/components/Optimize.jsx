@@ -12,6 +12,7 @@ const client = axios.create({
 
 const Optimize = () => {
   const [optimization, setOptimization] = useState("");
+  const [splitOptimization, setSplitOptimization] = useState([]);
   const [code, setCode] = useState("", "");
   const [loading, setLoading] = useState(false);
   // const [generated, setGenerated] = useState(false);
@@ -21,12 +22,15 @@ const Optimize = () => {
   };
   useEffect(() => {
     if (chosen == true) {
+
       generateOptimization();
     } else {
       setChosen(true);
     }
   }, [code]);
   const generateOptimization = () => {
+    console.log(code[0])
+    console.log(code[1])
     setLoading(true);
     client
       .post("/gen_optimization", {
@@ -37,6 +41,7 @@ const Optimize = () => {
       .then((res) => {
         setLoading(false);
         setOptimization(res.data.optimization);
+        setSplitOptimization(res.data.optimization.split("\n"));
         console.log(optimization);
         setGenerated(true);
       })
@@ -65,18 +70,19 @@ const Optimize = () => {
             description="Paste your code here and let AI optimize it."
           >
             <Editor
-              className="h-full"
-              setCode={handleCallbackOptimize}
+              className="mt-8"
+              setCode={setCode}
               buttonName="Optimize"
               listbox={true}
-              generateResponse={generateOptimization}
+              generateResponse={handleCallbackOptimize}
             />
           </Window>
           <Window
             title="Generated Optimization"
-            description="Copy the generated optimization and make your code better."
+            description="Optimize the code by using the following instructions:"
           >
-            <div className="h-full">
+            <div className="h-full max-h-96 mt-6 overflow-auto">
+              <ul className="h-full">
               {loading ? (
                 // <div className="text-center mt-10">Loading...</div>
                 <div class="grid place-content-center h-full">
@@ -97,17 +103,27 @@ const Optimize = () => {
                         fill="currentFill"
                       />
                     </svg>
-                    <span class="sr-only">Loading...</span>
+                    <span className="sr-only">Loading...</span>
                   </div>
                 </div>
               ) : (
-                <Editor
-                  className="h-full"
-                  placeholder={optimization}
-                  buttonName="Copy"
-                  listbox={false}
-                />
+                // <Editor
+                //   className="h-full"
+                //   placeholder={optimization}
+                //   buttonName="Copy"
+                //   listbox={false}
+                // />
+                splitOptimization.map((item) => {
+                  return (
+                    <>
+                      <li className="text-base font-medium text-gray-800 px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                        {item}
+                      </li>
+                    </>
+                  );
+                })
               )}
+              </ul>
             </div>
           </Window>
         </div>

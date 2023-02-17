@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { Listbox } from "@headlessui/react";
-import { Dialog } from "@headlessui/react";
 
 function App({
   buttonName,
@@ -17,6 +16,7 @@ function App({
     { id: 3, name: "C", value: "c", unavailable: false },
     { id: 4, name: "JavaScript", value: "javascript", unavailable: true },
     { id: 5, name: "Swift", value: "swift", unavailable: false },
+    { id: 6, name: "Different", value: "", unavailable: false},
   ];
   const [selectedLanguage, setSelectedLanguage] = useState(language[0]);
   return (
