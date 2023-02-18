@@ -3,7 +3,6 @@ import React from "react";
 import axios from "axios";
 import { Dialog } from "@headlessui/react";
 import Window from "./Window";
-
 // lazy load the component Editor
 const Editor = React.lazy(() => import("./Editor"));
 // const DialogModal = React.lazy(() => import("./DialogModal"));
@@ -87,6 +86,7 @@ const Tools = () => {
   useEffect(() => {
     if (codeDoc[1] != "") {
       generateDocstring();
+      window.sa_event("docstring");
     }
   }, [codeDoc]);
 
@@ -135,6 +135,7 @@ const Tools = () => {
   useEffect(() => {
     if (codeExp[1] != "") {
       generateExplanation();
+      window.sa_event("explanation");
     }
   }, [codeExp]);
 
@@ -172,7 +173,7 @@ const Tools = () => {
   const [splitOptimization, setSplitOptimization] = useState([
     "1. Use the await keyword to avoid nesting promises: In this case, the response.json() call can be replaced with await response.json().",
     "2. Use the spread operator to avoid unnecessary array operations: In this case, the filter, sort, slice, and map operations can be replaced with a single spread operation.",
-    "3. Use the fetch API's built-in query parameters to filter the response: In this case, the filter operation can be replaced with a query parameter in the fetch call."
+    "3. Use the fetch API's built-in query parameters to filter the response: In this case, the filter operation can be replaced with a query parameter in the fetch call.",
   ]);
   const handleCallbackOptimization = (childData) => {
     setCodeOptimize(childData);
@@ -180,6 +181,7 @@ const Tools = () => {
   useEffect(() => {
     if (codeOptimize[1] != "") {
       generateOptimization();
+      window.sa_event("optimization");
     }
   }, [codeOptimize]);
 
@@ -443,11 +445,9 @@ const Tools = () => {
               ) : (
                 splitOptimization.map((item) => {
                   return (
-                    
-                      <li className="text-base font-medium text-gray-800 px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                        {item}
-                      </li>
-                    
+                    <li className="text-base font-medium text-gray-800 px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                      {item}
+                    </li>
                   );
                 })
               )}
