@@ -13,10 +13,10 @@ const SideBar = () => {
       <div className="px-2 pt-8">
         {/* <img src={profile} alt="logo" className="w-12 rounded-full" /> */}
         <a href="https://codescribe.app">
-        <div className="m-3 font-medium text-gray-200 text-2xl">
-          <span className="text-purple-400">Code</span>
-          <span>scribe.App</span>
-        </div>
+          <div className="m-3 font-medium text-gray-200 text-2xl">
+            <span className="text-purple-400">Code</span>
+            <span>scribe.App</span>
+          </div>
         </a>
       </div>
       <div className="grow px-2 text-white">
@@ -85,20 +85,16 @@ function CustomLink({ to, children, isActive }) {
   const resolvedPath = useResolvedPath(to);
   const match = useMatch({ path: resolvedPath.pathname, end: true });
   return (
-    <div
-      className={`text-base mt-2 px-5 py-4 hover:bg-purple-900 rounded-md ${
+    <Link
+      to={to}
+      className={`${
+        isActive ? "" : "disabled-link"
+      } flex justify-start items-center text-base mt-2 px-5 py-4 hover:bg-purple-900 rounded-md ${
         match ? "bg-purple-900" : ""
       }`}
     >
-      <Link
-        to={to}
-        className={`${
-          isActive ? "" : "disabled-link"
-        } flex justify-start items-center`}
-      >
-        {children}
-      </Link>
-    </div>
+      {children}
+    </Link>
   );
 }
 

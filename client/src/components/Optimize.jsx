@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Editor from "./Editor";
 import Window from "./Window";
-import { Edit } from "@mui/icons-material";
 
 const client = axios.create({
   baseURL: "https://codescribeapp.herokuapp.com",
@@ -107,12 +106,6 @@ const Optimize = () => {
                   </div>
                 </div>
               ) : (
-                // <Editor
-                //   className="h-full"
-                //   placeholder={optimization}
-                //   buttonName="Copy"
-                //   listbox={false}
-                // />
                 splitOptimization.map((item) => {
                   return (
                     <>

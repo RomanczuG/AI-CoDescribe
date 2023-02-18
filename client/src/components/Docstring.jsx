@@ -10,6 +10,7 @@ const client = axios.create({
 });
 
 const Docstring = () => {
+  const [showPopup, setShowPopup] = useState(false);
   const [docstring, setDocstring] = useState("");
   const [code, setCode] = useState("", "");
   const [loading, setLoading] = useState(false);
@@ -17,6 +18,15 @@ const Docstring = () => {
   const [chosen, setChosen] = useState(false);
   const handleCallbackDocstring = (childData) => {
     setCode(childData);
+  };
+  const handleCopy = () => {
+    navigator.clipboard.writeText(docstring);
+    // Create a popup saying that the docstring was copied
+    setShowPopup(true);
+    // Remove the popup after 2 seconds
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 2000);
   };
   useEffect(() => {
     if (chosen == true) {
@@ -109,9 +119,18 @@ const Docstring = () => {
                   placeholder={docstring}
                   buttonName="Copy Docstring"
                   listbox={false}
+                  generateResponse={handleCopy}
                 />
               )}
             </div>
+            {showPopup && (
+              <div className="fixed top-0 right-0 mt-5 mr-5 p-4 bg-purple-700 text-white rounded-md shadow-md z-50">
+                <span role="img" aria-label="clipboard">
+                  📋
+                </span>{" "}
+                Docstring copied!
+              </div>
+            )}
           </Window>
         </div>
       </div>

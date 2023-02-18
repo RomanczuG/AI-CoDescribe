@@ -8,6 +8,7 @@ function App({
   listbox,
   placeholder,
   button = true,
+  deafultLanguage = 0,
 }) {
   const [code, setCode] = React.useState(placeholder);
   const language = [
@@ -18,7 +19,7 @@ function App({
     { id: 5, name: "Swift", value: "swift", unavailable: false },
     { id: 6, name: "Different", value: "", unavailable: false},
   ];
-  const [selectedLanguage, setSelectedLanguage] = useState(language[0]);
+  const [selectedLanguage, setSelectedLanguage] = useState(language[deafultLanguage]);
   return (
     <>
       {listbox ? (
