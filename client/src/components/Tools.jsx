@@ -86,7 +86,7 @@ const Tools = () => {
   useEffect(() => {
     if (codeDoc[1] != "") {
       generateDocstring();
-      window.sa_event("docstring");
+      window.sa_event("docstring",{language: codeDoc[1], code: codeDoc[0], langing_page: true});
     }
   }, [codeDoc]);
 
@@ -135,7 +135,7 @@ const Tools = () => {
   useEffect(() => {
     if (codeExp[1] != "") {
       generateExplanation();
-      window.sa_event("explanation");
+      window.sa_event("explanation",{language: codeExp[1], code: codeExp[0], langing_page: true});
     }
   }, [codeExp]);
 
@@ -181,7 +181,7 @@ const Tools = () => {
   useEffect(() => {
     if (codeOptimize[1] != "") {
       generateOptimization();
-      window.sa_event("optimization");
+      window.sa_event("optimization",{language: codeOptimize[1], code: codeOptimize[0], langing_page: true});
     }
   }, [codeOptimize]);
 
