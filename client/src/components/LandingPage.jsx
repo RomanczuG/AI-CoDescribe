@@ -3,10 +3,18 @@ import styles from "../style";
 import Navbar from "./Navbar";
 import Hero from "./Hero";
 import { lazy } from "react";
+import { Helmet } from "react-helmet-async";
 const Content = lazy(() => import("./Tools"));
 
 const LandingPage = () => {
   return (
+    <>
+    <Helmet title="Home">
+      <title>Home</title>
+      
+      <meta name="description" content="Home page" />
+
+    </Helmet>
     <div className="w-full overflow-hidden">
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
         <div className={`${styles.boxWidth}`}>
@@ -25,6 +33,8 @@ const LandingPage = () => {
         </div>
       </div>
     </div>
+    </>
+
   );
 };
 

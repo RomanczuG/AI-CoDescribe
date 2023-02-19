@@ -7,6 +7,7 @@ import NotFound from "./NotFound";
 import Explain from "./Explain";
 import Optimize from "./Optimize";
 import { Bars3Icon } from "@heroicons/react/24/outline";
+import { Helmet } from "react-helmet-async";
 
 
 const Layout = () => {
@@ -38,6 +39,13 @@ const Layout = () => {
 
   return (
     <>
+      <Helmet title="Home">
+      <title>Dashboard</title>
+      
+      <meta name="description" content="Dashboard" />
+      <link rel="canonical" href="/app" />
+
+    </Helmet>
       <div className="relative h-screen flex overflow-hidden bg-grey-100">
         <div className={`${isSidebarNotOpen ? "hidden" : ""}`}>
           <SideBar />
