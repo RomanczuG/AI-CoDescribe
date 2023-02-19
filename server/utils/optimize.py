@@ -1,5 +1,5 @@
 def generate_prompt_optimize(function):
-    prompt = """Optimize the code by providing changes and example.
+    prompt = """Optimize the code by providing changes and lines of code.
 Example: 
 Code: def main():
     parser = argparse.ArgumentParser()
