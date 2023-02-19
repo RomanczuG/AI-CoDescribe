@@ -1,21 +1,25 @@
 import { useState, useEffect } from "react";
 
+
 function useScrollIndicator(ref) {
   const [showScrollIndicator, setShowScrollIndicator] = useState(false);
 
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = ref.current;
+    console.log(scrollTop, clientHeight, scrollHeight);
+
+    // if (scrollHeight - scrollTop > clientHeight) {
+    if (scrollHeight > clientHeight && scrollTop == 0){
+      setShowScrollIndicator(true);
+    } else {
+      setShowScrollIndicator(false);
+    }
+  };
+
   useEffect(() => {
-    const handleScroll = () => {
-      const { scrollTop, clientHeight, scrollHeight } = ref.current;
-      console.log(scrollTop, clientHeight, scrollHeight);
-
-      // if (scrollHeight - scrollTop > clientHeight) {
-      if (scrollHeight > clientHeight && scrollTop == 0){
-        setShowScrollIndicator(true);
-      } else {
-        setShowScrollIndicator(false);
-      }
-    };
-
+    handleScroll();
+  }, []);
+  useEffect(() => {
     if (ref.current) {
       ref.current.addEventListener("scroll", handleScroll);
     }
@@ -31,3 +35,4 @@ function useScrollIndicator(ref) {
 }
 
 export default useScrollIndicator;
+
