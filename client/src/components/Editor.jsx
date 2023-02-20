@@ -103,7 +103,6 @@ function App({
       )}
 
       <div className="flex flex-col w-full h-full mt-4">
-        {/* <div className="overflow-auto"> */}
         <CodeEditor
           className="z-0 relative grow border-2 border-gray-300 rounded-lg p-4"
           value={code}
@@ -120,12 +119,10 @@ function App({
               "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
           }}
         />
-        {/* </div> */}
         <div className="relative z-0 flex ss:w-1/2">
           {button ? (
             <>
               <button
-                // className="mt-4 w-full bg-purple-700 hover:bg-purple-900 text-white text-xs  rounded-lg p-4"
                 className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 onClick={() => generateResponse([code, selectedLanguage.value])}
               >

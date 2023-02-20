@@ -52,13 +52,13 @@ const explanationCode = `void calc_mean_variance(double* data, int n, double* me
     *variance /= n;
     }`;
 
-const explanationCode2 = `1. The calc_mean_variance function is defined and takes in four parameters: data, n, mean, and variance.
-2. The mean and variance variables are initialized to 0.
-3. A for loop is used to iterate over the range of n.
-4. The mean is calculated by summing the values in data and dividing by n.
-5. Another for loop is used to iterate over the range of n.
-6. The variance is calculated by summing the squared differences between each value in data and the mean, and dividing by n.
-7. The mean and variance variables are returned.
+const explanationCode2 = `The calc_mean_variance function is defined and takes in four parameters: data, n, mean, and variance.
+The mean and variance variables are initialized to 0.
+A for loop is used to iterate over the range of n.
+The mean is calculated by summing the values in data and dividing by n.
+Another for loop is used to iterate over the range of n.
+The variance is calculated by summing the squared differences between each value in data and the mean, and dividing by n.
+The mean and variance variables are returned.
 `;
 
 const optimizationCode = `async function fetchData() {
@@ -126,13 +126,13 @@ const Tools = () => {
   const [explanation, setExplanation] = useState(explanationCode2);
   const [explanationLoading, setExplanationLoading] = useState([false, false]);
   const [splitExplanation, setSplitExplanation] = useState([
-    "1. The calc_mean_variance function is defined and takes in four parameters: data, n, mean, and variance.",
-    "2. The mean and variance variables are initialized to 0.",
-    "3. A for loop is used to iterate over the range of n.",
-    "4. The mean is calculated by summing the values in data and dividing by n.",
-    "5. Another for loop is used to iterate over the range of n.",
-    "6. The variance is calculated by summing the squared differences between each value in data and the mean, and dividing by n.",
-    "7. The mean and variance variables are returned.",
+    "The calc_mean_variance function is defined and takes in four parameters: data, n, mean, and variance.",
+    "The mean and variance variables are initialized to 0.",
+    "A for loop is used to iterate over the range of n.",
+    "The mean is calculated by summing the values in data and dividing by n.",
+    "Another for loop is used to iterate over the range of n.",
+    "The variance is calculated by summing the squared differences between each value in data and the mean, and dividing by n.",
+    "The mean and variance variables are returned.",
   ]);
 
   const handleCallbackExplanation = (childData) => {
@@ -181,9 +181,9 @@ const Tools = () => {
     false,
   ]);
   const [splitOptimization, setSplitOptimization] = useState([
-    "1. Use the await keyword to avoid nesting promises: In this case, the response.json() call can be replaced with await response.json().",
-    "2. Use the spread operator to avoid unnecessary array operations: In this case, the filter, sort, slice, and map operations can be replaced with a single spread operation.",
-    "3. Use the fetch API's built-in query parameters to filter the response: In this case, the filter operation can be replaced with a query parameter in the fetch call.",
+    "Use the await keyword to avoid nesting promises: In this case, the response.json() call can be replaced with await response.json().",
+    "Use the spread operator to avoid unnecessary array operations: In this case, the filter, sort, slice, and map operations can be replaced with a single spread operation.",
+    "Use the fetch API's built-in query parameters to filter the response: In this case, the filter operation can be replaced with a query parameter in the fetch call.",
   ]);
   const handleCallbackOptimization = (childData) => {
     setCodeOptimize(childData);
@@ -311,6 +311,8 @@ const Tools = () => {
           </div>
         </div>
         <Window
+          text_color={"text-black"}
+          color={"bg-purple-100"}
           title="Paste your code here"
           // description="Automatically generate documentation for your code. It can be a function, class and much more..."
         >
@@ -322,8 +324,10 @@ const Tools = () => {
           />
         </Window>
         <Window
+          text_color={"text-black"}
+          color={"bg-purple-100"}
           // title=""
-          title="Keep your code clean with AI Doc Comments for your code."
+          title="Keep your code clean with AI Doc Comments."
         >
           {" "}
           {/* <div className="h-full "> */}
@@ -389,6 +393,8 @@ const Tools = () => {
         {/* </Window> */}
 
         <Window
+          text_color={"text-black"}
+          color={"bg-blue-100"}
           title="Paste your code here"
           // description="It can be a function, class and much more..."
           listbox={false}
@@ -403,6 +409,8 @@ const Tools = () => {
         </Window>
         {/* Right */}
         <Window
+          text_color={"text-black"}
+          color={"bg-blue-100"}
           // title=""
           title="Understand your and others code better."
           listbox={false}
@@ -447,6 +455,8 @@ const Tools = () => {
         </div>
 
         <Window
+          color={"bg-green-100"}
+          text_color={"text-black"}
           // title="Generate AI optimization for your code."
           title="Paste your code here"
           // description="See how you can improve your code. It is also a great way to learn
@@ -463,6 +473,7 @@ const Tools = () => {
         </Window>
         {/* Right */}
         <Window
+          color={"bg-green-100"}
           // title=""
           title="Optimize the code by using the following instructions:"
           listbox={false}
