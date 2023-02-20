@@ -26,11 +26,11 @@ function App({
     <>
       {listbox ? (
         <div className="z-10 relative">
-          <div className="mt-3 ss:text-[10px] text-[8px]">
+          <div className="ss:text-[10px] text-[8px]">
             Choose your coding language
           </div>
           <Listbox value={selectedLanguage} onChange={setSelectedLanguage}>
-            <div className="mt-2 w-1/2 relative">
+            <div className="mt-2 text-black w-1/2 relative">
               <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 <span className="block truncate">{selectedLanguage.name}</span>
                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -102,7 +102,7 @@ function App({
         <></>
       )}
 
-      <div className="flex flex-col w-full h-full ">
+      <div className="flex flex-col w-full h-full mt-4">
         {/* <div className="overflow-auto"> */}
         <CodeEditor
           className="z-0 relative grow border-2 border-gray-300 rounded-lg p-4"
@@ -130,12 +130,6 @@ function App({
                 onClick={() => generateResponse([code, selectedLanguage.value])}
               >
                 {buttonName}
-                {/* <div className="top-0 right-0 z-10 ">
-            <span className="flex z-10 relative h-3 w-3 top-0 right-0 -mt-1 -mr-1">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-            </span>
-          </div> */}
               </button>
             </>
           ) : (

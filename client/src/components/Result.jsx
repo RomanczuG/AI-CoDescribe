@@ -7,7 +7,7 @@ function Result({ split, loading }) {
 
   return (
     <div className="relative h-full mt-6  ">
-      <ul ref={ulRef} className="h-full max-h-96 overflow-y-auto">
+      <ul ref={ulRef} className="h-full max-h-96 overflow-y-auto divide-y divide-gray-200 rounded-lg bg-gray-100">
         {loading[0] ? (
           <div className="grid place-content-center h-full">
           <div role="status">
@@ -31,19 +31,25 @@ function Result({ split, loading }) {
           </div>
         </div>
         ) : (
-          split.map((item) => {
-            return (
-              <li
-                key={item}
-                className="text-base font-medium text-gray-800 px-6 py-2 border-b border-gray-200 w-full rounded-t-lg"
+          split.map((item) => (
+            <li
+              key={item}
+              className="flex justify-between items-center py-4 px-6 sm:px-8 lg:px-10 hover:bg-gray-100"
+            >
+              <div className="text-base font-medium text-gray-800">{item}</div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-gray-400 cursor-pointer"
+                viewBox="0 0 20 20"
+                fill="currentColor"
               >
-                {item}
-              </li>
-            );
-          })
+         
+              </svg>
+            </li>
+          ))
         )}
       </ul>
-      {showScrollIndicator && (
+      {/* {showScrollIndicator && (
         <div className="absolute bottom-2 left-0 right-0 flex justify-center items-center">
           <div className="bg-purple-700 rounded-full h-10 w-10 flex items-center justify-center animate-bounce">
             <svg
@@ -62,7 +68,7 @@ function Result({ split, loading }) {
             </svg>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

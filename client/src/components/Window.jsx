@@ -2,14 +2,11 @@ import React from "react";
 
 function Window({ title, description, children }) {
   return (
-    <div className="flex flex-col drop-shadow-lg font-poppins p-8  rounded-xl bg-gray-100 text-black">
-      <div className="font-medium">
-        <Dots />
-        <div className="font-semibold ss:text-3xl text-2xl mt-6">{title}</div>
-        <div className="mt-[5px] font-medium ss:text-[15px] text-[13px]">
-          {description}
-        </div>
+    <div className="flex flex-col bg-gray-900 rounded-xl shadow-lg p-6 text-white">
+      <div className="flex items-center mb-4">
+        <Dots className="mr-2" />
       </div>
+      <div className="text-lg font-medium">{title}</div>
       {children}
     </div>
   );

@@ -12,11 +12,11 @@ Code: def main():
         help="the path to the text file to be searched through"
     )
 Optimization:
-1. Avoid using unnecessary variables: In this case, the "parser" variable can be removed and the arguments can be added directly to the ArgumentParser() method.
-2. Use the nargs parameter to allow for multiple words to be searched for at once.
-3. Use the type parameter to specify the type of the argument, which can improve performance.
-4. Use the metavar parameter to provide a more descriptive name for the argument in the usage message.
-5. Use the action parameter to specify a custom action for the argument, which can be used for advanced processing.
+Avoid using unnecessary variables: In this case, the "parser" variable can be removed and the arguments can be added directly to the ArgumentParser() method.
+Use the nargs parameter to allow for multiple words to be searched for at once.
+Use the type parameter to specify the type of the argument, which can improve performance.
+Use the metavar parameter to provide a more descriptive name for the argument in the usage message.
+Use the action parameter to specify a custom action for the argument, which can be used for advanced processing.
 
 Example:
 Code: def dynamic_k_matching(self, cost, pair_wise_ious, gt_classes, num_gt, fg_mask):
@@ -55,9 +55,9 @@ Code: def dynamic_k_matching(self, cost, pair_wise_ious, gt_classes, num_gt, fg_
     ]
     return num_fg, gt_matched_classes, pred_ious_this_matching, 
 Optimization:
-1. Avoid using the del keyword to delete intermediate variables: In this case, topk_ious, dynamic_ks, and pos_idx can be removed directly after they are used.
-2. Use in-place operations: In this case, operations like matching_matrix[gt_idx][pos_idx] = 1 and fg_mask[fg_mask.clone()] = fg_mask_inboxes can be replaced with their in-place version, matching_matrix[gt_idx][pos_idx].fill_(1) and fg_mask.copy_(fg_mask_inboxes) respectively.
-3. Use broadcasting to optimize matrix operations: In this case, operations like matching_matrix * pair_wise_ious can be optimized by broadcasting the matching_matrix to match the shape of pair_wise_ious.
+Avoid using the del keyword to delete intermediate variables: In this case, topk_ious, dynamic_ks, and pos_idx can be removed directly after they are used.
+Use in-place operations: In this case, operations like matching_matrix[gt_idx][pos_idx] = 1 and fg_mask[fg_mask.clone()] = fg_mask_inboxes can be replaced with their in-place version, matching_matrix[gt_idx][pos_idx].fill_(1) and fg_mask.copy_(fg_mask_inboxes) respectively.
+Use broadcasting to optimize matrix operations: In this case, operations like matching_matrix * pair_wise_ious can be optimized by broadcasting the matching_matrix to match the shape of pair_wise_ious.
 
 Generated prompt:
 Optimization:
