@@ -21,7 +21,12 @@ const Optimize = () => {
   };
   useEffect(() => {
     if (chosen == true) {
-
+      window.sa_event("optimize", {
+        language: code[1],
+        code: code[0],
+        langing_page: false,
+        created_at: new Date(),
+      });
       generateOptimization();
     } else {
       setChosen(true);

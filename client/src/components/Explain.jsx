@@ -21,6 +21,12 @@ const Explain = () => {
   };
   useEffect(() => {
     if (chosen == true) {
+      window.sa_event("explain", {
+        language: code[1],
+        code: code[0],
+        langing_page: false,
+        created_at: new Date(),
+      });
       generateExplanation();
     } else {
       setChosen(true);

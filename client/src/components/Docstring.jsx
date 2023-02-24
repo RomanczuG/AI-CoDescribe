@@ -30,6 +30,12 @@ const Docstring = () => {
   };
   useEffect(() => {
     if (chosen == true) {
+      window.sa_event("docstring", {
+        language: code[1],
+        code: code[0],
+        langing_page: false,
+        created_at: new Date(),
+      });
       generateDocstring();
     } else {
       setChosen(true);
