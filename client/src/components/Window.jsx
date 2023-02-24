@@ -19,15 +19,4 @@ function Window({ title, children, color, text_color }) {
   );
 }
 
-
-function Dots() {
-  return (
-    <div className="flex flex-row">
-      <div className="mr-[8px] bg-red-600 w-[14px] h-[14px] rounded-full"></div>
-      <div className="mr-[8px] bg-yellow-500 w-[14px] h-[14px] rounded-full"></div>
-      <div className="bg-green-600 w-[14px] h-[14px] rounded-full"></div>
-    </div>
-  );
-}
-
 export default Window;
