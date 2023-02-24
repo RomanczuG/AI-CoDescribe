@@ -289,7 +289,8 @@ const Tools = () => {
 
       <div className="grid md:grid-cols-2 grid-cols-1 gap-8 lg:w-5/6 w-full">
         <div class="bg-purple-100 py-12 md:col-span-2 rounded-xl">
-          <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="absolute z-0 w-1/3 h-1/3 bg-[#FC4FF6] rounded-full opacity-20 blur-[100px] z-0"></div>
+          <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
               <h2 class="text-base text-purple-600 font-semibold tracking-wide uppercase">
                 Introducing
@@ -370,7 +371,8 @@ const Tools = () => {
         </Window>
         {/* <Window className="col-span-2"> */}
         <div class="bg-blue-100 py-12 md:col-span-2 rounded-xl">
-          <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="absolute z-0 w-1/3 h-1/3 bg-[#5D6EF3] rounded-full opacity-20 blur-[100px] z-0"></div>
+          <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
               <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">
                 Introducing
@@ -433,7 +435,8 @@ const Tools = () => {
         </Window>
         {/* Optimize */}
         <div class="bg-green-100 py-12 md:col-span-2 rounded-xl">
-          <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="absolute z-0 w-1/3 h-1/3 bg-green-400 rounded-full opacity-40 blur-[80px] z-0"></div>
+          <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
               <h2 class="text-base text-green-600 font-semibold tracking-wide uppercase">
                 Introducing

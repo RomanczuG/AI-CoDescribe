@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "../style";
-import { Link } from "react-router-dom";
-import { lazy, Suspense } from "react";
-const Content = lazy(() => import("./Title_animated"));
+// import { Link } from "react-router-dom";
+// import { lazy, Suspense } from "react";
+// const Content = lazy(() => import("./Title_animated"));
+import Title_animated from "./Title_animated";
 
 const Hero = () => {
   return (
@@ -14,15 +15,15 @@ const Hero = () => {
         className={`z-10 flex-1 ${styles.flexStart} flex flex-col px-6 justify-between items-center`}
       >
         <div className="md:py-4 px-5 text-center items-center ">
-          <Suspense fallback={<div>Loading...</div>}>
+          {/* <Suspense fallback={<div>Loading...</div>}>
             <Content />
-          </Suspense>
-          {/* <Title_animated/> */}
+          </Suspense> */}
+          <Title_animated/>
 
           <div className="flex justify-center font-poppins font-normal md:text-xl text-base md:leading-[33px] leading-[23px] md:mt-20 mt-10 text-[#3E3E3E] text-center tracking-wider">
             <p className="md:w-3/4 w-full">
               Our AI dev tools facilitates the process of writing code by
-              providing to document, explain, optimize, and translate your code.
+              providing tools to document, explain, optimize, and translate your code.
               No matter if you are using Python, Java, or C++, we have you
               covered. Make your personal & team project more efficient with our
               AI dev tools.

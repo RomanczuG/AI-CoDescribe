@@ -102,7 +102,7 @@ function App({
         <></>
       )}
 
-      <div className="flex flex-col w-full h-full mt-4">
+      <div className="flex flex-col w-full h-full ">
         <CodeEditor
           className="z-0 relative grow border-2 border-gray-300 rounded-lg p-4"
           value={code}
