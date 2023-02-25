@@ -5,20 +5,20 @@ const Navbar = () => {
     <nav className="w-full flex py-6 justify-between items-center top-48">
       <div className="w-[320px] h-[36px] text-logo font-bold text-2xl "> CoDescribe.app </div>
       <ul className="list-none sm:flex hidden items-center ">
-        {navLinks.map((nav, index) => (
+        {/* {navLinks.map((nav, index) => (
           <li 
           key={nav.id} 
           className={`font-poppins font-normal text-logo cursor-pointer text-[16px] ${index === navLinks.length-1 ? 'mr-0' : 'mr-10'} text-white`}>
             <a href={`#${nav.id}`}>{nav.title}</a>
           </li>
-        ))}
+        ))} */}
       </ul>
       
       <div className="grid ss:grid-cols-2 grid-cols-1 gap-4 sm:flex hidden font-poppins text-white mt-5">
-          <a href="/app">
-            <button className="cursor-pointer font-semibold  h-[60px] w-[150px] relative overflow-hidden rounded-lg bg-black  ring-red-500/50 ring-offset-black will-change-transform">
+          <a href="https://www.buymeacoffee.com/mateuszcoder">
+            <button className="cursor-pointer font-semibold  h-[60px] w-[170px] relative overflow-hidden rounded-lg bg-black  ring-red-500/50 ring-offset-black will-change-transform">
               <span className="absolute inset-0.5 z-10 grid place-items-center rounded-lg bg-black bg-gradient-to-t from-neutral-800 ">
-                SignUp
+                Support the author
               </span>
               <span
                 aria-hidden
@@ -26,10 +26,10 @@ const Navbar = () => {
               />
             </button>
           </a>
-          <a href="/app">
-            <button className="cursor-pointer font-semibold  h-[60px] w-[150px] relative overflow-hidden rounded-lg bg-black py-6 ring-red-500/50 ring-offset-black will-change-transform">
+          <a href="https://twitter.com/betterMateusz">
+            <button className="cursor-pointer font-semibold  h-[60px] w-[170px] relative overflow-hidden rounded-lg bg-black py-6 ring-red-500/50 ring-offset-black will-change-transform">
               <span className="absolute inset-0.5 z-10 grid place-items-center rounded-lg bg-black bg-gradient-to-t from-neutral-800 ">
-                Login
+                Check twitter
               </span>
               <span
                 aria-hidden
