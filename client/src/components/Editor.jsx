@@ -2,7 +2,16 @@ import React, { useEffect, useState } from "react";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { Listbox } from "@headlessui/react";
 
-function App({
+/**
+ * React component to render a code editor
+ * @param {string} buttonName - Name of the button
+ * @param {boolean} button - Flag to render the button
+ * @param {function} func - Function to be called when the button is clicked
+ * @param {boolean} listbox - Flag to render the listbox
+ * @param {string} placeholder - Placeholder for the code editor
+ * @param {number} deafultLanguageId - Default language id, 0 for python, 1 for c, 2 for javascript, 3 for swift, 4 for different
+ */
+function Editor({
   buttonName,
   button = true,
   func,
@@ -142,4 +151,4 @@ function App({
     </>
   );
 }
-export default App;
+export default Editor;

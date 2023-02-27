@@ -24,6 +24,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-      </HelmetProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );

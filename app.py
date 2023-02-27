@@ -7,6 +7,7 @@ import textwrap
 from server.utils import prompts
 from server.utils import explain
 from server.utils import optimize
+from server.utils import debug
 from dotenv import load_dotenv, find_dotenv
 import pymongo
 from flask_compress import Compress
@@ -121,6 +122,17 @@ def not_found(e):
     #     index_js_gz = f.read()
     #     response.data += index_js_gz
 
+@app.route('/gen_debug', methods=['POST'])
+def fetch_gen_debug():
+    response = {
+        "code": request.json['code'],
+        "language": request.json['language'],
+        "error": request.json['error'],
+        "debug": request.json['debug']
+    }
+    print(response)
+    response["solution"], response["goodcode"] = gen_debug(response["code"], response["error"])
+    return jsonify(response)
 
 @app.route('/gen_docstring', methods=['POST'])
 def fetch_gen_docstring():
@@ -132,8 +144,6 @@ def fetch_gen_docstring():
     print(response)
     response["docstring"] = gen_docstring(
         response["language"], response["code"])
-    new_comment = add_comment(
-        "docstring", response["language"], response["code"], response["docstring"])
     return jsonify(response)
 
 
@@ -160,6 +170,35 @@ def fetch_gen_optimization():
     response["optimization"] = gen_optimization(response["code"])
     return jsonify(response)
 
+def gen_debug(code, error):
+    result = ""
+    prompt = ""
+    clipboard = ""
+    if request.method == 'POST':
+
+        openai.api_key = OPENAI_API_KEY
+
+        prompt = debug.generate_prompt_debug(code, error)
+
+        response = openai.Completion.create(
+            model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
+        result = response.choices[0].text
+
+        solution, goodCode = result.split("For example:")
+        solution = solution.replace("Solution:", "")
+
+
+        goodCode = goodCode.split("\n")
+        while goodCode[0] == "":
+            goodCode.pop(0)
+        goodCode = '\n'.join(goodCode)
+
+        print("Solution:")
+        print(solution)
+        print("Good Code:")
+        print(goodCode)
+
+    return solution, goodCode
 
 def gen_optimization(code):
     result = ""
