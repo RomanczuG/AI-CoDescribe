@@ -12,9 +12,8 @@ const client = axios.create({
 const Optimize = () => {
   const [optimization, setOptimization] = useState("");
   const [splitOptimization, setSplitOptimization] = useState([]);
-  const [code, setCode] = useState("", "");
+  const [code, setCode] = useState(["", ""]);
   const [loading, setLoading] = useState(false);
-  // const [generated, setGenerated] = useState(false);
   const [chosen, setChosen] = useState(false);
   const handleCallbackOptimize = (childData) => {
     setCode(childData);
@@ -22,7 +21,7 @@ const Optimize = () => {
   useEffect(() => {
     if (chosen == true) {
       window.sa_event("optimize", {
-        language: code[1],
+        language: code[1]["value"],
         code: code[0],
         langing_page: false,
         created_at: new Date(),
@@ -39,15 +38,13 @@ const Optimize = () => {
     client
       .post("/gen_optimization", {
         code: code[0],
-        language: code[1],
+        language: code[1]["value"],
         optimization: "",
       })
       .then((res) => {
         setLoading(false);
         setOptimization(res.data.optimization);
         setSplitOptimization(res.data.optimization.split("\n"));
-        console.log(optimization);
-        setGenerated(true);
       })
       .catch((err) => {
         console.log(err);
@@ -75,10 +72,9 @@ const Optimize = () => {
           >
             <Editor
               className="mt-8"
-              setCode={setCode}
               buttonName="Optimize"
               listbox={true}
-              generateResponse={handleCallbackOptimize}
+              func={handleCallbackOptimize}
             />
           </Window>
           <Window

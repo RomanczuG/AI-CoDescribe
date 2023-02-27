@@ -1,27 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { Listbox } from "@headlessui/react";
 
 function App({
   buttonName,
-  generateResponse,
+  button = true,
+  func,
   listbox,
   placeholder,
-  button = true,
-  deafultLanguage = 0,
+  deafultLanguageId = 0,
 }) {
   const [code, setCode] = React.useState(placeholder);
   const language = [
-    { id: 1, name: "Python", value: "python", unavailable: false },
+    { id: 0, name: "Python", value: "python", unavailable: false },
     // { id: 2, name: "Java", unavailable: false },
-    { id: 3, name: "C", value: "c", unavailable: false },
-    { id: 4, name: "JavaScript", value: "javascript", unavailable: true },
-    { id: 5, name: "Swift", value: "swift", unavailable: false },
-    { id: 6, name: "Different", value: "", unavailable: false },
+    { id: 1, name: "C", value: "c", unavailable: false },
+    { id: 2, name: "JavaScript", value: "javascript", unavailable: true },
+    { id: 3, name: "Swift", value: "swift", unavailable: false },
+    { id: 4, name: "Different", value: "", unavailable: false },
   ];
   const [selectedLanguage, setSelectedLanguage] = useState(
-    language[deafultLanguage]
+    language[deafultLanguageId]
   );
+  useEffect(() => {
+    setSelectedLanguage(language[deafultLanguageId]);
+    console.log("Output language:");
+    console.log(selectedLanguage);
+  }, [deafultLanguageId]);
   return (
     <>
       {listbox ? (
@@ -124,7 +129,7 @@ function App({
             <>
               <button
                 className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                onClick={() => generateResponse([code, selectedLanguage])}
+                onClick={() => func([code,  selectedLanguage])}
               >
                 {buttonName}
               </button>

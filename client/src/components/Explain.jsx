@@ -12,9 +12,8 @@ const client = axios.create({
 const Explain = () => {
   const [explanation, setExplanation] = useState("");
   const [splitExplanation, setSplitExplanation] = useState([]);
-  const [code, setCode] = useState("", "");
+  const [code, setCode] = useState(["", ""]);
   const [loading, setLoading] = useState(false);
-  const [generated, setGenerated] = useState(false);
   const [chosen, setChosen] = useState(false);
   const handleCallbackExplain = (childData) => {
     setCode(childData);
@@ -22,7 +21,7 @@ const Explain = () => {
   useEffect(() => {
     if (chosen == true) {
       window.sa_event("explain", {
-        language: code[1],
+        language: code[1]["value"],
         code: code[0],
         langing_page: false,
         created_at: new Date(),
@@ -39,20 +38,17 @@ const Explain = () => {
         // axios
         //   .post("http://127.0.0.1:5000/gen_explanation", {
         code: code[0],
-        language: code[1],
+        language: code[1]["value"],
         explanation: "",
       })
       .then((res) => {
         setLoading(false);
         setExplanation(res.data.explanation);
         setSplitExplanation(res.data.explanation.split("\n"));
-        setGenerated(true);
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log(explanation);
-    console.log(splitExplanation);
   };
   return (
     <>
@@ -75,11 +71,9 @@ const Explain = () => {
           >
             <Editor
               className="mt-8"
-              code={code}
-              setCode={setCode}
               buttonName="Generate Explanation"
               listbox={true}
-              generateResponse={handleCallbackExplain}
+              func={handleCallbackExplain}
             />
           </Window>
           <Window

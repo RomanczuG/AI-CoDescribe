@@ -2,7 +2,7 @@ import React from "react";
 
 function Window({ title, children, color, text_color }) {
   return (
-    <div className="bg-white shadow-lg rounded-xl overflow-hidden">
+    <div className="bg-gray-100 shadow-lg rounded-xl overflow-hidden">
       <div className={`${color} px-6 py-4 flex justify-between items-center rounded-t-xl`}>
         <div className="flex items-center">
           <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>

@@ -45,7 +45,7 @@ const Debug = () => {
         setDebug(res.data.debug);
         setSplitDebug(res.data.debug.split("\n"));
         console.log(debug);
-        setGenerated(true);
+        // setGenerated(true);
       })
       .catch((err) => {
         console.log(err);

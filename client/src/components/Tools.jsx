@@ -52,15 +52,6 @@ const explanationCode = `void calc_mean_variance(double* data, int n, double* me
     *variance /= n;
     }`;
 
-const explanationCode2 = `The calc_mean_variance function is defined and takes in four parameters: data, n, mean, and variance.
-The mean and variance variables are initialized to 0.
-A for loop is used to iterate over the range of n.
-The mean is calculated by summing the values in data and dividing by n.
-Another for loop is used to iterate over the range of n.
-The variance is calculated by summing the squared differences between each value in data and the mean, and dividing by n.
-The mean and variance variables are returned.
-`;
-
 const optimizationCode = `async function fetchData() {
   try {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -88,7 +79,7 @@ const Tools = () => {
     if (codeDoc[1] != "") {
       generateDocstring();
       window.sa_event("docstring", {
-        language: codeDoc[1],
+        language: codeDoc[1]["value"],
         code: codeDoc[0],
         langing_page: true,
         created_at: new Date(),
@@ -106,15 +97,13 @@ const Tools = () => {
       client
         .post("/gen_docstring", {
           code: codeDoc[0],
-          language: codeDoc[1],
+          language: codeDoc[1]["value"],
           docstring: "",
         })
         .then((res) => {
           setFirst(true);
           setDocstringLoading([false, true]);
-          // setLoading(false);
           setDocstring(res.data.docstring);
-          // setGenerated(true);
         })
         .catch((err) => {
           console.log(err);
@@ -124,7 +113,6 @@ const Tools = () => {
 
   // Let create explanation
   const [codeExp, setCodeExp] = useState([explanationCode, ""]);
-  const [explanation, setExplanation] = useState(explanationCode2);
   const [explanationLoading, setExplanationLoading] = useState([false, false]);
   const [splitExplanation, setSplitExplanation] = useState([
     "The calc_mean_variance function is defined and takes in four parameters: data, n, mean, and variance.",
@@ -143,7 +131,7 @@ const Tools = () => {
     if (codeExp[1] != "") {
       generateExplanation();
       window.sa_event("explanation", {
-        language: codeExp[1],
+        language: codeExp[1]["value"],
         code: codeExp[0],
         langing_page: true,
         created_at: new Date(),
@@ -160,16 +148,13 @@ const Tools = () => {
       client
         .post("/gen_explanation", {
           code: codeExp[0],
-          language: codeExp[1],
+          language: codeExp[1]["value"],
           explanation: "",
         })
         .then((res) => {
           setFirst(true);
           setExplanationLoading([false, true]);
-          // setLoading(false);
-          setExplanation(res.data.explanation);
           setSplitExplanation(res.data.explanation.split("\n"));
-          // setGenerated(true);
         })
         .catch((err) => {
           console.log(err);
@@ -177,7 +162,6 @@ const Tools = () => {
     }
   };
   const [codeOptimize, setCodeOptimize] = useState([optimizationCode, ""]);
-  const [optimization, setOptimization] = useState("");
   const [optimizationLoading, setOptimizationLoading] = useState([
     false,
     false,
@@ -217,11 +201,8 @@ const Tools = () => {
         .then((res) => {
           setFirst(true);
           setOptimizationLoading([false, true]);
-          // setLoading(false);
-          setOptimization(res.data.optimization);
           setSplitOptimization(res.data.optimization.split("\n"));
           console.log(splitOptimization);
-          // setGenerated(true);
         })
         .catch((err) => {
           console.log(err);
@@ -255,7 +236,6 @@ const Tools = () => {
         <div className="fixed inset-0 bg-black/30 " aria-hidden="true" />
 
         <Dialog.Panel className="fixed inset-0 left-1/3 top-1/3 h-min max-w-md overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl">
-          {/* <Dots /> */}
           <Dialog.Title
             as="h3"
             className="mt-2 text-lg font-medium leading-6 text-gray-900"
@@ -324,7 +304,7 @@ const Tools = () => {
             buttonName={"Generate Docstring"}
             placeholder={docstringCode}
             listbox={true}
-            generateResponse={handleCallbackDocstring}
+            func={handleCallbackDocstring}
           />
         </Window>
         <Window
@@ -360,7 +340,7 @@ const Tools = () => {
             </div>
           ) : (
             <>
-              <Editor placeholder={docstring} button={false} listbox={false} />
+              <Editor placeholder={docstring} button={false} deafultLanguageId={codeDoc[1]["id"]} listbox={false} />
               <a href="/app">
                 <button className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                   Get started for free!
@@ -408,7 +388,7 @@ const Tools = () => {
             buttonName={"Explain the code"}
             placeholder={explanationCode}
             listbox={true}
-            generateResponse={handleCallbackExplanation}
+            func={handleCallbackExplanation}
             deafultLanguage={1}
           />
         </Window>
@@ -435,7 +415,7 @@ const Tools = () => {
         </Window>
         {/* Optimize */}
         <div class="bg-green-100 py-12 md:col-span-2 rounded-xl">
-        <div className="absolute z-0 w-1/3 h-1/3 bg-green-400 rounded-full opacity-40 blur-[80px] z-0"></div>
+          <div className="absolute z-0 w-1/3 h-1/3 bg-green-400 rounded-full opacity-40 blur-[80px] z-0"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
               <h2 class="text-base text-green-600 font-semibold tracking-wide uppercase">
@@ -473,7 +453,7 @@ const Tools = () => {
             buttonName={"Optimize the code"}
             placeholder={optimizationCode}
             listbox={true}
-            generateResponse={handleCallbackOptimization}
+            func={handleCallbackOptimization}
             deafultLanguage={2}
           />
         </Window>

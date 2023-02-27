@@ -12,9 +12,8 @@ const client = axios.create({
 const Docstring = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [docstring, setDocstring] = useState("");
-  const [code, setCode] = useState("", "");
+  const [code, setCode] = useState(["", ""]);
   const [loading, setLoading] = useState(false);
-  // const [generated, setGenerated] = useState(false);
   const [chosen, setChosen] = useState(false);
   const handleCallbackDocstring = (childData) => {
     setCode(childData);
@@ -31,7 +30,7 @@ const Docstring = () => {
   useEffect(() => {
     if (chosen == true) {
       window.sa_event("docstring", {
-        language: code[1],
+        language: code[1]["value"],
         code: code[0],
         langing_page: false,
         created_at: new Date(),
@@ -48,14 +47,12 @@ const Docstring = () => {
     client
       .post("/gen_docstring", {
         code: code[0],
-        language: code[1],
+        language: code[1]["value"],
         docstring: "",
       })
       .then((res) => {
         setLoading(false);
-        setDocstring(res.data.docstring);
-        console.log(docstring);
-        setGenerated(true);
+        setDocstring(res.data.docstring);   
       })
       .catch((err) => {
         console.log(err);
@@ -84,11 +81,9 @@ const Docstring = () => {
           >
             <Editor
               className="mt-8"
-              // code={code}
-              // setCode={setCode}
               buttonName="Generate Docstring"
               listbox={true}
-              generateResponse={handleCallbackDocstring}
+              func={handleCallbackDocstring}
             />
           </Window>
           <Window
@@ -98,7 +93,7 @@ const Docstring = () => {
             <div className="h-full">
               {loading ? (
                 // <div className="text-center mt-10">Loading...</div>
-                <div class="grid place-content-center h-full">
+                <div className="grid place-content-center h-full">
                   <div role="status">
                     <svg
                       aria-hidden="true"
@@ -116,7 +111,7 @@ const Docstring = () => {
                         fill="currentFill"
                       />
                     </svg>
-                    <span class="sr-only">Loading...</span>
+                    <span className="sr-only">Loading...</span>
                   </div>
                 </div>
               ) : (
@@ -125,7 +120,8 @@ const Docstring = () => {
                   placeholder={docstring}
                   buttonName="Copy Docstring"
                   listbox={false}
-                  generateResponse={handleCopy}
+                  func={handleCopy}
+                  deafultLanguageId = {code[1]["id"]}
                   
                 />
               )}
