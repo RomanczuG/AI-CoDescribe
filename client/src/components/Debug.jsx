@@ -17,22 +17,22 @@ const Debug = () => {
   const [chosen, setChosen] = useState(false);
   const [solution, setSolution] = useState("");
   const [goodCode, setGoodCode] = useState("");
-  const handleCallbackDebug = (childData) => {
-    setCode(childData[0], "", childData[1]);
-  };
-  useEffect(() => {
-    if (chosen == true) {
-      window.sa_event("debug", {
-        language: code[1]["value"],
-        code: code[0],
-        langing_page: false,
-        created_at: new Date(),
-      });
-      generateDebug();
-    } else {
-      setChosen(true);
-    }
-  }, [code]);
+//   const handleCallbackDebug = (childData) => {
+//     setCode(childData[0], "", childData[1]);
+//   };
+//   useEffect(() => {
+//     if (chosen == true) {
+//       window.sa_event("debug", {
+//         language: code[1]["value"],
+//         code: code[0],
+//         langing_page: false,
+//         created_at: new Date(),
+//       });
+//       generateDebug();
+//     } else {
+//       setChosen(true);
+//     }
+//   }, [code]);
   const generateDebug = () => {
     setLoading(true);
     client
