@@ -84,8 +84,8 @@ const Docstring = () => {
           >
             <Editor
               className="mt-8"
-              code={code}
-              setCode={setCode}
+              // code={code}
+              // setCode={setCode}
               buttonName="Generate Docstring"
               listbox={true}
               generateResponse={handleCallbackDocstring}
@@ -126,6 +126,7 @@ const Docstring = () => {
                   buttonName="Copy Docstring"
                   listbox={false}
                   generateResponse={handleCopy}
+                  
                 />
               )}
             </div>

@@ -8,7 +8,7 @@ import Explain from "./Explain";
 import Optimize from "./Optimize";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { Helmet } from "react-helmet-async";
-
+import Debug from "./Debug";
 
 const Layout = () => {
   const [isSidebarNotOpen, setIsSidebarNotOpen] = useState(false);
@@ -65,6 +65,7 @@ const Layout = () => {
               <Route path="*" element={<NotFound />} />
               <Route path="/explain" element={<Explain />} />
               <Route path="/optimize" element={<Optimize />} />
+              <Route path="/debug" element ={<Debug/>} />
             </Routes>
           </div>
         </main>

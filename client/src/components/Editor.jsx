@@ -124,7 +124,7 @@ function App({
             <>
               <button
                 className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-purple-700 px-4 py-2 text-sm font-medium text-purple-100 hover:bg-purple-200 hover:text-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                onClick={() => generateResponse([code, selectedLanguage.value])}
+                onClick={() => generateResponse([code, selectedLanguage])}
               >
                 {buttonName}
               </button>

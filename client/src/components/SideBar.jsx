@@ -4,6 +4,7 @@ import {
   ChatBubbleBottomCenterIcon,
   LanguageIcon,
   ArrowTrendingUpIcon,
+  BugAntIcon,
 } from "@heroicons/react/24/outline";
 import { Link, useResolvedPath, useMatch } from "react-router-dom";
 
@@ -13,7 +14,7 @@ const SideBar = () => {
       <div className="px-2 pt-8">
         {/* <img src={profile} alt="logo" className="w-12 rounded-full" /> */}
         <a href="https://codescribe.app">
-          <div className="m-3 font-medium text-gray-200 text-2xl">
+          <div className="m-3 font-semibold tracking-wide text-gray-200 text-2xl">
             <span className="text-purple-400">Code</span>
             <span>scribe.App</span>
           </div>
@@ -42,7 +43,7 @@ const SideBar = () => {
 
         <CustomLink to="/app/docstring" isActive={true}>
           <PencilSquareIcon className="w-6 mr-3" />
-          <p>Docstring</p>
+          <p>Doc Comments</p>
         </CustomLink>
 
         <CustomLink to="/app/explain" isActive={true}>
@@ -50,9 +51,9 @@ const SideBar = () => {
           <p>Explain Code</p>
         </CustomLink>
 
-        <CustomLink to="/app/lol" isActive={false}>
-          <LanguageIcon className="w-6 mr-3 " />
-          <p>Translate Code &#40;not available&#41;</p>
+        <CustomLink to="/app/debug" isActive={true}>
+          <BugAntIcon className="w-6 mr-3 " />
+          <p>Debug Code</p>
         </CustomLink>
 
         <CustomLink to="/app/optimize" isActive={true}>
