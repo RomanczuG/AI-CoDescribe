@@ -1,12 +1,12 @@
-import React, { useState, useEffect, Children } from "react";
+import React, { useState, useEffect } from "react";
 import { early_bird, day_eagle, night_owl } from "../assets";
 import {
   PencilSquareIcon,
   ChatBubbleBottomCenterIcon,
-  LanguageIcon,
   ArrowTrendingUpIcon,
   ChatBubbleLeftEllipsisIcon,
   WrenchScrewdriverIcon,
+  BugAntIcon,
 
 } from "@heroicons/react/24/outline";
 const Layout = () => {
@@ -43,8 +43,8 @@ const Layout = () => {
           <ChatBubbleBottomCenterIcon className="text-white m-5" />
           </CardTool>
 
-          <CardTool title={"Translate Code"} description={"Translate your code to any language. Make it easier for you and others to understand your code."}>
-          <LanguageIcon className="text-white m-5" />
+          <CardTool title={"Debug Code"} description={"Easily debug your code. Get AI to explain the errors and help you fix them."}>
+          <BugAntIcon className="text-white m-5" />
           </CardTool>
 
           <CardTool title={"Optimize Code"} description={"Get AI to optimize your code. Make it faster, more efficient, and more readable."}>

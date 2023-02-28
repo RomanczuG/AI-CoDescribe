@@ -22,7 +22,7 @@ const Hero = () => {
 
           <div className="flex justify-center font-poppins font-normal md:text-xl text-base md:leading-[33px] leading-[23px] md:mt-20 mt-10 text-[#3E3E3E] text-center tracking-wider">
             <p className="md:w-3/4 w-full">
-              Our AI dev tools facilitates the process of writing code by
+              Our AI dev tool facilitates the process of writing code by
               providing tools to document, explain, optimize, and translate your code.
               No matter if you are using Python, Java, or C++, we have you
               covered. Make your personal & team project more efficient with our
