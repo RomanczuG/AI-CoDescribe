@@ -7,6 +7,7 @@ Code: def test_function(p1, p2, p3):
     return result 
 Error message: TypeError: unsupported operand type(s) for /: ‘str’ and ‘int’ Solution: Convert p2 to int before dividing by p3. 
 Solution: Convert p2 to int before dividing by p3.
+result = p1 + int(p2) / p3 
 Repaired code:
 def test_function(p1, p2, p3): 
     result = p1 + int(p2) / p3 
@@ -20,6 +21,7 @@ let z = x + y
 print(z) 
 Error message: No error message
 Solution: Convert y to Int before adding to x. 
+let z = x + Int(y)! 
 Repaired code:
 let x = 10 
 let y = “5” 
@@ -34,6 +36,7 @@ int z = x + y;
 printf(“%d\n”, z); 
 Error message: No error message but unexpected output of 63 instead of 15. 
 Solution: Subtract the ASCII value of ‘0’ from y before adding to x. 
+int z = x + (y - ‘0’); 
 Repaired code:
 int x = 10; 
 char y = ‘5’; 
