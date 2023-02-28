@@ -14,25 +14,8 @@ const Debug = () => {
   const [code, setCode] = useState(["", ""]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [chosen, setChosen] = useState(false);
   const [solution, setSolution] = useState("");
   const [goodCode, setGoodCode] = useState("");
-//   const handleCallbackDebug = (childData) => {
-//     setCode(childData[0], "", childData[1]);
-//   };
-//   useEffect(() => {
-//     if (chosen == true) {
-//       window.sa_event("debug", {
-//         language: code[1]["value"],
-//         code: code[0],
-//         langing_page: false,
-//         created_at: new Date(),
-//       });
-//       generateDebug();
-//     } else {
-//       setChosen(true);
-//     }
-//   }, [code]);
   const generateDebug = () => {
     setLoading(true);
     client
@@ -44,7 +27,8 @@ const Debug = () => {
       })
       .then((res) => {
         setLoading(false);
-        setSplitDebug(res.data.debug.split("\n"));
+        setSolution(res.data["solution"]);
+        setGoodCode(res.data["good_code"]);
         console.log(debug);
       })
       .catch((err) => {
@@ -142,11 +126,18 @@ const Debug = () => {
                     </div>
                   </div>
                 ) : (
+                    <>
                   <textarea
                     className="w-full h-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 font-mono text-sm p-4 rounded-lg"
                     value={solution}
                     readOnly
                   ></textarea>
+                  <textarea
+                    className="w-full h-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 font-mono text-sm p-4 rounded-lg"
+                    value={debug}
+                    readOnly
+                    ></textarea>
+                  </>
 
                   //   splitDebug.map((item) => {
                   //     return (
