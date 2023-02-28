@@ -56,6 +56,7 @@ const Hero = () => {
             </button>
           </a>
         </div>
+        <p className="mt-4" ><span class="fancy">Completely free no credit card required</span></p>
       </div>
 
       <div className="absolute z-0 w-1/3 h-1/3 bg-[#8593E8] top-1/3 left-1/4 rounded-full opacity-20 blur-[100px] z-0"></div>
