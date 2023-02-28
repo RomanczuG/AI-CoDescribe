@@ -10,8 +10,7 @@ const client = axios.create({
 });
 
 const Debug = () => {
-  const [splitDebug, setSplitDebug] = useState([]);
-  const [code, setCode] = useState(["", ""]);
+  const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [solution, setSolution] = useState("");
@@ -20,7 +19,7 @@ const Debug = () => {
     setLoading(true);
     client
       .post("/gen_debug", {
-        code: code[0],
+        code: code,
         language: "python",
         error: error,
         debug: "",
