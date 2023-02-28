@@ -1,5 +1,5 @@
 def generate_prompt_debug(code, error):
-    prompt = """Suggest Solution and For Example.
+    prompt = """Suggest Solution and For Example with repaired.
 Example: 
 Code language: Python 
 Code: def test_function(p1, p2, p3): 
@@ -18,7 +18,7 @@ Code: let x = 10
 let y = “5” 
 let z = x + y 
 print(z) 
-Error message:  
+Error message: No error message
 Solution: Convert y to Int before adding to x. 
 For example:
 let x = 10 
