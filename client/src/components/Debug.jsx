@@ -228,7 +228,7 @@ const Debug = () => {
                   Solution:
                 </div>
                 <textarea
-                  className="w-full h-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 font-mono text-sm p-4 rounded-lg"
+                  className="w-full h-full bg-gray-800 text-gray-100 font-mono text-sm p-4 rounded-lg"
                   value={solution}
                   readOnly
                 ></textarea>
