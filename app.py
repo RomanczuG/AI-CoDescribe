@@ -173,7 +173,6 @@ def fetch_gen_optimization():
 def gen_debug(code, error):
     result = ""
     prompt = ""
-    clipboard = ""
     if request.method == 'POST':
 
         openai.api_key = OPENAI_API_KEY
@@ -186,6 +185,10 @@ def gen_debug(code, error):
 
         solution, goodCode = result.split("For example:")
         solution = solution.replace("Solution: ", "")
+        solution = solution.split("\n")
+        while solution[0] == "":
+            solution.pop(0)
+        solution = '\n'.join(solution)
 
 
         goodCode = goodCode.split("\n")
