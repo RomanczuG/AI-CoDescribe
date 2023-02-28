@@ -18,7 +18,7 @@ Code: let x = 10
 let y = “5” 
 let z = x + y 
 print(z) 
-Error message: Binary operator ‘+’ cannot be applied to operands of type ‘Int’ and ‘String’ 
+Error message:  
 Solution: Convert y to Int before adding to x. 
 For example:
 let x = 10 
