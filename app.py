@@ -185,7 +185,7 @@ def gen_debug(code, error):
         result = response.choices[0].text
 
         solution, goodCode = result.split("For example:")
-        solution = solution.replace("Solution:", "")
+        solution = solution.replace("Solution: ", "")
 
 
         goodCode = goodCode.split("\n")
