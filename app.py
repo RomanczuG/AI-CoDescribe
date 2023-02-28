@@ -131,7 +131,7 @@ def fetch_gen_debug():
         "debug": request.json['debug']
     }
     print(response)
-    response["solution"], response["goodcode"] = gen_debug(response["code"], response["error"])
+    response["solution"], response["goodcode"] = gen_debug(response["goodcode"], response["error"])
     return jsonify(response)
 
 @app.route('/gen_docstring', methods=['POST'])

@@ -29,7 +29,8 @@ const Debug = () => {
         setLoading(false);
         setSolution(res.data["solution"]);
         setGoodCode(res.data["good_code"]);
-        console.log(debug);
+        console.log(res.data["solution"]);
+        console.log(res.data["good_code"]);
       })
       .catch((err) => {
         console.log(err);
