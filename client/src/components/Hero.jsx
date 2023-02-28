@@ -15,10 +15,10 @@ const Hero = () => {
         className={`z-10 flex-1 ${styles.flexStart} flex flex-col px-6 justify-between items-center`}
       >
         <div className="md:py-4 px-5 text-center items-center ">
-          {/* <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div>Loading...</div>}>
             <Content />
-          </Suspense> */}
-          <Title_animated/>
+          </Suspense>
+          {/* <Title_animated/> */}
 
           <div className="flex justify-center font-poppins font-normal md:text-xl text-base md:leading-[33px] leading-[23px] md:mt-20 mt-10 text-[#3E3E3E] text-center tracking-wider">
             <p className="md:w-3/4 w-full">
