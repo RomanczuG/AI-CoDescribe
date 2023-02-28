@@ -183,7 +183,7 @@ def gen_debug(code, error):
             model="text-davinci-003", prompt=prompt, temperature=0., max_tokens=300)
         result = response.choices[0].text
 
-        solution, goodCode = result.split("For example:")
+        solution, goodCode = result.split("Repaired code:")
         solution = solution.replace("Solution: ", "")
         solution = solution.split("\n")
         while solution[0] == "":
