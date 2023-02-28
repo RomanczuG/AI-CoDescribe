@@ -21,7 +21,7 @@ const Debug = () => {
     client
       .post("/gen_debug", {
         code: code[0],
-        language: code[1]["value"],
+        language: "python",
         error: error,
         debug: "",
       })
